@@ -1,0 +1,48 @@
+﻿
+@{
+
+}
+
+<script>
+    $(function () {
+        initializeForm();
+    });
+</script>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <!--  SmartWizard html -->
+        <div id="smartwizard">
+            <ul>
+                <li><a href="#step-1">Keywords</a></li>
+                <li><a href="#step-2">ADS & EXT</a></li>
+                <li><a href="#step-3">Review</a></li>
+                <li><a href="#step-4">Save</a></li>
+
+            </ul>
+            <div>
+                <div id="step-1">
+                    @Html.RenderAction("Tab1", "Campaign");
+                </div>
+                <div id="step-2">
+                    @Html.RenderAction("Tab2", "Campaign")
+                </div>
+                <div id="step-3">
+                    @Html.RenderAction("Tab3", "Campaign")
+
+                </div>
+                <div id="step-4">
+                    @Html.RenderAction("Tab4", "Campaign")
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- end of main-content -->
+@{
+    await Html.RenderPartialAsync("_ExpandedTextModal", "Builder");
+    await Html.RenderPartialAsync("_CallOnlyModal", "Builder");
+    await Html.RenderPartialAsync("_RespSearchModal", "Builder");
+    await Html.RenderPartialAsync("_SnippetExtensionModal", "Builder");
+    await Html.RenderPartialAsync("_CalloutExtensionModal", "Builder");
+}

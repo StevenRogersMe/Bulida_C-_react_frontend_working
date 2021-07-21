@@ -1,0 +1,108 @@
+﻿
+<div class="modal fade" id="AddCallOnlyModal" tabindex="-2" role="dialog" aria-labelledby="AddRoleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Call Only</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <input type="hidden" id="callonlyId" name="callonlyId" value="-1">
+                    <div class="row mt-3">
+                        <div class="col-md-12 form-group">
+                            <label for="callonlyCountry">Country</label>
+                            <div class="defaultDropdown">
+                                <input id="dropdownlist">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+
+                        <div class="col-md-4 form-group">
+                            <label for="callonlyPhone">Phone Number</label>
+                            <input class="allow15 form-control form-control-rounded" id="callonlyPhone" maxlength="15" type="number" />
+                        </div>
+
+                        <div class="col-md-4 form-group">
+                            <label for="callonlyh1">Headline One</label>
+                            <input class="allow30 form-control form-control-rounded" id="callonlyh1" maxlength="30" type="text" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="callonlyh2">Headline Two</label>
+                            <input class="allow30 form-control form-control-rounded" id="callonlyh2" maxlength="30" type="text" />
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12 form-group">
+                            <label for="callonlyd1">Description One</label>
+                            <input class="allow90 form-control form-control-rounded" id="callonlyd1" maxlength="90" type="text" />
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12 form-group">
+                            <label for="callonlyd2">Description Two</label>
+                            <input class="allow90 form-control form-control-rounded" id="callonlyd2" maxlength="90" type="text" />
+                        </div>
+
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <div class="col-md-6 form-group">
+                            <label for="callonlydisplayUrl">Display Path 1</label>
+                            <input class="allow15 form-control form-control-rounded" id="callonlyPath1" maxlength="15" type="text" />
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="callonlydisplayUrl">Display Path 2</label>
+                            <input class="allow15 form-control form-control-rounded" id="callonlyPath2" maxlength="15" type="text" />
+                        </div>                   
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6 form-group">
+                            <label for="callonlydisplayUrl">Verification URL</label>
+                            <input class="form-control form-control-rounded" id="callonlyverificationUrl" maxlength="50" type="text" />
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="callonlydisplayUrl">Final URL (recommended)</label>
+                            <input class="form-control form-control-rounded" id="callonlyFinalUrl" maxlength="50" type="text" />
+                        </div>
+                    
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6 form-group">
+                            <label for="callonlydisplayUrl">Business Name</label>
+                            <input class="allow25 form-control form-control-rounded" id="callonlybusinessName" maxlength="25" type="text" />
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer" style="align-items: start;">
+                <div class="col-md-8">
+                    <div class="card mb-4">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>_keyword_</b> Lowercase</li>
+                            <li class="list-group-item"><b>_Keyword_</b> First letter uppercase</li>
+                            <li class="list-group-item"><b>_KeyWord_</b> First letter in each word uppercase</li>
+                            <li class="list-group-item"><b>_KEYWORD_</b> No change on the keyword case</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="button" id="btncallonlyAdd" onclick="AddEdsExt('callOnly')">Add</button>
+                    <button class="btn btn-primary" type="button" id="btnCallonlyUpdate" onclick="AddEdsExt('callOnly')">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

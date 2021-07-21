@@ -1,0 +1,87 @@
+﻿
+
+
+.defaultDropdown .k-block,
+.defaultDropdown .k-widget,
+.defaultDropdown .k-popup,
+.defaultDropdown .k-content,
+.defaultDropdown .k-select,
+.defaultDropdown .k-tooltip-validation,
+.defaultDropdown .k-dropdown .k-dropdown-wrap,
+.defaultDropdown .k-dropdown .k-input {
+    border-radius: 20px;
+    outline: initial !important;
+    background: #f8f9fa;
+    border: 1px solid #ced4da;
+    color: #47404f;
+    display: block;
+    font-size: 0.813rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    -webkit-appearance: none;
+}
+
+.defaultDropdown {
+}
+
+.k-dropdown.k-header {
+    width: 100%;
+    border: 1px solid #ced4da;
+    height: calc(1.9695rem + 2px);
+}
+
+.defaultDropdown .k-dropdown .k-input {
+    width: 100% !important;
+    height: 100%;
+    border: none !important;
+    height: calc(1.9695rem + 2px);
+    color: #665c70 !important;
+    padding: 0.3rem 0.20rem;
+    background-color: transparent !important;
+    background: none !important;
+}
+
+.k-dropdown-wrap {
+    border: none !important;
+}
+
+    .k-dropdown-wrap .k-select {
+        border: none;
+        padding: 0.175rem;
+        background-color: transparent !important;
+    }
+
+.k-list > .k-state-focused.k-state-selected, .k-listview > .k-state-focused.k-state-selected, .k-state-focused.k-state-selected, td.k-state-focused.k-state-selected {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    background: #007bff !important;
+    color: white !important;
+    border: none !important;
+}
+
+
+.k-autocomplete .k-input {
+    border-radius: 20px;
+    outline: initial !important;
+    background: #f8f9fa;
+}
+
+.k-autocomplete {
+    width: 100% !important;
+    height: auto;
+    border: none !important;
+}
+
+.DefaultMultiSelect .k-multiselect-wrap {
+    /* enable scrollability */
+    overflow: auto;
+    /* control selected items' container - use height or min-height and/or max-height */
+    max-height: 70px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    color: #fff;
+    
+}
+.k-list > .k-state-selected
+{ 
+    display:none;
+}

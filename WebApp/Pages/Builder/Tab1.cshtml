@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="row">
+
+    <div class="col-md-8">
+        <h5><b>Ad Groups:</b> </h5>
+        <h6>One Per line without commas</h6>
+
+        <div class="input-group">
+
+            <textarea class="form-control" id="AdGroup" style="resize: none; overflow-y: scroll; height: 300px; width: 100%;" onchange="onchangeAdGroup()"></textarea>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h5><b>MATCH TYPES</b> </h5>
+        <div>
+
+            <input type="checkbox" id="chkExact" /> <b>Exact</b>
+            <input type="checkbox" id="chkPhrase" /> <b>Phrase</b>
+            <input type="checkbox" id="chkModifier" /> <b>Modifier</b>
+            <input type="checkbox" id="chkBroad" /> <b>Broad</b>
+        </div>
+        <hr />
+        <div>
+            <input type="checkbox" id="chkNegative" /> <b>GENERATE NEGATIVE KEYWORDS</b>
+            <p>Avoid that your ad groups compete with each other</p>
+        </div>
+        <hr />
+        <div>
+            <label class="switch pr-3 switch-primary mr-2">
+                <span>GENERATE SKAGS</span>
+                <input type="checkbox" id="skag_switch" class="rdbtn" /><span class="slider"></span>
+            </label>
+            @*<input type="checkbox" id="skag_switch" /><span class="slider"></span> GENERATE SKAGS*@
+            <p>Use SKAGs if you want to add only one keyword in each ad group</p>
+        </div>
+        <div>
+            <label class="switch pr-3 switch-primary mr-2">
+                <span>GENERATE STAGS</span>
+                <input type="checkbox" id="stag_switch" class="rdbtn" /><span class="slider"></span>
+            </label>
+            @*<input type="radio" name="rad1" /> GENERATE STAGS*@
+            <p>Use STAGs if you want to add multiple keywords in the same ad group</p>
+        </div>
+        <div class="STAGSDiv">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p>With STAGs your adgroup names are completely independent from your keyword list.</p>
+                    <p>However you can click the button below to copy each ad group name to their keyword list.</p>
+                    <button class="btn btn-primary btn-block m-1 mb-3" type="button" onclick="CopyAdGroupNames()">COPY AD GROUP NAMES</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h5><b>KEYWORDS</b> </h5>
+        <h6>The first keyword you add in each box will be the one we replace in the ads.</h6>
+    </div>
+</div>
+
+<div class="row" id="KeywordsDiv">
+
+
+</div>

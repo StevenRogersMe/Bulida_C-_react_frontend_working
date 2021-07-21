@@ -1,0 +1,82 @@
+﻿
+<div class="modal fade" id="AddExpandedTextModal" tabindex="-2" role="dialog" aria-labelledby="AddRoleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Expanded Text</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="target"></div>
+                <form>
+
+                    <input type="hidden" id="expId" name="expId" value="-1">
+                    <div class="row mt-3">
+                        <div class="col-md-4 form-group">
+                            <label for="Discount">Headline One</label>
+                            <input class="allow30 form-control form-control-rounded" id="exptexth1" maxlength="30" type="text" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="Discount">Headline Two</label>
+                            <input class="allow30 form-control form-control-rounded" id="exptexth2" maxlength="30" type="text" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="Discount">Headline Three</label>
+                            <input class="allow30 form-control form-control-rounded" id="exptexth3" maxlength="30" type="text" />
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12 form-group">
+                            <label for="Discount">Description One</label>
+                            <input class="allow90 form-control form-control-rounded" id="exptextd1" maxlength="90" type="text" />
+                        </div>
+
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12 form-group">
+                            <label for="Discount">Description Two</label>
+                            <input class="allow90 form-control form-control-rounded" id="exptextd2" maxlength="90" type="text" />
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-4 form-group">
+                            <label for="Discount">Final URL</label>
+                            <input class="allow15 form-control form-control-rounded" id="exptextfurl" maxlength="15" type="text" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="Discount">Path One</label>
+                            <input class="form-control form-control-rounded" id="exptextp1" maxlength="15" type="text" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="Discount">Path Two</label>
+                            <input class="form-control form-control-rounded" id="exptextp2" maxlength="15" type="text" />
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer" style="align-items: start;">
+                <div class="col-md-8">
+                    <div class="card mb-4">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>_keyword_</b> Lowercase</li>
+                            <li class="list-group-item"><b>_Keyword_</b> First letter uppercase</li>
+                            <li class="list-group-item"><b>_KeyWord_</b> First letter in each word uppercase</li>
+                            <li class="list-group-item"><b>_KEYWORD_</b> No change on the keyword case</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="button" id="expTextAdd" onclick="AddEdsExt('ext')">Add</button>
+                    <button class="btn btn-primary" type="button" id="expTextUpdate" onclick="AddEdsExt('ext')">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

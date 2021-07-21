@@ -1,0 +1,23 @@
+[
+  {
+    "outputFileName": "wwwroot/js/bundle.js",
+    "inputFiles": [
+      "wwwroot/lib/kendojs/jquery.min.js",
+      "wwwroot/lib/kendojs/kendo.aspnetmvc.min.js",
+      "wwwroot/js/Common.js",
+      "wwwroot/js/Loader.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/bundle.css",
+    "inputFiles": [
+      "wwwroot/lib/kendo/kendo.common-bootstrap.min.css",
+      "wwwroot/lib/kendo/kendo.bootstrap.min.css",
+      "wwwroot/css/site.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  }
+]
