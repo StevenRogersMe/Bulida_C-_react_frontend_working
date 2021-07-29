@@ -39,10 +39,7 @@ const Container = styled.div`
   background-color: ${(props) => props.theme.background.default};
   background-image: url(${backgroundImage});
   background-repeat: no-repeat;
-  -moz-background-size: 100%;
-  -webkit-background-size: 100%;
-  -o-background-size: 100%;
-  background-size: 100%;
+  background-size: 100% 100%;
 `;
 
 const Main = styled.div`
