@@ -57,8 +57,7 @@ const Auth = styled.div`
 const LogInButton = styled.div`
   display: flex;
   align-items: center;
-  max-width: 12rem;
-  padding: 1.3rem 3.3rem;
+  padding: 2.5rem 3.3rem;
   border-radius: 4rem;
   color: ${(props) => props.theme.text.color.main};
   background-color: ${(props) => props.theme.background.white};
@@ -67,8 +66,7 @@ const LogInButton = styled.div`
 const SignUpButton = styled.div`
   display: flex;
   align-items: center;
-  max-width: 12rem;
-  padding: 1.3rem 3.3rem;
+  padding: 2.5rem 3.3rem;
   border-radius: 4rem;
   color: ${(props) => props.theme.text.color.white};
   background-color: ${(props) => props.theme.background.wizard};

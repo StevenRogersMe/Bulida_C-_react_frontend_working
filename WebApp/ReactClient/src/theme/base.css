@@ -1,8 +1,17 @@
+@import 'fonts.css';
+
+html {
+  font-size: 62.5%;
+  height: 100%;
+  width: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
+  font-family: 'Satoshi-Variable', sans-serif;
 }
 
 #root {
