@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# ReactClient
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Get it Running
+1. Install Dependencies
+run `npm i`
+2. to run **web client**: run `npm run start`
 
-In the project directory, you can run:
 
-### `npm start`
+## Code Conventions
+### React
+Some concepts you should use (and know whenever not to use):
+1. Stateless functional component
+2. React `PureComponent`
+3. Immutable collections for state and props (immutable.js to the rescue)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Components
+_Hierarchy:_ Page Container -> Page -> Components
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Page Container
+`Page Container` is responsible for the logic: data fetching and mutating, query logic, navigation, data manipulation.
+It should be unique and covers a single action (login / view list of X / create X / edit X).
+Has name suffix: `XxxPageContainer`.
 
-### `npm run build`
+/Reference: CampaignListPageContainer/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Page
+`Page` orchestrates UI in top level.
+It should be unique and covers a single action (you should expect a one-to-one relationship between `Page` and `PageContiner`).
+Has name suffix: `XxxPage`.
+Tend to be a stateless component.
+Page should define its contract: which data it expects to get (if any).
+Page is mounted only when it has all its requirements, for avoiding duplicated source of truth.
+Every page wraps its content with `StepLayoutPage`, `SuccessLayoutPage` or `ListLayoutPage` which are responsible for general and reusable features: layout, title, loader, etc.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+#### Components
+General components or reusable compound components.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Components/ Common
+Base reusable components, such as Button, Single Select, Text Input etc.
+Has `MI` prefix (adding after redesigning) for distinguishing between our custom components and 3rd-party ones.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+/Reference: MIButton/
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+### Functions
+We use arrow functions as components methods for avoiding binding.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Avoid arrow function in props, it creates new instance each time render method is triggered:
+``` js
+// BAD!
+<PureComp onClick={() => handleClick(id)} />
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+#### Naming
+* In _page containers_ use the next prefixes: `on`, `go`, `load` for mutating, navigation and querying respectively.
+	In any other case ask yourself if the method should be in the page container…
+* for ‘as-is’ injected functions (i.e. functions in props) use the same name
+* in _pages_ use the same name for injected method as prop, for list page use the verb: `refresh`, `do` (doPaging / doSorting and other manipulations), for a method that is not injected and is first-time defined not in `PageController` use the prefix `handle`
+* in components the prop method has the `on` prefix but the function is enhanced, use the prefix `handle`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+#### Arguments:
+* prefer niladic (no arguments) or monadic.
+* triadic should be avoid where possible
+* polyadic should not be used anyway
+* avoid flag arguments
+* with dyadic and triadic consider using destructuring assignment: prefer `set({ color, size, weight })` over `set(color, size, weight)`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+### Variables
+#### Naming
+* boolean variables have one of the next prefixes: `is`, `has`, `should` (per context)
+* boolean variable for permission has the prefix: `can`
+* besides the above, variables should not contain verbs, only nouns
+* strive for consistency across same-type components
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+### G11n
+* i18n - we use [react-intl](https://github.com/yahoo/react-intl), all components should support text only as id
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+### Styleguide
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+This project use [eslint](https://eslint.org/) rules based on AirBnb styleguide and [prettier](https://prettier.io/docs/en/webstorm.html) for formatting.
 
-### `npm run build` fails to minify
+IDE-specific Prettier docs available here: [IDEA](https://www.jetbrains.com/help/webstorm/prettier.html), [Visual Code](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode#:~:text=Prettier%20Formatter%20for%20Visual%20Studio,account%2C%20wrapping%20code%20when%20necessary.), [Sublime, VIM, emacs etc](https://prettier.io/docs/en/editors.html).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Webpack Bundle Analyzer
+Visualize size of webpack output files with an interactive zoomable treemap.
+```
+npm run analyze
+```
