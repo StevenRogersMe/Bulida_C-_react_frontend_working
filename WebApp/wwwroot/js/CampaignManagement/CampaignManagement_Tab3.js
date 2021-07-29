@@ -1,5 +1,8 @@
 ﻿
-var editedAdGroupList = [];
+var selectedAdGroup = [];
+var selectedAdGroupType = [];
+var selectedKeyWords = [];
+var selectedNegatives = [];
 
 function loadReviewTable() {
     if (validateTab1()) {
@@ -8,18 +11,22 @@ function loadReviewTable() {
         reviewtable.clear();
         for (let j = 0; j < AdGroupList.length; j++) {
             AdGroupList[j].EdsExts = [];
+            AdGroupList[j].Id = j;
         }
-
-
         for (let i = 0; i < EdsExtsList.length; i++) {
             for (let j = 0; j < AdGroupList.length; j++) {
-                //var obj = AdGroupList[j].EdsExts.find(x => x.Id === EdsExtsList[i].Id);
-                /// if (obj == "" || obj == undefined) {
                 var EdsExt = KeyWordToExt(EdsExtsList[i], AdGroupList[j].AdGroup)
                 EdsExt.Id = uuidv4();
                 AdGroupList[j].EdsExts.push(EdsExt);
-                //  }
             }
+        }
+      
+        AdGroupList = MergeEditedAd(AdGroupList);
+        if ($.fn.dataTable.isDataTable('#tableReview')) {
+            loadDropDown(AdGroupList);
+            loadAdDropDown(AdGroupList);
+            loadKeyWordDropDown(AdGroupList);
+            loadNegativesDropDown(AdGroupList);
         }
 
         reviewtable.rows.add(AdGroupList);
@@ -34,6 +41,218 @@ function loadReviewTable() {
     }
 }
 
+function loadDropDown(data) {
+    var adGroups = [];
+    for (let j = 0; j < data.length; j++) {
+        var adGroup = {
+            label: data[j].AdGroup,
+            value: data[j].AdGroup
+
+        }
+        adGroups.push(adGroup)
+    }
+    $("#adGroupDropDown").multiselect('dataprovider', adGroups);
+    $("#adGroupReplaceDropDown").multiselect('dataprovider', adGroups);
+}
+
+function reloadREviewTable(data) {
+    var reviewtable = GetTable();
+    reviewtable.clear();l
+
+    reviewtable.rows.add(data);
+    reviewtable.draw();
+}
+
+function loadAdDropDown(data) {
+    var adTypes = [];
+    for (let j = 0; j < data.length; j++) {
+        for (var i = 0; i < data[j].EdsExts.length; i++) {
+
+            
+                var adType = {
+                    label: data[j].EdsExts[i].type,
+                    value: data[j].EdsExts[i].type
+
+            }
+
+            var exist = containsObject(adType, adTypes);
+            if (!exist) {
+                adTypes.push(adType)
+            }
+        }
+    }
+    $("#adTypeDropDown").multiselect('dataprovider', adTypes);
+
+}
+
+function containsObject(obj, list) {
+    var i;
+    for (i = 0; i < list.length; i++) {
+        if (list[i].value == obj.value) {
+            return true;
+        }
+    }
+
+    return false;
+}
+function loadKeyWordDropDown(data) {
+    var keyWords = [];
+    var Exact = $('#chkExact').prop('checked');
+    var Phrase = $('#chkPhrase').prop('checked');
+    var Broad = $('#chkBroad').prop('checked');
+    for (var i = 0; i < data.length; i++) {
+        for (let x = 0; x < data[i].Keywords.length; x++) {
+            if (data[i].Keywords[x] === undefined) {
+                continue;
+            }
+            //if (!keyWords.includes(data[i].Keywords[x])) {
+            //    continue;
+            //}
+            if (Exact) {
+                var keyWord = {
+                    label: `[${data[i].Keywords[x]}]`,
+                    value: data[i].Keywords[x]
+
+                }
+                keyWords.push(keyWord);
+            }
+            if (Phrase) {
+                var keyWord = {
+                    label: `"${data[i].Keywords[x]}"`,
+                    value: data[i].Keywords[x]
+
+                }
+                keyWords.push(keyWord);
+            }
+            if (Broad) {
+                var keyWord = {
+                    label: data[i].Keywords[x],
+                    value: data[i].Keywords[x]
+
+                }
+                keyWords.push(keyWord);
+            }
+
+        }
+    }
+    $("#keywordDropDown").multiselect('dataprovider', keyWords);
+}
+
+function appendText() {
+
+}
+
+function loadNegativesDropDown(data) {
+    var negatives = [];
+    for (let i = 0; i < data.length; i++) {
+
+        for (let j = 0; j < data.length; j++) {
+            
+                var neg = {
+                    label: data[i].AdGroup,
+                    value: data[i].AdGroup
+
+            }
+            var exist = containsObject(neg, negatives);
+                if (data[i].AdGroup != data[j].AdGroup && !exist) {
+                negatives.push(neg);
+            }
+        }
+    }
+
+    $("#negativesDropDown").multiselect('dataprovider', negatives);
+}
+
+
+function MergeEditedAd(newAd) {
+
+    editedAd = getUpdateAd();
+    for (let i = 0; i < editedAd.length; i++) {
+        for (let j = 0; j < newAd.length; j++) {
+            if (editedAd[i].AdGroup === newAd[j].AdGroup) {
+                newAd[j].EdsExts =  newAd[j].EdsExts.concat(editedAd[i].EdsExts);
+            }
+        }
+    }
+    return newAd;
+}
+
+function replaceString(string,findText, replacedWord, matchCase, wholeWord) {
+
+    if (matchCase) {
+        var regex = new RegExp("/" + replacedWord + "/g");
+        return string.replace(regex, findText);
+    }
+    else if (wholeWord) {
+        var regex = new RegExp("\\b" + replacedWord + "\\b");
+        replacedWord = `/${replacedWord}/g`;
+        return string.replace(regex, findText);
+    }
+
+    return string.replace(replacedWord, findText);
+}
+
+function findAndReplace() {
+    var selectedAdGroup = $('#adGroupReplaceDropDown option:selected');
+    var matchCase = $('#matchCase').prop('checked');
+    var wholeWordOnly = $('#wholeWordOnly').prop('checked');
+
+    var find = $('#findText').val();
+    var replace = $('#replaceText').val();
+    if (selectedAdGroup.length == 0) {
+
+
+        var jsonGrops = JSON.stringify(AdGroupList);
+        var replacedJson = replaceString(jsonGrops, find, replace, matchCase, wholeWordOnly);
+        var replacedAdGroup = JSON.parse(replacedJson);
+        reloadREviewTable(replacedAdGroup);
+    }
+    else {
+        var selectedAdGroups = [];
+        for (let i = 0; i < AdGroupList.length; i++) {
+            for (var x = 0; x < selectedAdGroup.length; x++) {
+                if (AdGroupList[i].AdGroup === selectedAdGroup[x].innerText) {
+                    selectedAdGroups.push(AdGroupList[i]);
+                }
+            }
+        }
+
+        var jsonGrops = JSON.stringify(selectedAdGroups);
+        var replacedJson = replaceString(jsonGrops, find, replace, matchCase, wholeWordOnly);
+        var replacedAdGroup = JSON.parse(replacedJson);
+
+        for (let i = 0; i < AdGroupList.length; i++) {
+            for (var x = 0; x < replacedAdGroup.length; x++) {
+                if (AdGroupList[i].AdGroup === replacedAdGroup[x].AdGroup) {
+                    AdGroupList[i].AdGroup = replacedAdGroup[x];
+                }
+            }
+        }
+
+        reloadREviewTable(AdGroupList);
+    }
+    $('#findReplaceModal').modal('hide');
+    
+}
+
+function selectAll() {
+    var table = GetTable();
+    table.rows().select();
+}
+
+function removeSelected() {
+    var table = GetTable();
+    var selectedRows = table.rows('.selected').data();
+    for (var i = 0; i < selectedRows.length; i++) {
+        for (var x = 0; x < AdGroupList.length; x++) {
+            if (selectedRows[i].Id == AdGroupList[x].Id) {
+                AdGroupList.splice(AdGroupList[x], 1);
+            }
+        }
+    }
+    reloadREviewTable(AdGroupList);
+}
+
 function GetTable() {
     var table;
     if ($.fn.dataTable.isDataTable('#tableReview')) {
@@ -42,19 +261,27 @@ function GetTable() {
 
     else {
         table = $('#tableReview').DataTable({
-            processing: false,
-            searching: false,
             scrollCollapse: true,
+            buttons: [
+                'selectAll',
+                'selectNone'
+            ],
+            language: {
+                buttons: {
+                    selectAll: "Select all items",
+                    selectNone: "Select none"
+                }
+            },
             data: [],
             "columns": [
                 { "data": "AdGroup" },
                 { "data": "AdGroup" },
                 { "data": "AdGroup" },
                 { "data": "AdGroup" },
-                //{ "data": "Id",  },
+              
             ],
             "columnDefs": [
-
+              
                 {
                     "render": function (data, type, row) {
                         // debugger;
@@ -80,17 +307,18 @@ function GetTable() {
                     },
                     "targets": 3
                 },
-
-
-                //{
-                //    "render": function (data, type, row) {
-                //        return GetAction(row.ValidFlag, row.Id, row.Name, dtCommonParam);
-                //    },
-                //    "targets": -1
-                //},
                 {
-                    targets: "no-sort"
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                },
+                {
+                    targets: "no-sort",
+                    selector: 'td:last-child'
                 }],
+            'select': {
+                'style': 'multi'
+            },
             "order": [[0, "asc"]],
         });
     }
@@ -204,6 +432,7 @@ function htmlofKewordReview(row) {
         }
         if (Exact) {
             actionsHtml = actionsHtml + `<div> [${row.Keywords[i]}] </div>`;
+
         }
         if (Phrase) {
             actionsHtml = actionsHtml + `<div> "${row.Keywords[i]}" </div>`;
@@ -214,6 +443,7 @@ function htmlofKewordReview(row) {
         if (Broad) {
             actionsHtml = actionsHtml + `<div> ${row.Keywords[i]}</div>`;
         }
+       
     }
 
     return actionsHtml;

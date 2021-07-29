@@ -43,37 +43,6 @@ function onchangeAdGroup() {
 
 }
 
-function SaveKeyWords() {
-
-    if (true) {
-        var keyWordsModel = {
-            Exact: $('#chkExact').prop('checked'),
-            Phrase: $('#chkPhrase').prop('checked'),
-            Modifier: $('#chkModifier').prop('checked'),
-            Broad: $('#chkBroad').prop('checked'),
-            NegativePhrase: $('#chkNegative').prop('checked'),
-            Skag: $('#skag_switch').prop('checked'),
-            Stag: $('#stag_switch').prop('checked'),
-            KeyWords: AdGroups
-        };
-
-        ShowLoader();
-        $.ajax({
-            url: '../api/CampaignBuilder/SaveKeyWords/',
-            type: 'POST',
-            data: JSON.stringify(keyWordsModel),
-            contentType: "application/json;charset=utf-8",
-            success: function () {
-                HideLoader();
-            },
-            error: function (data) {
-                var response = data.responseText.replace(/"/g, '');
-                toastr.warning(response, { timeOut: 5000 });
-                HideLoader();
-            }
-        });
-    }
-}
 
 function LoadKeyWords() {
     $('#KeywordsDiv').html("");

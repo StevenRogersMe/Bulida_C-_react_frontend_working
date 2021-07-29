@@ -356,11 +356,13 @@ function htmlofEdsExt(id) {
     return actionsHtml;
 }
 
+
 function UpdateKeyWordString(value) {
     return value;
 }
 function AddExt( id) {
     debugger;
+    
     if (validateExt()) {
         var id = $('#expId').val();
         var ddval = $("#dropdownAdGroup").data("kendoDropDownList").text();
@@ -396,11 +398,11 @@ function AddExt( id) {
                         if (AdGroupList[i].EdsExts[j].Id == id) {
                             AdGroupList[i].EdsExts[j].obj = innerObj;
                             innerObj.Edited = true;
-                            editedObject = AdGroupList[i].EdsExts[j]
+                            editedObject = AdGroupList[i];
                         }
                     }
                 }
-                editedAdGroupList.push(editedObject);
+                insertEditedAd(editedObject);
             }
             else {
                 for (var index = 0; index < EdsExtsList.length; index++) {
@@ -467,11 +469,11 @@ function AddCallOnly() {
                         if (AdGroupList[i].EdsExts[j].Id == id) {
                             AdGroupList[i].EdsExts[j].obj = innerObj;
                             innerObj.Edited = true;
-                            editedObject = AdGroupList[i].EdsExts[j]
+                            editedObject = AdGroupList[i];
                         }
                     }
                 }
-                editedAdGroupList.push(editedObject);
+                insertEditedAd(editedObject);
             }
             else {
                 for (var index = 0; index < EdsExtsList.length; index++) {
@@ -549,7 +551,7 @@ function AddRespSearch() {
                         }
                     }
                 }
-                editedAdGroupList.push(editedObject);
+                insertEditedAd(editedObject);
             }
             else {
                 for (var index = 0; index < EdsExtsList.length; index++) {
@@ -617,7 +619,7 @@ function AddSnippet() {
                         }
                     }
                 }
-                editedAdGroupList.push(editedObject);
+                insertEditedAd(editedObject);
             }
             else {
                 for (var index = 0; index < EdsExtsList.length; index++) {
@@ -684,7 +686,7 @@ function AddCallOut() {
                         }
                     }
                 }
-                editedAdGroupList.push(editedObject);
+                insertEditedAd(editedObject);
             }
             else {
                 for (var index = 0; index < EdsExtsList.length; index++) {

@@ -16,6 +16,139 @@ $(document).on('click', '.header', function () {
 
 
 $(document).ready(function () {
+    $('#adGroupDropDown').multiselect({
+        onChange: function (element, checked) {
+            
+            if (checked == true) {
+             
+                if (!selectedAdGroup.includes(element.val()))
+                selectedAdGroup.push(element.val());
+            }
+            else if (checked == false) {
+                if (confirm('Do you wish to deselect the element?')) {
+                    selectedAdGroup.splice(selectedAdGroup.findIndex(v => v === element.val()), 1);
+                }
+                else {
+                    $("#adGroupDropDown").multiselect('select', element.val());
+                    return false;
+                }
+            }
+            var sortedList = [];
+                
+            for (let i = 0; i < AdGroupList.length; i++) {
+                for (let j = 0; j < selectedAdGroup.length; j++) {
+                    if (AdGroupList[i].AdGroup == selectedAdGroup[j])
+                        sortedList.push(AdGroupList[i]);
+                }
+            }
+            reloadREviewTable(sortedList);
+        }
+    });
+
+    $('#adTypeDropDown').multiselect({
+        onChange: function (element, checked) {
+
+            if (checked == true) {
+
+                if (!selectedAdGroupType.includes(element.val()))
+                    selectedAdGroupType.push(element.val());
+            }
+            else if (checked == false) {
+                if (confirm('Do you wish to deselect the element?')) {
+                    selectedAdGroupType.splice(selectedAdGroupType.findIndex(v => v === element.val()), 1);
+                }
+                else {
+                    $("#adTypeDropDown").multiselect('select', element.val());
+                    return false;
+                }
+            }
+            var sortedList = [];
+         
+            for (let i = 0; i < AdGroupList.length; i++) {
+                for (var v = 0; v < AdGroupList[i].EdsExts.length; v++) {
+                    for (var x = 0; x < selectedAdGroupType.length; x++) {
+                        if (AdGroupList[i].EdsExts[v].type === selectedAdGroupType[x]) {                         
+                            sortedList.push(AdGroupList[i]);
+                        }
+                    }
+                }
+              
+            }
+            reloadREviewTable(sortedList);
+        }
+    });
+
+    $('#keywordDropDown').multiselect({
+        onChange: function (element, checked) {
+
+            if (checked == true) {
+
+                if (!selectedKeyWords.includes(element.val()))
+                    selectedKeyWords.push(element.val());
+            }
+            else if (checked == false) {
+                if (confirm('Do you wish to deselect the element?')) {
+                    selectedKeyWords.splice(selectedKeyWords.findIndex(v => v === element.val()), 1);
+                }
+                else {
+                    $("#keywordDropDown").multiselect('select', element.val());
+                    return false;
+                }
+            }
+            var sortedList = [];
+            for (let j = 0; j < selectedKeyWords.length; j++) {
+                for (let i = 0; i < AdGroupList.length; i++) {
+                    for (var v = 0; v < AdGroupList[i].Keywords.length; v++) {
+
+                        if (AdGroupList[i].Keywords[v] === selectedKeyWords[j])
+                            sortedList.push(AdGroupList[i]);
+                    }
+                }
+
+            }
+            console.log(sortedList);
+            reloadREviewTable(sortedList);
+        }
+    });
+
+    $('#negativesDropDown').multiselect({
+        onChange: function (element, checked) {
+
+            if (checked == true) {
+
+                if (!selectedNegatives.includes(element.val()))
+                    selectedNegatives.push(element.val());
+            }
+            else if (checked == false) {
+                if (confirm('Do you wish to deselect the element?')) {
+                    selectedNegatives.splice(selectedNegatives.findIndex(v => v === element.val()), 1);
+                }
+                else {
+                    $("#negativesDropDown").multiselect('select', element.val());
+                    return false;
+                }
+            }
+            var sortedList = [];
+            for (let j = 0; j < selectedNegatives.length; j++) {
+                for (let i = 0; i < AdGroupList.length; i++) {
+                    for (var v = 0; v < AdGroupList[i].Keywords.length; v++) {
+
+                        if (AdGroupList[i].Negatives[v] === selectedNegatives[j])
+                            sortedList.push(AdGroupList[i]);
+                    }
+                }
+
+            }
+            console.log(sortedList);
+            reloadREviewTable(sortedList);
+        }
+    });
+
+    $('.form-control form-control-sm').on('keyup', function () {
+        var table = GetTable();
+        table.search(this.value).draw();
+    });
+
     var max_fields = 10;
     var wrapper = $(".container1");
     var add_button = $(".add_form_field");
@@ -97,6 +230,7 @@ $(document).ready(function () {
 
 
 $(document).ready(function (e) {
+
 
     $('.allow90').maxlength({
         alwaysShow: true,

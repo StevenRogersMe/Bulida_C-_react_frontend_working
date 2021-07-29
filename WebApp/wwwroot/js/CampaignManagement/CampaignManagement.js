@@ -3,14 +3,36 @@
 var AdGroupList = [];
 var Id = 0;
 
+function insertEditedAd(editedAd) {
+    var ads = JSON.parse(localStorage.getItem("editedAd"));
+    if (ads === null) {
+        ads = [];
+        ads.push(editedAd);
+    }
+    else {
+        ads.push(editedAd);
+    }
 
+    localStorage.setItem("editedAd", JSON.stringify(ads));
+}
+
+function getUpdateAd() {
+    var ads = JSON.parse(localStorage.getItem("editedAd"));
+    if (ads === null) {
+        ads = [];
+        return ads;
+    }
+    else {
+        return ads;
+    }
+}
 function initializeForm() {
 
     TabsWizard();
     initializeFormValues();
 
     $(".STAGSDiv").hide();
-
+    localStorage.clear();
     $(document).on('change', '.rdbtn', function () {
 
         if ($(this).is(":checked") && $(this).attr("id") == "skag_switch") {

@@ -40,9 +40,11 @@
     </div>
 </div><!-- end of main-content -->
 @{
-    await Html.RenderPartialAsync("_ExpandedTextModal", "Builder");
-    await Html.RenderPartialAsync("_CallOnlyModal", "Builder");
-    await Html.RenderPartialAsync("_RespSearchModal", "Builder");
-    await Html.RenderPartialAsync("_SnippetExtensionModal", "Builder");
-    await Html.RenderPartialAsync("_CalloutExtensionModal", "Builder");
+  await Html.RenderPartialAsync("_ExpandedTextModal", "Builder");
+  await Html.RenderPartialAsync("_CallOnlyModal", "Builder");
+  await Html.RenderPartialAsync("_RespSearchModal", "Builder");
+  await Html.RenderPartialAsync("_SnippetExtensionModal", "Builder");
+  await Html.RenderPartialAsync("_CalloutExtensionModal", "Builder");
+  await Html.RenderPartialAsync("_FindAndReplaceModal", "Builder");
+  await Html.RenderPartialAsync("_AppendTextModal", "Builder");
 }
