@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Services.Compaing;
 using System;
+using System.IO;
 
 namespace WebApp
 {
@@ -31,6 +33,13 @@ namespace WebApp
             services.AddControllers();
             services.AddSession();
             services.AddHttpContextAccessor();
+
+            services.AddMvc(option => option.EnableEndpointRouting = false);
+            services.AddSpaStaticFiles(configuration =>
+            {
+              configuration.RootPath = "campaign_builder_client/build";
+            });
+
             // Adds EntityFramework.
             services.AddDbContext<CampaingContext>(x =>
             {
@@ -80,14 +89,17 @@ namespace WebApp
                 app.UseHsts();
             }
 
-            //using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            //{
-            //    var context = serviceScope.ServiceProvider.GetService<CampaingContext>();
-            //    context.Database.Migrate();
-            //    context.Database.CloseConnection();
-            //    context.Dispose();
-            //}
-            app.UseStaticFiles();
+      app.UseSpa(spa =>
+      {
+        spa.Options.SourcePath = Path.Join(env.ContentRootPath, "campaign_builder_client");
+
+        if (env.IsDevelopment())
+        {
+          spa.UseReactDevelopmentServer(npmScript: "start");
+        }
+      });
+     
+      app.UseStaticFiles();
             app.UseRouting();
             
             app.UseHttpsRedirection();
