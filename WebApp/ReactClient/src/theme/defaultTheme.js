@@ -23,6 +23,11 @@ export const theme = {
       line-height: 3.7rem;
       font-weight: 600;
       `,
+      h6: `
+      font-size: 2rem;
+      line-height: 3.3rem;
+      font-weight: bold;
+      `,
       body1: `
       font-size: 1.4rem;
       line-height: 2rem;
