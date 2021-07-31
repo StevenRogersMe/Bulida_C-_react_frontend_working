@@ -3,16 +3,22 @@ import { AD_BUILDER_TYPE } from 'src/utils/consts';
 import { BuilderItem } from 'src/pages/main/components/BuilderItem';
 
 type Props = {
+  setCurrentStep: (step: number) => void;
   setSelectedBuilderType: (type: AD_BUILDER_TYPE) => void;
 };
 
-export const BuilderContainer = ({ setSelectedBuilderType }: Props) => {
+export const BuilderContainer = ({
+  setCurrentStep,
+  setSelectedBuilderType,
+}: Props) => {
+  const startSTAGFlow = () => {
+    setCurrentStep(1)
+    setSelectedBuilderType(AD_BUILDER_TYPE.STAG);
+  };
+
   return (
     <Container>
-      <BuilderItem
-        type={AD_BUILDER_TYPE.STAG}
-        onClick={() => setSelectedBuilderType(AD_BUILDER_TYPE.STAG)}
-      />
+      <BuilderItem type={AD_BUILDER_TYPE.STAG} onClick={startSTAGFlow} />
     </Container>
   );
 };

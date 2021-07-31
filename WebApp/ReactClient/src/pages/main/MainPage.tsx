@@ -4,12 +4,26 @@ import { BuilderContainer } from 'src/pages/main/components/BuilderContainer';
 import { useBuilderSelection } from 'src/hooks/useBuilderSelection';
 
 export const MainPage = () => {
-  const { progressBarSteps, setSelectedBuilderType } = useBuilderSelection();
+  const {
+    currentStep,
+    progressBarSteps,
+    setCurrentStep,
+    finishBuilderFlow,
+    setSelectedBuilderType,
+  } = useBuilderSelection();
 
   return (
-    <StepLayout progressBarSteps={progressBarSteps}>
+    <StepLayout
+      currentStep={currentStep}
+      progressBarSteps={progressBarSteps}
+      setCurrentStep={setCurrentStep}
+      finishBuilderFlow={finishBuilderFlow}
+    >
       <MainPageContainer>
-        <BuilderContainer setSelectedBuilderType={setSelectedBuilderType} />
+        <BuilderContainer
+          setCurrentStep={setCurrentStep}
+          setSelectedBuilderType={setSelectedBuilderType}
+        />
       </MainPageContainer>
     </StepLayout>
   );

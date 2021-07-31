@@ -1,13 +1,39 @@
 import styled, { css } from 'styled-components';
+import isNil from 'lodash/isNil';
+import isEmpty from 'lodash/isEmpty';
 import PrevIcon from 'src/images/general/prev-icon.svg';
 import NextIcon from 'src/images/general/next-icon.svg';
 
 type Props = {
   children: React.ReactNode;
+  currentStep: number;
   progressBarSteps: string[];
+  setCurrentStep: (step: number) => void;
+  finishBuilderFlow: () => void;
 };
 
-export const StepLayout = ({ children, progressBarSteps }: Props) => {
+export const StepLayout = ({
+  children,
+  currentStep,
+  progressBarSteps,
+  setCurrentStep,
+  finishBuilderFlow,
+}: Props) => {
+  const isFirstStep = currentStep === 1 && !isNil(currentStep);
+  const showStepFooter = !isNil(currentStep) && !isEmpty(progressBarSteps);
+
+  const onPrev = () => {
+    if (isFirstStep) {
+      finishBuilderFlow();
+    }
+
+    setCurrentStep(currentStep - 1);
+  };
+
+  const onNext = () => {
+    setCurrentStep(currentStep + 1);
+  };
+
   return (
     <>
       <StepHeader>
@@ -16,14 +42,14 @@ export const StepLayout = ({ children, progressBarSteps }: Props) => {
         })}
       </StepHeader>
       <Children>{children}</Children>
-      <StepFooter>
-        <PrevStepButton>
+      <StepFooter showStepFooter={showStepFooter}>
+        <PrevStepButton onClick={onPrev}>
           BACK
           <PrevStepIconContainer>
             <PrevStepIcon src={PrevIcon} />
           </PrevStepIconContainer>
         </PrevStepButton>
-        <NextStepButton>
+        <NextStepButton onClick={onNext}>
           NEXT
           <NextStepIconContainer>
             <NextStepIcon src={NextIcon} />
@@ -44,8 +70,8 @@ const StepHeader = styled.div`
   margin: 4rem 0;
 `;
 
-const StepFooter = styled.div`
-  display: flex;
+const StepFooter = styled.div<{ showStepFooter: boolean }>`
+  display: ${(props) => (props.showStepFooter ? 'flex' : 'none')};
   justify-content: center;
   flex-direction: space-between;
   width: 100%;
