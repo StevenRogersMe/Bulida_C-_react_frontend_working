@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const AppHeader = () => {
   return (
     <AppHeaderContainer>
-      <Logo>LOGO</Logo>
+      <Logo>AD BUILDER</Logo>
       <Menu>
         <MenuItem>Product tour</MenuItem>
         <MenuItem>Help center</MenuItem>
@@ -45,7 +45,7 @@ const MenuItem = styled.div``;
 const Auth = styled.div`
   display: flex;
   flex-direction: row;
-  height: 3.1rem;
+  height: 5rem;
   ${(props) => props.theme.text.fontType.body3};
 
   > div:nth-child(1) {
