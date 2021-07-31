@@ -14,7 +14,6 @@ export const useBuilderSelection = (): {
   useEffect(() => {
     if (selectedBuilderType === AD_BUILDER_TYPE.STAG) {
       setProgressBarSteps(STAG_PROGRESS_BAR_STEPS);
-      setSelectedBuilderType(selectedBuilderType);
     }
   }, [selectedBuilderType]);
 
