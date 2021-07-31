@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 import { StepLayout } from 'src/components/layout/StepLayout';
 import { BuilderContainer } from 'src/pages/main/components/BuilderContainer';
+import { useBuilderSelection } from 'src/hooks/useBuilderSelection';
 
 export const MainPage = () => {
+  const { progressBarSteps, setSelectedBuilderType } = useBuilderSelection();
+
   return (
-    <StepLayout>
+    <StepLayout progressBarSteps={progressBarSteps}>
       <MainPageContainer>
-        <BuilderContainer />
+        <BuilderContainer setSelectedBuilderType={setSelectedBuilderType} />
       </MainPageContainer>
     </StepLayout>
   );

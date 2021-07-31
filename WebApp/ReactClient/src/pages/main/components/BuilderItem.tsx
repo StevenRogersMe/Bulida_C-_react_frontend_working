@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 import StagIcon from 'src/images/general/stag-icon.svg';
 import { AD_BUILDER_TYPE } from 'src/utils/consts';
-import { AdBuilderType } from 'src/utils/types';
 
-export const BuilderItem = ({ type }: AdBuilderType) => {
+type Props = {
+  type: AD_BUILDER_TYPE;
+  onClick: () => void;
+};
+
+export const BuilderItem = ({ type, onClick }: Props) => {
   const calculateItemDescription = () => {
     let description;
     if (type === AD_BUILDER_TYPE.STAG) {
@@ -22,7 +26,7 @@ export const BuilderItem = ({ type }: AdBuilderType) => {
   const description = calculateItemDescription();
 
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Icon src={description?.icon} />
       <Header>{description?.header}</Header>
       <Title>{description?.title}</Title>

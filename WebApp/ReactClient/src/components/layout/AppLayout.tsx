@@ -38,7 +38,7 @@ const Container = styled.div`
   flex-direction: column;
   height: -webkit-fill-available;
   padding: 5rem 12rem 7rem 14rem;
-  background-color: ${(props) => props.theme.colors.lightBlue};
+  background-color: ${(props) => props.theme.colors.lightBlue1};
   background-image: url(${backgroundImage});
   background-repeat: no-repeat;
   background-size: 100% 100%;

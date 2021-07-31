@@ -2,10 +2,17 @@ import styled from 'styled-components';
 import { AD_BUILDER_TYPE } from 'src/utils/consts';
 import { BuilderItem } from 'src/pages/main/components/BuilderItem';
 
-export const BuilderContainer = () => {
+type Props = {
+  setSelectedBuilderType: (type: AD_BUILDER_TYPE) => void;
+};
+
+export const BuilderContainer = ({ setSelectedBuilderType }: Props) => {
   return (
     <Container>
-      <BuilderItem type={AD_BUILDER_TYPE.STAG} />
+      <BuilderItem
+        type={AD_BUILDER_TYPE.STAG}
+        onClick={() => setSelectedBuilderType(AD_BUILDER_TYPE.STAG)}
+      />
     </Container>
   );
 };
