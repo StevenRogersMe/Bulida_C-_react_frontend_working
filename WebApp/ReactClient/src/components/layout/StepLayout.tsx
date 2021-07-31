@@ -3,6 +3,7 @@ import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
 import PrevIcon from 'src/images/general/prev-icon.svg';
 import NextIcon from 'src/images/general/next-icon.svg';
+import CurrentIcon from 'src/images/general/current-step-icon.svg';
 
 type Props = {
   children: React.ReactNode;
@@ -38,7 +39,13 @@ export const StepLayout = ({
     <>
       <StepHeader>
         {progressBarSteps.map((label, index) => {
-          return <StepContainer key={index}>{label}</StepContainer>;
+          const isCurrent = currentStep === index;
+          return (
+            <StepContainer key={index} isCurrent={isCurrent}>
+              {isCurrent && <CurrentStepIcon src={CurrentIcon} />}
+              {label}
+            </StepContainer>
+          );
         })}
       </StepHeader>
       <Children>{children}</Children>
@@ -81,16 +88,19 @@ const StepFooter = styled.div<{ showStepFooter: boolean }>`
   margin: 4rem 0 7rem 0;
 `;
 
-const StepContainer = styled.div`
+const StepContainer = styled.div<{ isCurrent: boolean }>`
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
-  padding: 1.1rem 2rem;
+  padding: ${(props) =>
+    props.isCurrent ? '1.1rem 2rem 1.1rem 1.5rem' : '1.1rem 2rem'};
   border-radius: 1.2rem;
   color: ${(props) => props.theme.colors.grey1};
   border: 0.1rem solid ${(props) => props.theme.colors.lightBlue1};
-  background-color: ${(props) => props.theme.colors.lightBlue2};
+  background-color: ${(props) =>
+    props.isCurrent
+      ? props.theme.colors.lightBlue1
+      : props.theme.colors.lightBlue2};
   ${(props) => props.theme.text.fontType.body2};
 `;
 
@@ -148,4 +158,8 @@ const NextStepIconContainer = styled.div`
 const NextStepIcon = styled.img`
   width: 2.2rem;
   height: 2rem;
+`;
+
+const CurrentStepIcon = styled.img`
+  margin-right: 1rem;
 `;
