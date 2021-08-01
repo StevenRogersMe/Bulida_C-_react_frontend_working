@@ -3,7 +3,7 @@ import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
 import PrevIcon from 'src/images/general/prev-icon.svg';
 import NextIcon from 'src/images/general/next-icon.svg';
-import CurrentIcon from 'src/images/general/current-step-icon.svg';
+import { StepLayoutItem } from 'src/components/layout/StepLayoutItem';
 
 type Props = {
   children: React.ReactNode;
@@ -40,11 +40,16 @@ export const StepLayout = ({
       <StepHeader>
         {progressBarSteps.map((label, index) => {
           const isCurrent = currentStep === index;
+          const isZeroStep = index === 0;
+          const isLastStep = index === progressBarSteps.length - 1;
           return (
-            <StepContainer key={index} isCurrent={isCurrent}>
-              {isCurrent && <CurrentStepIcon src={CurrentIcon} />}
-              {label}
-            </StepContainer>
+            <StepLayoutItem
+              key={index}
+              label={label}
+              isCurrent={isCurrent}
+              isZeroStep={isZeroStep}
+              isLastStep={isLastStep}
+            />
           );
         })}
       </StepHeader>
@@ -71,7 +76,6 @@ const Children = styled.div``;
 
 const StepHeader = styled.div`
   display: flex;
-  justify-content: space-between;
   width: 100%;
   height: 4.8rem;
   margin: 0 auto;
@@ -86,22 +90,6 @@ const StepFooter = styled.div<{ showStepFooter: boolean }>`
   position: absolute;
   bottom: 0;
   margin: 4rem 0 7rem 0;
-`;
-
-const StepContainer = styled.div<{ isCurrent: boolean }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: ${(props) =>
-    props.isCurrent ? '1.1rem 2rem 1.1rem 1.5rem' : '1.1rem 2rem'};
-  border-radius: 1.2rem;
-  color: ${(props) => props.theme.colors.grey1};
-  border: 0.1rem solid ${(props) => props.theme.colors.lightBlue1};
-  background-color: ${(props) =>
-    props.isCurrent
-      ? props.theme.colors.lightBlue1
-      : props.theme.colors.lightBlue2};
-  ${(props) => props.theme.text.fontType.body2};
 `;
 
 const StepButtonStyles = css`
@@ -158,8 +146,4 @@ const NextStepIconContainer = styled.div`
 const NextStepIcon = styled.img`
   width: 2.2rem;
   height: 2rem;
-`;
-
-const CurrentStepIcon = styled.img`
-  margin-right: 1rem;
 `;
