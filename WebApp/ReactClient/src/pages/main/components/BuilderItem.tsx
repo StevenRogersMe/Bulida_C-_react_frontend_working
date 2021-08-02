@@ -1,5 +1,8 @@
 import styled from 'styled-components';
-import StagIcon from 'src/images/general/stag-icon.svg';
+import {
+  calculateBuilderItemDescription,
+  calculateBuilderItemBackground,
+} from 'src/utils/builder';
 import { AD_BUILDER_TYPE } from 'src/utils/consts';
 
 type Props = {
@@ -8,53 +11,41 @@ type Props = {
 };
 
 export const BuilderItem = ({ type, onClick }: Props) => {
-  const calculateItemDescription = () => {
-    let description;
-    if (type === AD_BUILDER_TYPE.STAG) {
-      return (description = {
-        header: 'Build',
-        title: 'STAG',
-        subtitle:
-          'Single Theme Ad Group — ad groups can contain 1000 keywords in them.',
-        icon: StagIcon,
-      });
-    }
-
-    return description;
-  };
-
-  const description = calculateItemDescription();
+  const description = calculateBuilderItemDescription(type);
+  const background = calculateBuilderItemBackground(type);
 
   return (
-    <Container onClick={onClick}>
-      <Icon src={description?.icon} />
-      <Header>{description?.header}</Header>
-      <Title>{description?.title}</Title>
+    <Container background={background}>
+      <HeaderContainer>
+        <Icon src={description?.icon} />
+        <Title>{description?.title}</Title>
+      </HeaderContainer>
       <Subtitle>{description?.subtitle}</Subtitle>
+      <ActionButton onClick={onClick}>{description?.cta}</ActionButton>
     </Container>
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ background: string }>`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 31rem;
-  height: 22rem;
-  border-radius: 1.5rem;
+  width: 30rem;
+  height: 24rem;
+  border-radius: 1.6rem;
   padding: 3rem;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.background};
   border: 5px solid transparent;
-
-  &:hover {
-    cursor: pointer;
-    border: 5px solid ${(props) => props.theme.colors.blue4};
-  }
 `;
 
-const Header = styled.div`
-  ${(props) => props.theme.text.fontType.body3};
+const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 2rem;
+`;
+
+const Icon = styled.img`
+  padding-right: 1rem;
 `;
 
 const Title = styled.div`
@@ -62,13 +53,20 @@ const Title = styled.div`
 `;
 
 const Subtitle = styled.div`
-  ${(props) => props.theme.text.fontType.body3};
+  ${(props) => props.theme.text.fontType.body5};
 `;
 
-const Icon = styled.img`
-  position: absolute;
-  top: -5rem;
-  right: 3.8rem;
-  height: 12rem;
-  width: 12rem;
+const ActionButton = styled.button`
+  cursor: pointer;
+  border-radius: 1rem;
+  padding: 1.5rem 13rem;
+  margin-top: 7rem;
+  border: none;
+  color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.blue2};
+  ${(props) => props.theme.text.fontType.body6};
+
+  &:hover {
+    box-shadow: 0 0.5rem 1rem 0 rgba(33, 33, 36, 0.2);
+  }
 `;

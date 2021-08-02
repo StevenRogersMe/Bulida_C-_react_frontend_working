@@ -76,10 +76,10 @@ const Children = styled.div``;
 
 const StepHeader = styled.div`
   display: flex;
-  width: 100%;
   height: 4.8rem;
-  margin: 0 auto;
-  margin: 4rem 0;
+  padding: 5rem 13rem 20rem 13rem;
+  margin-bottom: -8rem;
+  background-color: ${(props) => props.theme.colors.pureWhite};
 `;
 
 const StepFooter = styled.div<{ showStepFooter: boolean }>`

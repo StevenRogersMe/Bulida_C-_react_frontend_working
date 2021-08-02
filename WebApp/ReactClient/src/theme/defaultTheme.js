@@ -4,8 +4,8 @@ export const theme = {
   text: {
     fontType: {
       h2: `
-      font-size: 4rem;
-      line-height: 6.1rem;
+      font-size: 3.2rem;
+      line-height: 4.2rem;
       font-weight: bold;
       `,
       h3: `
@@ -48,6 +48,16 @@ export const theme = {
       line-height: 2rem;
       font-weight: 900;
       `,
+      body5: `
+      font-size: 1.8rem;
+      line-height: 2.8rem;
+      font-weight: normal;
+      `,
+      body6: `
+      font-size: 1.6rem;
+      line-height: 1.9rem;
+      font-weight: bold;
+      `,
     },
   },
   colors: {
@@ -57,6 +67,7 @@ export const theme = {
     black2: '#161B29',
     grey1: '#606473',
     grey2: '#7D8295',
+    lightGrey1: '#F7FAFC',
     blue1: '#127DBA',
     blue2: '#227DF3',
     blue3: '#697EC9',

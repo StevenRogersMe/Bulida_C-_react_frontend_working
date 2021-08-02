@@ -36,8 +36,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: -webkit-fill-available;
-  // padding: 5rem 12rem 7rem 12rem;
-  background-color: ${(props) => props.theme.colors.lightBlue1};
 `;
 
 const Main = styled.div`
