@@ -37,7 +37,7 @@ namespace WebApp
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddSpaStaticFiles(configuration =>
             {
-              configuration.RootPath = "campaign_builder_client/build";
+              configuration.RootPath = "ReactClient/build";
             });
 
             // Adds EntityFramework.
@@ -91,8 +91,7 @@ namespace WebApp
 
       app.UseSpa(spa =>
       {
-        spa.Options.SourcePath = Path.Join(env.ContentRootPath, "campaign_builder_client");
-
+        spa.Options.SourcePath = Path.Join(env.ContentRootPath, "ReactClient");
         if (env.IsDevelopment())
         {
           spa.UseReactDevelopmentServer(npmScript: "start");
