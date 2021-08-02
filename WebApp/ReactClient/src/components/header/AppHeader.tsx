@@ -1,10 +1,9 @@
-import React from 'react';
 import styled from 'styled-components';
 
 export const AppHeader = () => {
   return (
     <AppHeaderContainer>
-      <Logo>LOGO</Logo>
+      <Logo>AD BUILDER</Logo>
       <Menu>
         <MenuItem>Product tour</MenuItem>
         <MenuItem>Help center</MenuItem>
@@ -26,14 +25,14 @@ const AppHeaderContainer = styled.div`
 `;
 
 const Logo = styled.div`
-  color: ${(props) => props.theme.text.color.grey};
+  color: ${(props) => props.theme.colors.grey1};
   ${(props) => props.theme.text.fontType.h5};
 `;
 
 const Menu = styled.div`
   display: flex;
   flex-direction: row;
-  color: ${(props) => props.theme.text.color.main};
+  color: ${(props) => props.theme.colors.black};
   ${(props) => props.theme.text.fontType.body3};
 
   > div:nth-child(2) {
@@ -46,7 +45,7 @@ const MenuItem = styled.div``;
 const Auth = styled.div`
   display: flex;
   flex-direction: row;
-  height: 3.1rem;
+  height: 5rem;
   ${(props) => props.theme.text.fontType.body3};
 
   > div:nth-child(1) {
@@ -59,8 +58,8 @@ const LogInButton = styled.div`
   align-items: center;
   padding: 2.5rem 3.3rem;
   border-radius: 4rem;
-  color: ${(props) => props.theme.text.color.main};
-  background-color: ${(props) => props.theme.background.white};
+  color: ${(props) => props.theme.colors.black};
+  background-color: ${(props) => props.theme.colors.white};
 `;
 
 const SignUpButton = styled.div`
@@ -68,6 +67,6 @@ const SignUpButton = styled.div`
   align-items: center;
   padding: 2.5rem 3.3rem;
   border-radius: 4rem;
-  color: ${(props) => props.theme.text.color.white};
-  background-color: ${(props) => props.theme.background.wizard};
+  color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.blue3};
 `;

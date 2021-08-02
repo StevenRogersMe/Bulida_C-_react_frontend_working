@@ -1,18 +1,13 @@
 import 'src/theme/base.css';
 
 export const theme = {
-  background: {
-    default: '#F2F5FF',
-    wizard: '#697EC9',
-    white: '#FCFCFC',
-  },
   text: {
-    color: {
-      main: '#202226',
-      white: '#FCFCFC',
-      grey: '#606473',
-    },
     fontType: {
+      h2: `
+      font-size: 4rem;
+      line-height: 6.1rem;
+      font-weight: bold;
+      `,
       h3: `
       font-size: 3.4rem;
       line-height: 4.2rem;
@@ -27,6 +22,11 @@ export const theme = {
       font-size: 2.4rem;
       line-height: 3.7rem;
       font-weight: 600;
+      `,
+      h6: `
+      font-size: 2rem;
+      line-height: 3.3rem;
+      font-weight: bold;
       `,
       body1: `
       font-size: 1.4rem;
@@ -44,5 +44,22 @@ export const theme = {
       font-weight: normal;
       `,
     },
+  },
+  colors: {
+    pureWhite: '#FFFFFF',
+    white: '#FCFCFC',
+    black1: '#202226',
+    black2: '#161B29',
+    grey1: '#606473',
+    grey2: '#7D8295',
+    blue1: '#127DBA',
+    blue2: '#227DF3',
+    blue3: '#697EC9',
+    blue4: '#ACB2CC',
+    lightBlue1: '#F2F5FF',
+    lightBlue2: '#C0C6DA',
+    lineBlue: '#E4EBFF',
+    background: '#DAE2F9',
+    stroke: '#CFD9E1',
   },
 };
