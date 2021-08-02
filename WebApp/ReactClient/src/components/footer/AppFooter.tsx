@@ -14,12 +14,13 @@ export const AppFooter = () => {
 };
 
 const AppFooterContainer = styled.div`
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 3.8rem 12rem;
   color: ${(props) => props.theme.colors.black2};
-  ${(props) => props.theme.text.fontType.body1};
+  background-color: ${(props) => props.theme.colors.pureWhite};
+  ${(props) => props.theme.text.fontType.body3};
 `;
 
 const Copyright = styled.div``;

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import backgroundImage from 'src/images/background/background.png';
 import { ThemeProvider } from 'styled-components';
 import { useBreak } from 'src/hooks/useBreak';
 import { theme } from 'src/theme/defaultTheme';
@@ -37,11 +36,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: -webkit-fill-available;
-  padding: 5rem 12rem 7rem 14rem;
+  // padding: 5rem 12rem 7rem 12rem;
   background-color: ${(props) => props.theme.colors.lightBlue1};
-  background-image: url(${backgroundImage});
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
 `;
 
 const Main = styled.div`

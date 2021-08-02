@@ -20,8 +20,8 @@ export const theme = {
       `,
       h5: `
       font-size: 2.4rem;
-      line-height: 3.7rem;
-      font-weight: 600;
+      line-height: 3.2rem;
+      font-weight: bold;
       `,
       h6: `
       font-size: 2rem;
@@ -39,9 +39,14 @@ export const theme = {
       font-weight: normal;
       `,
       body3: `
-      font-size: 1.8rem;
-      line-height: 2.8rem;
+      font-size: 1.6rem;
+      line-height: 2.4rem;
       font-weight: normal;
+      `,
+      body4: `
+      font-size: 1.3rem;
+      line-height: 2rem;
+      font-weight: 900;
       `,
     },
   },
