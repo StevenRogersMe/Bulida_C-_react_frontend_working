@@ -2,7 +2,7 @@ const BREAK_VALUES = {
   MOBILE: 0,
   PHABLET: 440,
   TABLET: 768,
-  DESKTOP: 1024,
+  DESKTOP: 1200,
 };
 
 export const breaks = {

@@ -7,6 +7,7 @@ export const MainPage = () => {
   const {
     currentStep,
     progressBarSteps,
+    selectedBuilderType,
     setCurrentStep,
     finishBuilderFlow,
     setSelectedBuilderType,
@@ -21,6 +22,7 @@ export const MainPage = () => {
     >
       <MainPageContainer>
         <BuilderContainer
+          selectedBuilderType={selectedBuilderType}
           setCurrentStep={setCurrentStep}
           setSelectedBuilderType={setSelectedBuilderType}
         />

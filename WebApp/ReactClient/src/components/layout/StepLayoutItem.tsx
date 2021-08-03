@@ -16,7 +16,6 @@ export const StepLayoutItem = ({
   isLastStep,
 }: Props) => {
   const [isPrevStep, setIsPrevStep] = useState<boolean>(false);
-  console.log(isZeroStep);
 
   useEffect(() => {
     isCurrent && setIsPrevStep(true);
@@ -114,5 +113,6 @@ const EmptyStep = styled.div`
   color: ${(props) => props.theme.colors.pureWhite};
   border: 0.2rem dashed ${(props) => props.theme.colors.stroke};
   ${StepStyles};
+  padding: 1.1rem 1.8rem;
   ${(props) => props.theme.text.fontType.body2};
 `;
