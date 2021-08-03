@@ -73,16 +73,14 @@ const StepStyles = css`
 
 const Step = styled.div`
   color: ${(props) => props.theme.colors.grey1};
-  border: 0.1rem solid ${(props) => props.theme.colors.lightBlue1};
-  background-color: ${(props) => props.theme.colors.lightBlue2};
+  background-color: ${(props) => props.theme.colors.grey3};
   ${(props) => props.theme.text.fontType.body2};
   ${StepStyles};
 `;
 
 const CurrentStep = styled.div`
-  color: ${(props) => props.theme.colors.grey1};
-  border: 0.1rem solid ${(props) => props.theme.colors.lightBlue1};
-  background-color: ${(props) => props.theme.colors.lightBlue1};
+  color: ${(props) => props.theme.colors.blue2};
+  background-color: rgba(232, 249, 255, 0.6);
   ${(props) => props.theme.text.fontType.body2};
   ${StepStyles};
 `;
@@ -93,9 +91,8 @@ const CurrentStepIcon = styled.img<{ isHidden?: boolean }>`
 `;
 
 const LastStep = styled.div`
-  color: ${(props) => props.theme.colors.lightBlue1};
-  border: 0.1rem dashed ${(props) => props.theme.colors.lightBlue1};
-  background-color: ${(props) => props.theme.colors.background};
+  color: ${(props) => props.theme.colors.stroke};
+  border: 0.2rem dashed ${(props) => props.theme.colors.stroke};
   ${(props) => props.theme.text.fontType.body2};
   ${StepStyles};
 `;
@@ -110,13 +107,12 @@ const LastStepSeparator = styled.div`
   width: 100%;
   height: 0.1rem;
   margin: 0 2rem;
-  background-color: ${(props) => props.theme.colors.lightBlue1};
+  background-color: ${(props) => props.theme.colors.stroke};
 `;
 
 const EmptyStep = styled.div`
-  color: ${(props) => props.theme.colors.background};
-  border: 0.1rem dashed ${(props) => props.theme.colors.lightBlue1};
-  background-color: ${(props) => props.theme.colors.background};
+  color: ${(props) => props.theme.colors.pureWhite};
+  border: 0.2rem dashed ${(props) => props.theme.colors.stroke};
   ${StepStyles};
   ${(props) => props.theme.text.fontType.body2};
 `;

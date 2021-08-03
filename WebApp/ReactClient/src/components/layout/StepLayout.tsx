@@ -89,7 +89,7 @@ const StepFooter = styled.div<{ showStepFooter: boolean }>`
   width: 100%;
   position: absolute;
   bottom: 0;
-  margin: 4rem 0 7rem 0;
+  margin: 4rem 0;
 `;
 
 const StepButtonStyles = css`
