@@ -9,8 +9,6 @@ export const AppHeader = () => {
         Builda
       </LogoContainer>
       <Menu>
-        <MenuItem>Product tour</MenuItem>
-        <MenuItem>Help center</MenuItem>
         <MenuItem>Pricing</MenuItem>
       </Menu>
       <Auth>
@@ -45,10 +43,6 @@ const Menu = styled.div`
   flex-direction: row;
   color: ${(props) => props.theme.colors.black1};
   ${(props) => props.theme.text.fontType.body3};
-
-  > div:nth-child(2) {
-    margin: 0 4rem;
-  }
 `;
 
 const MenuItem = styled.div``;

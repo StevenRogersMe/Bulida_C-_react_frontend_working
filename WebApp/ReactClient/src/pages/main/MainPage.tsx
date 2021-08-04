@@ -22,6 +22,7 @@ export const MainPage = () => {
     >
       <MainPageContainer>
         <BuilderContainer
+          currentStep={currentStep}
           selectedBuilderType={selectedBuilderType}
           setCurrentStep={setCurrentStep}
           setSelectedBuilderType={setSelectedBuilderType}

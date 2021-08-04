@@ -1,14 +1,20 @@
 import styled from 'styled-components';
 import { AD_BUILDER_TYPE } from 'src/utils/consts';
 import { BuilderItem } from 'src/pages/main/components/BuilderItem';
+import { Builder } from 'src/components/stag/Builder';
+import { AdCreator } from 'src/components/stag/AdCreator';
+import { Configurator } from 'src/components/stag/Configurator';
+import { Reviewer } from 'src/components/stag/Reviewer';
 
 type Props = {
+  currentStep: number;
   selectedBuilderType: AD_BUILDER_TYPE;
   setCurrentStep: (step: number) => void;
   setSelectedBuilderType: (type: AD_BUILDER_TYPE) => void;
 };
 
 export const BuilderContainer = ({
+  currentStep,
   selectedBuilderType,
   setCurrentStep,
   setSelectedBuilderType,
@@ -19,9 +25,17 @@ export const BuilderContainer = ({
     setSelectedBuilderType(AD_BUILDER_TYPE.STAG);
   };
 
-  const render = () => {
+  const STAGFlowPages = {
+    1: <Builder />,
+    2: <AdCreator />,
+    3: <Configurator />,
+    4: <Reviewer />,
+    5: <div>Page 5</div>,
+  };
+
+  const renderBuilderStep = () => {
     if (isSTAGFlowStarted) {
-      return <div />;
+      return STAGFlowPages[currentStep] || <div>Not Found</div>;
     }
 
     return (
@@ -39,7 +53,7 @@ export const BuilderContainer = ({
     );
   };
 
-  return render();
+  return renderBuilderStep();
 };
 
 const Container = styled.div`

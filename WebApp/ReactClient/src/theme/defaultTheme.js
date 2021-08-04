@@ -3,6 +3,11 @@ import 'src/theme/base.css';
 export const theme = {
   text: {
     fontType: {
+      h1: `
+      font-size: 4.8rem;
+      line-height: 5.8rem;
+      font-weight: normal;
+      `,
       h2: `
       font-size: 3.2rem;
       line-height: 4.2rem;
