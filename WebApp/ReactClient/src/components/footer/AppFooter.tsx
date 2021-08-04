@@ -17,7 +17,7 @@ const AppFooterContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 3.8rem 12rem;
+  padding: 2.8rem 11rem 2.8rem 12rem;
   color: ${(props) => props.theme.colors.black2};
   background-color: ${(props) => props.theme.colors.pureWhite};
   ${(props) => props.theme.text.fontType.body3};
@@ -30,8 +30,11 @@ const Menu = styled.div`
   flex-direction: row;
 
   > div:nth-child(2) {
-    margin: 0 4rem;
+    margin: 0 1rem;
   }
 `;
 
-const MenuItem = styled.div``;
+const MenuItem = styled.div`
+  cursor: pointer;
+  padding: 1rem;
+`;
