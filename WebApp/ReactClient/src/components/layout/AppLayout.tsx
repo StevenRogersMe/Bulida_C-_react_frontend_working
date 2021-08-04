@@ -5,6 +5,7 @@ import { useBreak } from 'src/hooks/useBreak';
 import { theme } from 'src/theme/defaultTheme';
 import { AppHeader } from 'src/components/header/AppHeader';
 import { AppFooter } from 'src/components/footer/AppFooter';
+import { UnsupportedResolutionPage } from 'src/pages/unsupported/UnsupportedResolutionPage';
 
 type Props = {
   children: React.ReactNode;
@@ -24,7 +25,7 @@ export const AppLayout = ({ children }: Props) => {
           </Container>
         </ThemeProvider>
       ) : (
-        <div />
+        <UnsupportedResolutionPage />
       )}
     </>
   );
