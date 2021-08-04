@@ -3,11 +3,7 @@ import LogoImage from 'src/images/general/logo.svg';
 
 export const UnsupportedResolutionPage = () => (
   <Container>
-    <Logo
-      src={LogoImage}
-      m={{ base: '-5rem 0 0 0', md: '-3rem 0 2rem' }}
-      h={{ base: '34rem', md: '24rem' }}
-    />
+    <Logo src={LogoImage} />
     <Title>Screen width is too small</Title>
     <Subtitle>
       This screen resolution is not supported. Please resize the window.
