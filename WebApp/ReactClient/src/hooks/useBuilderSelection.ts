@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { AD_BUILDER_TYPE, STAG_PROGRESS_BAR_STEPS } from 'src/utils/consts';
+import { AD_BUILDER_TYPE, PROGRESS_BAR_STEPS } from 'src/utils/consts';
 
 export const useBuilderSelection = (): {
   currentStep: number;
@@ -17,8 +17,8 @@ export const useBuilderSelection = (): {
   const [currentStep, setCurrentStep] = useState<number>(0);
 
   useEffect(() => {
-    if (selectedBuilderType === AD_BUILDER_TYPE.STAG) {
-      setProgressBarSteps(STAG_PROGRESS_BAR_STEPS);
+    if (selectedBuilderType !== AD_BUILDER_TYPE.EMPTY) {
+      setProgressBarSteps(PROGRESS_BAR_STEPS[selectedBuilderType]);
     }
   }, [selectedBuilderType]);
 

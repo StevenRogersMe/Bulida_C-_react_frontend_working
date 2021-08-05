@@ -5,11 +5,21 @@ export enum AD_BUILDER_TYPE {
   EMPTY = 'empty',
 }
 
-export const STAG_PROGRESS_BAR_STEPS = [
-  'Start',
-  'Build STAG',
-  'Ad Creator',
-  'Configutator',
-  'Reviewer',
-  'Finish',
-];
+export const PROGRESS_BAR_STEPS = {
+  skag: [
+    'Start',
+    'Build SKAG',
+    'Ad Creator',
+    'Configutator',
+    'Reviewer',
+    'Finish',
+  ],
+  stag: [
+    'Start',
+    'Build STAG',
+    'Ad Creator',
+    'Configutator',
+    'Reviewer',
+    'Finish',
+  ],
+};

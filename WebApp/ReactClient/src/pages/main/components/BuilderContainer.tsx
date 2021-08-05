@@ -1,10 +1,15 @@
 import styled from 'styled-components';
+import { config } from 'src/config/default';
 import { AD_BUILDER_TYPE } from 'src/utils/consts';
 import { BuilderItem } from 'src/pages/main/components/BuilderItem';
-import { Builder } from 'src/components/stag/Builder';
-import { AdCreator } from 'src/components/stag/AdCreator';
-import { Configurator } from 'src/components/stag/Configurator';
-import { Reviewer } from 'src/components/stag/Reviewer';
+import { StagBuilder } from 'src/components/stag/StagBuilder';
+import { StagAdCreator } from 'src/components/stag/StagAdCreator';
+import { StagConfigurator } from 'src/components/stag/StagConfigurator';
+import { StagReviewer } from 'src/components/stag/StagReviewer';
+import { SkagBuilder } from 'src/components/skag/SkagBuilder';
+import { SkagAdCreator } from 'src/components/skag/SkagAdCreator';
+import { SkagConfigurator } from 'src/components/skag/SkagConfigurator';
+import { SkagReviewer } from 'src/components/skag/SkagReviewer';
 
 type Props = {
   currentStep: number;
@@ -19,36 +24,56 @@ export const BuilderContainer = ({
   setCurrentStep,
   setSelectedBuilderType,
 }: Props) => {
-  const isSTAGFlowStarted = selectedBuilderType === AD_BUILDER_TYPE.STAG;
+  const isSKAGFlow = selectedBuilderType === AD_BUILDER_TYPE.SKAG;
+  const isSTAGFlow = selectedBuilderType === AD_BUILDER_TYPE.STAG;
+
+  const startSKAGFlow = () => {
+    setCurrentStep(1);
+    setSelectedBuilderType(AD_BUILDER_TYPE.SKAG);
+  };
+
   const startSTAGFlow = () => {
     setCurrentStep(1);
     setSelectedBuilderType(AD_BUILDER_TYPE.STAG);
   };
 
+  const startADFlow = () => {
+    setCurrentStep(1);
+    setSelectedBuilderType(AD_BUILDER_TYPE.AD);
+  };
+
+  const SKAGFlowPages = {
+    1: <SkagBuilder />,
+    2: <SkagAdCreator />,
+    3: <SkagConfigurator />,
+    4: <SkagReviewer />,
+  };
+
   const STAGFlowPages = {
-    1: <Builder />,
-    2: <AdCreator />,
-    3: <Configurator />,
-    4: <Reviewer />,
-    5: <div>Page 5</div>,
+    1: <StagBuilder />,
+    2: <StagAdCreator />,
+    3: <StagConfigurator />,
+    4: <StagReviewer />,
   };
 
   const renderBuilderStep = () => {
-    if (isSTAGFlowStarted) {
+    if (isSKAGFlow) {
+      return SKAGFlowPages[currentStep] || <div>Not Found</div>;
+    }
+
+    if (isSTAGFlow) {
       return STAGFlowPages[currentStep] || <div>Not Found</div>;
     }
 
     return (
       <Container>
-        <BuilderItem
-          type={AD_BUILDER_TYPE.SKAG}
-          onClick={() => console.log('Start SKAG flow')}
-        />
-        <BuilderItem type={AD_BUILDER_TYPE.STAG} onClick={startSTAGFlow} />
-        <BuilderItem
-          type={AD_BUILDER_TYPE.AD}
-          onClick={() => console.log('Start AD flow')}
-        />
+        <BuilderItem type={AD_BUILDER_TYPE.SKAG} onClick={startSKAGFlow} />
+        {config.featureFlags.stag && (
+          <BuilderItem type={AD_BUILDER_TYPE.STAG} onClick={startSTAGFlow} />
+        )}
+        {config.featureFlags.ad && (
+          <BuilderItem type={AD_BUILDER_TYPE.AD} onClick={startADFlow} />
+        )}
       </Container>
     );
   };

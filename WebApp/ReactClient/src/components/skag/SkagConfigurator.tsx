@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 
-export const AdCreator = () => {
+export const SkagConfigurator = () => {
   return (
     <Container>
-      <Title>
-        <Bold>Ad</Bold> Creator
-      </Title>
+      <Title>Configurator</Title>
     </Container>
   );
 };
@@ -20,8 +18,4 @@ const Container = styled.div`
 const Title = styled.div`
   margin-bottom: 2.4rem;
   ${(props) => props.theme.text.fontType.h1};
-`;
-
-const Bold = styled.span`
-  font-weight: bold;
 `;
