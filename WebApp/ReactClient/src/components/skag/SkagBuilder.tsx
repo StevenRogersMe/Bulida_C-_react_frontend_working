@@ -1,11 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import isEmpty from 'lodash/isEmpty';
+import KeywordsIcon from 'src/images/general/keywords-icon.svg';
+import { CampaignType } from 'src/utils/types';
 
-export const SkagBuilder = () => {
-  const [value, setValue] = useState('');
+type Props = {
+  campaign: CampaignType;
+  setKeywords: (keywords: string[]) => void;
+};
+
+export const SkagBuilder = ({ campaign, setKeywords }: Props) => {
+  const defaultKeywords = isEmpty(campaign.adGroupList[0]?.keywords)
+    ? ''
+    : campaign.adGroupList[0]?.keywords.join('\r\n');
+  const [value, setValue] = useState(defaultKeywords);
+  const [keywordsCount, setKeywordsCount] = useState<number>(0);
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+
+  useEffect(() => {
+    const keywords = value.split(/\s+/).filter((el) => !isEmpty(el));
+    setKeywords(keywords);
+    setKeywordsCount(keywords.length);
+  }, [value]);
 
   return (
     <Container>
@@ -15,6 +33,10 @@ export const SkagBuilder = () => {
       <KeywordsContainer>
         Keywords
         <KeywordsInput value={value} onChange={handleChange} />
+        <KeywordsCounter>
+          <KeywordsCounterIcon src={KeywordsIcon} />
+          {`${keywordsCount} keywords`}
+        </KeywordsCounter>
       </KeywordsContainer>
     </Container>
   );
@@ -26,7 +48,6 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 0 35rem;
 `;
 
 const Title = styled.div`
@@ -41,6 +62,7 @@ const Bold = styled.span`
 const KeywordsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
   ${(props) => props.theme.text.fontType.h7};
 `;
 
@@ -53,6 +75,7 @@ const KeywordsInput = styled.textarea`
     inset 0px -3px 0px #ffffff;
   resize: none;
   border-radius: 15px;
+  background-color: ${(props) => props.theme.colors.white};
   color: ${(props) => props.theme.colors.black1};
   border: 0.1rem solid ${(props) => props.theme.colors.stroke};
   ${(props) => props.theme.text.fontType.body3};
@@ -77,4 +100,23 @@ const KeywordsInput = styled.textarea`
     opacity: 0.4;
     border-radius: 0.5rem;
   }
+`;
+
+const KeywordsCounter = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  position: absolute;
+  right: 2rem;
+  bottom: 3.5rem;
+  border: 1px solid rgba(207, 217, 225, 0.5);
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: ${(props) => props.theme.colors.grey4};
+  ${(props) => props.theme.text.fontType.body1};
+`;
+
+const KeywordsCounterIcon = styled.img`
+  margin: 0 0.9rem 0 0.2rem;
 `;

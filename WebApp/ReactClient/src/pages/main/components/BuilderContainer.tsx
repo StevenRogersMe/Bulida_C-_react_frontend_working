@@ -10,6 +10,7 @@ import { SkagBuilder } from 'src/components/skag/SkagBuilder';
 import { SkagAdCreator } from 'src/components/skag/SkagAdCreator';
 import { SkagConfigurator } from 'src/components/skag/SkagConfigurator';
 import { SkagReviewer } from 'src/components/skag/SkagReviewer';
+import { useSkagCampaignBuilder } from 'src/hooks/useSkagCampaignBuilder';
 
 type Props = {
   currentStep: number;
@@ -27,6 +28,8 @@ export const BuilderContainer = ({
   const isSKAGFlow = selectedBuilderType === AD_BUILDER_TYPE.SKAG;
   const isSTAGFlow = selectedBuilderType === AD_BUILDER_TYPE.STAG;
 
+  const { skagCampaign, setSkagKeywords } = useSkagCampaignBuilder();
+
   const startSKAGFlow = () => {
     setCurrentStep(1);
     setSelectedBuilderType(AD_BUILDER_TYPE.SKAG);
@@ -43,7 +46,7 @@ export const BuilderContainer = ({
   };
 
   const SKAGFlowPages = {
-    1: <SkagBuilder />,
+    1: <SkagBuilder campaign={skagCampaign} setKeywords={setSkagKeywords} />,
     2: <SkagAdCreator />,
     3: <SkagConfigurator />,
     4: <SkagReviewer />,

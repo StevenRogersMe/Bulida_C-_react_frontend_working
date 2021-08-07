@@ -78,6 +78,7 @@ export const theme = {
     grey1: '#606473',
     grey2: '#7D8295',
     grey3: '#E1E3EA',
+    grey4: '#F9F9FB',
     lightGrey1: '#F7FAFC',
     blue1: '#127DBA',
     blue2: '#227DF3',
