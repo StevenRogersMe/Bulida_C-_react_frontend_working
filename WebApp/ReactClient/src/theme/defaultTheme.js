@@ -4,8 +4,8 @@ export const theme = {
   text: {
     fontType: {
       h1: `
-      font-size: 4.8rem;
-      line-height: 5.8rem;
+      font-size: 3.8rem;
+      line-height: 4.8rem;
       font-weight: normal;
       `,
       h2: `
@@ -32,6 +32,11 @@ export const theme = {
       font-size: 2rem;
       line-height: 3.3rem;
       font-weight: bold;
+      `,
+      h7: `
+      font-size: 2rem;
+      line-height: 2.4rem;
+      font-weight: normal;
       `,
       body1: `
       font-size: 1.4rem;

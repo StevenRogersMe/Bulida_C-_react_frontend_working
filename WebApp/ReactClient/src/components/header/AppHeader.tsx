@@ -25,7 +25,7 @@ const AppHeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2.4rem 12rem;
+  padding: 1.4rem 12rem;
   z-index: 10;
   background-color: ${(props) => props.theme.colors.pureWhite};
   box-shadow: 0px 0px 12px rgba(84, 89, 98, 0.15);

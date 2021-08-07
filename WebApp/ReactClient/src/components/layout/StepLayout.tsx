@@ -78,7 +78,7 @@ const StepHeader = styled.div`
   display: flex;
   height: 4.8rem;
   padding: 5rem 13rem 20rem 13rem;
-  margin-bottom: -8rem;
+  margin-bottom: -14rem;
   background-color: ${(props) => props.theme.colors.pureWhite};
 `;
 
@@ -89,7 +89,7 @@ const StepFooter = styled.div<{ showStepFooter: boolean }>`
   width: 100%;
   position: absolute;
   bottom: 0;
-  margin: 4rem 0;
+  margin: 2rem 0;
 `;
 
 const StepButtonStyles = css`

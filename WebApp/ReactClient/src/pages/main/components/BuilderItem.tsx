@@ -35,7 +35,7 @@ const Container = styled.div<{ background: string }>`
   border-radius: 1.6rem;
   padding: 3rem;
   background-color: ${(props) => props.background};
-  border: 5px solid transparent;
+  border: 0.5rem solid transparent;
 `;
 
 const HeaderContainer = styled.div`
