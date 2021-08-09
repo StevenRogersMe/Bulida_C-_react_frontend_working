@@ -11,7 +11,6 @@ export type OptionType = {
 };
 
 export type MIDropDownProps = {
-  id?: string;
   options: OptionType[];
   label?: string;
   value?: any;
@@ -19,7 +18,6 @@ export type MIDropDownProps = {
 };
 
 export const MIDropDown = ({
-  id,
   options,
   label,
   value,
@@ -30,7 +28,7 @@ export const MIDropDown = ({
   const onSelected = (option) => () => {
     setOpen(false);
     if (value !== option.value) {
-      onChange({ id, value: option.value });
+      onChange({ value: option.value });
     }
   };
 
@@ -42,7 +40,7 @@ export const MIDropDown = ({
       </SingleSelect>
       <DropDownContainer hidden={!open}>
         <List>
-          {options.map((option) => {
+          {options.map((option, index) => {
             const isSelected =
               (typeof value === 'string' &&
                 typeof option.value === 'string' &&
@@ -50,7 +48,7 @@ export const MIDropDown = ({
               option.value === value;
             return (
               <DropDownOption
-                key={option.value}
+                key={index}
                 onClick={onSelected(option)}
                 isSelected={isSelected}
               >

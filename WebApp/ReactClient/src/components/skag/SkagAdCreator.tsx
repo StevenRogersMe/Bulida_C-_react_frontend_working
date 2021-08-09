@@ -9,10 +9,28 @@ type Props = {
 
 export const SkagAdCreator = ({ campaign }: Props) => {
   const [selectedAdType, setSelectedAdType] = useState<AdType>(AdType.ALL);
+  const [selectedAdGroup, setSelectedAdGroup] = useState<string>('');
+  const { adGroupList } = campaign;
+  const adsCount = adGroupList.reduce((acc, el) => {
+    const { callOnlyExt, callOutExt, expTextAdExt, searchExt, snippetExt } = el;
+    return (
+      acc +
+      callOnlyExt.length +
+      callOutExt.length +
+      expTextAdExt.length +
+      searchExt.length +
+      snippetExt.length
+    );
+  }, 0);
 
   const onSelectAdType = (result) => {
     const { value } = result;
     setSelectedAdType(value);
+  };
+
+  const onSelectAdGroup = (result) => {
+    const { value } = result;
+    setSelectedAdGroup(value);
   };
 
   return (
@@ -21,8 +39,12 @@ export const SkagAdCreator = ({ campaign }: Props) => {
         <Bold>Ad</Bold> Creator
       </Title>
       <SkagAdCreatorTableHeader
+        adsCount={adsCount}
+        adGroupList={adGroupList}
         selectedAdType={selectedAdType}
+        selectedAdGroup={selectedAdGroup}
         onSelectAdType={onSelectAdType}
+        onSelectAdGroup={onSelectAdGroup}
       />
     </Container>
   );
