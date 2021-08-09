@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Expandable } from 'src/utils/types';
 import DropDownIcon from 'src/images/general/dropdown-arrow.svg';
+import { withOutsideClickHandler } from 'src/hok/withOutsideClickHandler';
 
 export type OptionType = {
   label: string;
@@ -34,7 +35,7 @@ export const MIDropDown = ({
   };
 
   return (
-    <SingleSelectContainer>
+    <SingleSelectContainer handleClickOutside={() => setOpen(false)}>
       <SingleSelect onClick={() => setOpen(!open)}>
         <SingleSelectLabel>{label}</SingleSelectLabel>
         <DropDownIndicator src={DropDownIcon} isOpen={open} />
@@ -63,11 +64,11 @@ export const MIDropDown = ({
   );
 };
 
-const SingleSelectContainer = styled.div`
+const SingleSelectContainer = withOutsideClickHandler(styled.div`
   position: relative;
   box-sizing: border-box;
   cursor: pointer;
-`;
+`);
 
 const SingleSelect = styled.div`
   display: flex;
