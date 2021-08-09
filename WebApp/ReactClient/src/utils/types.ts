@@ -15,6 +15,7 @@ export type CampaignType = {
   skag: boolean;
   stag: boolean;
   adGroupList: AdGroupType[];
+  keywordsList: string[];
   googleAccountId: string | null | undefined;
 };
 

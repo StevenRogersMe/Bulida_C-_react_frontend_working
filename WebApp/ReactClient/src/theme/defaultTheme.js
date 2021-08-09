@@ -40,7 +40,7 @@ export const theme = {
       `,
       body1: `
       font-size: 1.4rem;
-      line-height: 2rem;
+      line-height: 1.7rem;
       font-weight: normal;
       `,
       body2: `

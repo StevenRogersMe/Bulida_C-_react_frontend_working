@@ -10,9 +10,9 @@ type Props = {
 };
 
 export const SkagBuilder = ({ campaign, setKeywords }: Props) => {
-  const defaultKeywords = isEmpty(campaign.adGroupList[0]?.keywords)
+  const defaultKeywords = isEmpty(campaign.keywordsList)
     ? ''
-    : campaign.adGroupList[0]?.keywords.join('\r\n');
+    : campaign.keywordsList.join('\r\n');
   const [value, setValue] = useState(defaultKeywords);
   const [keywordsCount, setKeywordsCount] = useState<number>(0);
   const handleChange = (event) => {
@@ -23,7 +23,7 @@ export const SkagBuilder = ({ campaign, setKeywords }: Props) => {
     const keywords = value.split(/\s+/).filter((el) => !isEmpty(el));
     setKeywords(keywords);
     setKeywordsCount(keywords.length);
-  }, [value]);
+  }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Container>

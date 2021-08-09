@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CampaignType } from 'src/utils/types';
+import { CampaignType, AdGroupType } from 'src/utils/types';
 
 export const useSkagCampaignBuilder = (): {
   skagCampaign: CampaignType;
@@ -17,24 +17,30 @@ export const useSkagCampaignBuilder = (): {
     skag: true,
     stag: false,
     adGroupList: [],
+    keywordsList: [],
     googleAccountId: undefined,
   });
 
   const setSkagKeywords = (keywords: string[]) => {
+    const adGroupList: AdGroupType[] = [];
+
+    keywords.forEach((keyword) => {
+      adGroupList.push({
+        adGroup: keyword,
+        keywords: [keyword],
+        negatives: [],
+        snippetExt: [],
+        searchExt: [],
+        callOnlyExt: [],
+        callOutExt: [],
+        expTextAdExt: [],
+      });
+    });
+
     setSkagCampaign({
       ...skagCampaign,
-      adGroupList: [
-        {
-          adGroup: '',
-          keywords,
-          negatives: [],
-          snippetExt: [],
-          searchExt: [],
-          callOnlyExt: [],
-          callOutExt: [],
-          expTextAdExt: [],
-        },
-      ],
+      keywordsList: keywords,
+      adGroupList: adGroupList || [],
     });
   };
 

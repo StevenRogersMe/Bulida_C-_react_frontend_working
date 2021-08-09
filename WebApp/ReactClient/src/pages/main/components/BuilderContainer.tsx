@@ -47,7 +47,7 @@ export const BuilderContainer = ({
 
   const SKAGFlowPages = {
     1: <SkagBuilder campaign={skagCampaign} setKeywords={setSkagKeywords} />,
-    2: <SkagAdCreator />,
+    2: <SkagAdCreator campaign={skagCampaign} />,
     3: <SkagConfigurator />,
     4: <SkagReviewer />,
   };
