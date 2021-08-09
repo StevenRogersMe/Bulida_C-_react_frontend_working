@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import styled from 'styled-components';
-import { CampaignType } from 'src/utils/types';
+import { CampaignType, AdType } from 'src/utils/types';
 import { SkagAdCreatorTableHeader } from 'src/components/skag/SkagAdCreatorTableHeader';
 
 type Props = {
@@ -7,13 +8,22 @@ type Props = {
 };
 
 export const SkagAdCreator = ({ campaign }: Props) => {
-  console.log(campaign);
+  const [selectedAdType, setSelectedAdType] = useState<AdType>(AdType.ALL);
+
+  const onSelectAdType = (result) => {
+    const { value } = result;
+    setSelectedAdType(value);
+  };
+
   return (
     <Container>
       <Title>
         <Bold>Ad</Bold> Creator
       </Title>
-      <SkagAdCreatorTableHeader />
+      <SkagAdCreatorTableHeader
+        selectedAdType={selectedAdType}
+        onSelectAdType={onSelectAdType}
+      />
     </Container>
   );
 };

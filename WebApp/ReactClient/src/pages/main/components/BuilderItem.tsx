@@ -3,10 +3,10 @@ import {
   calculateBuilderItemDescription,
   calculateBuilderItemBackground,
 } from 'src/utils/builder';
-import { AD_BUILDER_TYPE } from 'src/utils/consts';
+import { AdBuilderType } from 'src/utils/types';
 
 type Props = {
-  type: AD_BUILDER_TYPE;
+  type: AdBuilderType;
   onClick: () => void;
 };
 

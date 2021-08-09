@@ -1,8 +1,20 @@
-import { AD_BUILDER_TYPE } from 'src/utils/consts';
+export type Expandable<T> = T & Record<string, any>;
 
-export type AdBuilderType = {
-  type: AD_BUILDER_TYPE;
-};
+export enum AdBuilderType {
+  STAG = 'stag',
+  SKAG = 'skag',
+  AD = 'ad',
+  EMPTY = 'empty',
+}
+
+export enum AdType {
+  ALL = 'all',
+  EXPANDED = 'expanded',
+  CALL = 'call',
+  RESPONSIVE = 'responsive',
+  SNIPPET = 'snippet',
+  CALLOUT = 'callout',
+}
 
 export type CampaignType = {
   name: string;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { config } from 'src/config/default';
-import { AD_BUILDER_TYPE } from 'src/utils/consts';
+import { AdBuilderType } from 'src/utils/types';
 import { BuilderItem } from 'src/pages/main/components/BuilderItem';
 import { StagBuilder } from 'src/components/stag/StagBuilder';
 import { StagAdCreator } from 'src/components/stag/StagAdCreator';
@@ -14,9 +14,9 @@ import { useSkagCampaignBuilder } from 'src/hooks/useSkagCampaignBuilder';
 
 type Props = {
   currentStep: number;
-  selectedBuilderType: AD_BUILDER_TYPE;
+  selectedBuilderType: AdBuilderType;
   setCurrentStep: (step: number) => void;
-  setSelectedBuilderType: (type: AD_BUILDER_TYPE) => void;
+  setSelectedBuilderType: (type: AdBuilderType) => void;
 };
 
 export const BuilderContainer = ({
@@ -25,24 +25,24 @@ export const BuilderContainer = ({
   setCurrentStep,
   setSelectedBuilderType,
 }: Props) => {
-  const isSKAGFlow = selectedBuilderType === AD_BUILDER_TYPE.SKAG;
-  const isSTAGFlow = selectedBuilderType === AD_BUILDER_TYPE.STAG;
+  const isSKAGFlow = selectedBuilderType === AdBuilderType.SKAG;
+  const isSTAGFlow = selectedBuilderType === AdBuilderType.STAG;
 
   const { skagCampaign, setSkagKeywords } = useSkagCampaignBuilder();
 
   const startSKAGFlow = () => {
     setCurrentStep(1);
-    setSelectedBuilderType(AD_BUILDER_TYPE.SKAG);
+    setSelectedBuilderType(AdBuilderType.SKAG);
   };
 
   const startSTAGFlow = () => {
     setCurrentStep(1);
-    setSelectedBuilderType(AD_BUILDER_TYPE.STAG);
+    setSelectedBuilderType(AdBuilderType.STAG);
   };
 
   const startADFlow = () => {
     setCurrentStep(1);
-    setSelectedBuilderType(AD_BUILDER_TYPE.AD);
+    setSelectedBuilderType(AdBuilderType.AD);
   };
 
   const SKAGFlowPages = {
@@ -70,12 +70,12 @@ export const BuilderContainer = ({
 
     return (
       <Container>
-        <BuilderItem type={AD_BUILDER_TYPE.SKAG} onClick={startSKAGFlow} />
+        <BuilderItem type={AdBuilderType.SKAG} onClick={startSKAGFlow} />
         {config.featureFlags.stag && (
-          <BuilderItem type={AD_BUILDER_TYPE.STAG} onClick={startSTAGFlow} />
+          <BuilderItem type={AdBuilderType.STAG} onClick={startSTAGFlow} />
         )}
         {config.featureFlags.ad && (
-          <BuilderItem type={AD_BUILDER_TYPE.AD} onClick={startADFlow} />
+          <BuilderItem type={AdBuilderType.AD} onClick={startADFlow} />
         )}
       </Container>
     );

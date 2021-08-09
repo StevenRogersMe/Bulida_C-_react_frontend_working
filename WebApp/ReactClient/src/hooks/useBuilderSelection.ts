@@ -1,23 +1,25 @@
 import { useState, useEffect } from 'react';
-import { AD_BUILDER_TYPE, PROGRESS_BAR_STEPS } from 'src/utils/consts';
+import { AdBuilderType } from 'src/utils/types';
+import { PROGRESS_BAR_STEPS } from 'src/utils/consts';
 
 export const useBuilderSelection = (): {
   currentStep: number;
   progressBarSteps: string[];
-  selectedBuilderType: AD_BUILDER_TYPE;
+  selectedBuilderType: AdBuilderType;
   setCurrentStep: (step: number) => void;
   finishBuilderFlow: () => void;
-  setSelectedBuilderType: (type: AD_BUILDER_TYPE) => void;
+  setSelectedBuilderType: (type: AdBuilderType) => void;
 } => {
-  const [selectedBuilderType, setSelectedBuilderType] =
-    useState<AD_BUILDER_TYPE>(AD_BUILDER_TYPE.EMPTY);
+  const [selectedBuilderType, setSelectedBuilderType] = useState<AdBuilderType>(
+    AdBuilderType.EMPTY
+  );
 
   const [progressBarSteps, setProgressBarSteps] = useState<string[]>([]);
 
   const [currentStep, setCurrentStep] = useState<number>(0);
 
   useEffect(() => {
-    if (selectedBuilderType !== AD_BUILDER_TYPE.EMPTY) {
+    if (selectedBuilderType !== AdBuilderType.EMPTY) {
       setProgressBarSteps(PROGRESS_BAR_STEPS[selectedBuilderType]);
     }
   }, [selectedBuilderType]);
@@ -25,7 +27,7 @@ export const useBuilderSelection = (): {
   const finishBuilderFlow = () => {
     setCurrentStep(0);
     setProgressBarSteps([]);
-    setSelectedBuilderType(AD_BUILDER_TYPE.EMPTY);
+    setSelectedBuilderType(AdBuilderType.EMPTY);
   };
 
   return {

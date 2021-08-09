@@ -1,11 +1,11 @@
 import SkagIcon from 'src/images/general/skag-icon.png';
 import StagIcon from 'src/images/general/stag-icon.svg';
 import AdIcon from 'src/images/general/ad-icon.svg';
-import { AD_BUILDER_TYPE } from 'src/utils/consts';
+import { AdBuilderType } from './types';
 
-export const calculateBuilderItemDescription = (type: AD_BUILDER_TYPE) => {
+export const calculateBuilderItemDescription = (type: AdBuilderType) => {
   let description;
-  if (type === AD_BUILDER_TYPE.SKAG) {
+  if (type === AdBuilderType.SKAG) {
     return (description = {
       title: 'SKAG',
       subtitle:
@@ -15,7 +15,7 @@ export const calculateBuilderItemDescription = (type: AD_BUILDER_TYPE) => {
     });
   }
 
-  if (type === AD_BUILDER_TYPE.STAG) {
+  if (type === AdBuilderType.STAG) {
     return (description = {
       title: 'STAG',
       subtitle:
@@ -25,7 +25,7 @@ export const calculateBuilderItemDescription = (type: AD_BUILDER_TYPE) => {
     });
   }
 
-  if (type === AD_BUILDER_TYPE.AD) {
+  if (type === AdBuilderType.AD) {
     return (description = {
       title: 'Ad & extention',
       subtitle: 'Very interesting description about this menu item*',
@@ -37,17 +37,17 @@ export const calculateBuilderItemDescription = (type: AD_BUILDER_TYPE) => {
   return description;
 };
 
-export const calculateBuilderItemBackground = (type: AD_BUILDER_TYPE) => {
+export const calculateBuilderItemBackground = (type: AdBuilderType) => {
   let background;
-  if (type === AD_BUILDER_TYPE.SKAG) {
+  if (type === AdBuilderType.SKAG) {
     return (background = '#EDFCFE');
   }
 
-  if (type === AD_BUILDER_TYPE.STAG) {
+  if (type === AdBuilderType.STAG) {
     return (background = '#F7F5FF');
   }
 
-  if (type === AD_BUILDER_TYPE.AD) {
+  if (type === AdBuilderType.AD) {
     return (background = '#FEF2EF');
   }
 

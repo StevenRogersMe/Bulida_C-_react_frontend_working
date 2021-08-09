@@ -1,6 +1,17 @@
 import styled from 'styled-components';
+import { AdType, Expandable } from 'src/utils/types';
+import { AD_TYPES_OPTIONS } from 'src/utils/consts';
+import { MIDropDown } from 'src/components/common/MIDropDown';
 
-export const SkagAdCreatorTableHeader = () => {
+type Props = {
+  selectedAdType: AdType;
+  onSelectAdType: (change: Expandable<{ value: string }>) => void;
+};
+
+export const SkagAdCreatorTableHeader = ({
+  selectedAdType,
+  onSelectAdType,
+}: Props) => {
   return (
     <TableHeader>
       <ItemContainer>
@@ -10,6 +21,12 @@ export const SkagAdCreatorTableHeader = () => {
             Total <Bold>COUNT</Bold>
           </Text>
         </ItemHeader>
+        <MIDropDown
+          label='Choose the type'
+          value={selectedAdType}
+          options={AD_TYPES_OPTIONS}
+          onChange={onSelectAdType}
+        />
       </ItemContainer>
       {/* <ItemContainer></ItemContainer> */}
     </TableHeader>
@@ -31,6 +48,7 @@ const ItemContainer = styled.div`
 const ItemHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.9rem;
 `;
 
 const Text = styled.div``;

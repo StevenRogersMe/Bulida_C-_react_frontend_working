@@ -1,10 +1,3 @@
-export enum AD_BUILDER_TYPE {
-  STAG = 'stag',
-  SKAG = 'skag',
-  AD = 'ad',
-  EMPTY = 'empty',
-}
-
 export const PROGRESS_BAR_STEPS = {
   skag: [
     'Start',
@@ -23,3 +16,30 @@ export const PROGRESS_BAR_STEPS = {
     'Finish',
   ],
 };
+
+export const AD_TYPES_OPTIONS = [
+  {
+    label: 'All types',
+    value: 'all',
+  },
+  {
+    label: 'Expanded text ad',
+    value: 'expanded',
+  },
+  {
+    label: 'Call only ad',
+    value: 'call',
+  },
+  {
+    label: 'Responsive research ad',
+    value: 'responsive',
+  },
+  {
+    label: 'Snippet extention',
+    value: 'snippet',
+  },
+  {
+    label: 'Callout extention',
+    value: 'callout',
+  },
+];
