@@ -85,5 +85,6 @@ export const theme = {
     blue2: '#227DF3',
     background: '#DAE2F9',
     stroke: '#CFD9E1',
+    translucent1: 'rgba(33, 33, 36, 0.5)',
   },
 };

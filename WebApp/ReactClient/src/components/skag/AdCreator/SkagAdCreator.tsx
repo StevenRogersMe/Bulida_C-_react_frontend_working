@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { CampaignType, AdType } from 'src/utils/types';
-import { SkagAdCreatorTableHeader } from 'src/components/skag/SkagAdCreatorTableHeader';
+import { SkagAdCreatorTableHeader } from 'src/components/skag/AdCreator/SkagAdCreatorTableHeader';
 
 type Props = {
   campaign: CampaignType;
