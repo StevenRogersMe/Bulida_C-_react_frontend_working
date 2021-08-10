@@ -5,9 +5,10 @@ import { SkagAdCreatorTableHeader } from 'src/components/skag/AdCreator/SkagAdCr
 
 type Props = {
   campaign: CampaignType;
+  createExpTextAdExt: () => void;
 };
 
-export const SkagAdCreator = ({ campaign }: Props) => {
+export const SkagAdCreator = ({ campaign, createExpTextAdExt }: Props) => {
   const [selectedAdType, setSelectedAdType] = useState<AdType>(AdType.ALL);
   const [selectedAdGroup, setSelectedAdGroup] = useState<string>('');
   const { adGroupList } = campaign;
@@ -45,6 +46,7 @@ export const SkagAdCreator = ({ campaign }: Props) => {
         selectedAdGroup={selectedAdGroup}
         onSelectAdType={onSelectAdType}
         onSelectAdGroup={onSelectAdGroup}
+        createExpTextAdExt={createExpTextAdExt}
       />
     </Container>
   );

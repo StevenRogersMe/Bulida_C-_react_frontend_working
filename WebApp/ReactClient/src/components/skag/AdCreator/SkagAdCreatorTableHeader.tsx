@@ -14,6 +14,7 @@ type Props = {
   selectedAdGroup: string;
   onSelectAdType: (change: Expandable<{ value: string }>) => void;
   onSelectAdGroup: (change: Expandable<{ value: string }>) => void;
+  createExpTextAdExt: () => void;
 };
 
 export const SkagAdCreatorTableHeader = ({
@@ -23,6 +24,7 @@ export const SkagAdCreatorTableHeader = ({
   selectedAdGroup,
   onSelectAdType,
   onSelectAdGroup,
+  createExpTextAdExt,
 }: Props) => {
   const adGroupOptions = adGroupList
     .map((el) => el.adGroup)
@@ -31,7 +33,9 @@ export const SkagAdCreatorTableHeader = ({
     MIModalMessage,
     {
       id: 'selectAdGroup',
-      footerComponent: <AdCreatorModalFooter />
+      footerComponent: (
+        <AdCreatorModalFooter createExpTextAdExt={createExpTextAdExt} />
+      ),
     }
   );
 

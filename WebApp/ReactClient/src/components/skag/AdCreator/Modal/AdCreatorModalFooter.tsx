@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 
-export const AdCreatorModalFooter = () => {
+type Props = {
+  createExpTextAdExt: () => void;
+};
+
+export const AdCreatorModalFooter = ({ createExpTextAdExt }: Props) => {
   return (
     <Wrapper>
       <ItemContainer>
-        <Item>Add exp. text ad</Item>
+        <Item onClick={createExpTextAdExt}>Add exp. text ad</Item>
         <Item>Add snippet extention</Item>
         <Item>Add call only ad</Item>
       </ItemContainer>

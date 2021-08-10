@@ -28,7 +28,8 @@ export const BuilderContainer = ({
   const isSKAGFlow = selectedBuilderType === AdBuilderType.SKAG;
   const isSTAGFlow = selectedBuilderType === AdBuilderType.STAG;
 
-  const { skagCampaign, setSkagKeywords } = useSkagCampaignBuilder();
+  const { skagCampaign, setSkagKeywords, createExpTextAdExt } =
+    useSkagCampaignBuilder();
 
   const startSKAGFlow = () => {
     setCurrentStep(1);
@@ -47,7 +48,12 @@ export const BuilderContainer = ({
 
   const SKAGFlowPages = {
     1: <SkagBuilder campaign={skagCampaign} setKeywords={setSkagKeywords} />,
-    2: <SkagAdCreator campaign={skagCampaign} />,
+    2: (
+      <SkagAdCreator
+        campaign={skagCampaign}
+        createExpTextAdExt={createExpTextAdExt}
+      />
+    ),
     3: <SkagConfigurator />,
     4: <SkagReviewer />,
   };
