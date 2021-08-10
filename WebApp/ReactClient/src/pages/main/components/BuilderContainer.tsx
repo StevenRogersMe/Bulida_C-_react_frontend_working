@@ -7,7 +7,7 @@ import { StagAdCreator } from 'src/components/stag/StagAdCreator';
 import { StagConfigurator } from 'src/components/stag/StagConfigurator';
 import { StagReviewer } from 'src/components/stag/StagReviewer';
 import { SkagBuilder } from 'src/components/skag/SkagBuilder';
-import { SkagAdCreator } from 'src/components/skag/SkagAdCreator';
+import { SkagAdCreator } from 'src/components/skag/AdCreator/SkagAdCreator';
 import { SkagConfigurator } from 'src/components/skag/SkagConfigurator';
 import { SkagReviewer } from 'src/components/skag/SkagReviewer';
 import { useSkagCampaignBuilder } from 'src/hooks/useSkagCampaignBuilder';

@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { AdType, Expandable, AdGroupType } from 'src/utils/types';
 import { AD_TYPES_OPTIONS } from 'src/utils/consts';
 import { MIDropDown } from 'src/components/common/MIDropDown';
+import { useModal } from 'src/helpers/react/useModal';
+import { MIModalMessage } from 'src/components/common/MIModalMessage';
 import PlusIcon from 'src/images/general/plus-icon.svg';
 
 type Props = {
@@ -24,9 +26,16 @@ export const SkagAdCreatorTableHeader = ({
   const adGroupOptions = adGroupList
     .map((el) => el.adGroup)
     .map((el) => ({ label: el, value: el }));
+  const [SelectAdGroupModal, showSelectAdGroupModal] = useModal(
+    MIModalMessage,
+    {
+      id: 'selectAdGroup',
+    }
+  );
 
   return (
     <TableHeader>
+      {SelectAdGroupModal}
       <LeftBlock>
         <ItemContainer>
           <ItemHeader>
@@ -58,7 +67,7 @@ export const SkagAdCreatorTableHeader = ({
         </ItemContainer>
       </LeftBlock>
       <RightBlock>
-        <CreateAdButton>
+        <CreateAdButton onClick={showSelectAdGroupModal}>
           Add ads or extentions <CreateAdIcon src={PlusIcon} />
         </CreateAdButton>
       </RightBlock>
