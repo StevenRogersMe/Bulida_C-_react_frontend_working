@@ -22,6 +22,7 @@ export const StepLayout = ({
 }: Props) => {
   const isFirstStep = currentStep === 1 && !isNil(currentStep);
   const showStepFooter = !isNil(currentStep) && !isEmpty(progressBarSteps);
+  const isNextDisabled = currentStep === progressBarSteps.length - 1;
 
   const onPrev = () => {
     if (isFirstStep) {
@@ -32,7 +33,9 @@ export const StepLayout = ({
   };
 
   const onNext = () => {
-    setCurrentStep(currentStep + 1);
+    if (!isNextDisabled) {
+      setCurrentStep(currentStep + 1);
+    }
   };
 
   return (
@@ -61,7 +64,7 @@ export const StepLayout = ({
             <PrevStepIcon src={PrevIcon} />
           </PrevStepIconContainer>
         </PrevStepButton>
-        <NextStepButton onClick={onNext}>
+        <NextStepButton onClick={onNext} isDisabled={isNextDisabled}>
           NEXT
           <NextStepIconContainer>
             <NextStepIcon src={NextIcon} />
@@ -127,11 +130,17 @@ const PrevStepIcon = styled.img`
   height: 2rem;
 `;
 
-const NextStepButton = styled.button`
+const NextStepButton = styled.button<{ isDisabled: boolean }>`
   color: ${(props) => props.theme.colors.white};
-  background-color: ${(props) => props.theme.colors.blue2};
+  background-color: ${(props) =>
+    props.isDisabled ? props.theme.colors.stroke : props.theme.colors.blue2};
   border: none;
   ${StepButtonStyles}
+  cursor: ${(props) => props.isDisabled && 'default'};
+
+  &:hover {
+    box-shadow: ${(props) => props.isDisabled && 'none'};
+  }
 `;
 
 const NextStepIconContainer = styled.div`
