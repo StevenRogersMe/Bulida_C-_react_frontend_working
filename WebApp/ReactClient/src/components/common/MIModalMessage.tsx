@@ -61,6 +61,7 @@ const ModalContainer = styled.div`
   max-height: calc(100vh - 8rem);
   overflow-y: auto;
   z-index: 1;
+  border-radius: 2rem;
   background-color: ${(props) => props.theme.colors.white};
 `;
 
@@ -73,6 +74,7 @@ const ModalContentContainer = styled.div`
 `;
 
 export const CloseButtonWrapper = styled.div`
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,9 +87,7 @@ export const CloseButtonWrapper = styled.div`
 
 const ContentContainer = styled.div``;
 
-export const FooterContainer = styled.div`
-  margin-bottom: 3.5rem;
-`;
+export const FooterContainer = styled.div``;
 
 const CloseModalIcon = styled.img`
   width: 1.5rem;

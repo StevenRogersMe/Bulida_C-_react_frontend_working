@@ -4,6 +4,7 @@ import { AD_TYPES_OPTIONS } from 'src/utils/consts';
 import { MIDropDown } from 'src/components/common/MIDropDown';
 import { useModal } from 'src/helpers/react/useModal';
 import { MIModalMessage } from 'src/components/common/MIModalMessage';
+import { AdCreatorModalFooter } from './Modal/AdCreatorModalFooter';
 import PlusIcon from 'src/images/general/plus-icon.svg';
 
 type Props = {
@@ -30,6 +31,7 @@ export const SkagAdCreatorTableHeader = ({
     MIModalMessage,
     {
       id: 'selectAdGroup',
+      footerComponent: <AdCreatorModalFooter />
     }
   );
 

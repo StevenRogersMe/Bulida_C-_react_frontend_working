@@ -26,8 +26,7 @@ export function useModal(Component, options: UseModalOptions): UseModalReturn {
         params: isPlainObject(params) ? params : {},
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [actionName]
+    [actionName] // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   const dismiss = useCallback(
@@ -38,8 +37,7 @@ export function useModal(Component, options: UseModalOptions): UseModalReturn {
       });
       onDismiss && onDismiss(result);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [actionName, onDismiss]
+    [actionName, onDismiss] // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   const DialogComponent = state.showing && (
