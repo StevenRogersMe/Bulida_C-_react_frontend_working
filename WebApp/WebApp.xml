@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApp</name>
+    </assembly>
+    <members>
+        <member name="M:WebApp.Controllers.AuthenticationController.Authenticate(Services.Authentication.AuthenticationRequest)">
+            <summary>
+            Athentication
+            </summary>
+        </member>
+        <member name="M:WebApp.Controllers.AuthenticationController.Refresh(Services.Authentication.RefreshTokenRequest)">
+            <summary>
+            Refresh token
+            </summary>
+        </member>
+        <member name="F:WebApp.Controllers.GoogleAdsController.client">
+            <summary>
+            The Google Ads client.
+            </summary>
+        </member>
+        <member name="F:WebApp.Controllers.GoogleAdsController.loginHelper">
+            <summary>
+            The login helper.
+            </summary>
+        </member>
+        <member name="M:WebApp.Controllers.GoogleAdsController.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Services.Compaing.IGoogleService,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebApp.Controllers.GoogleAdsController"/> class.
+            </summary>
+            <param name="configRoot">The configuration root.</param>
+        </member>
+        <member name="M:WebApp.Controllers.GoogleAdsController.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Called before the action method is invoked.
+            </summary>
+            <param name="context">The action executing context.</param>
+        </member>
+        <member name="F:WebApp.Controllers.GoogleLoginController.config">
+            <summary>
+            The Google Ads configuration.
+            </summary>
+        </member>
+        <member name="M:WebApp.Controllers.GoogleLoginController.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="!:LoginController"/> class.
+            </summary>
+            <param name="configRoot">The configuration root.</param>
+        </member>
+        <member name="F:WebApp.Helpers.WebLoginHelper.context">
+            <summary>
+            The http context.
+            </summary>
+        </member>
+        <member name="F:WebApp.Helpers.WebLoginHelper.flow">
+            <summary>
+            The authorization code flow instance.
+            </summary>
+        </member>
+        <member name="F:WebApp.Helpers.WebLoginHelper.config">
+            <summary>
+            The config instance.
+            </summary>
+        </member>
+        <member name="F:WebApp.Helpers.WebLoginHelper.CREDENTIALS_KEY">
+            <summary>
+            The credentials key name.
+            </summary>
+        </member>
+        <member name="F:WebApp.Helpers.WebLoginHelper.STATE_PARAMETER">
+            <summary>
+            The state parameter. If set on the callback URI, and will be passed back once the
+            user is authorized.
+            </summary>
+        </member>
+        <member name="M:WebApp.Helpers.WebLoginHelper.#ctor(Microsoft.AspNetCore.Http.HttpContext,Google.Ads.GoogleAds.Config.GoogleAdsConfig)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebApp.Helpers.WebLoginHelper"/> class.
+            </summary>
+            <param name="context">The HTTP context.</param>
+            <param name="config">The Google Ads configuration.</param>
+        </member>
+        <member name="M:WebApp.Helpers.WebLoginHelper.RedirectUsertoOAuthServer">
+            <summary>
+            Redirects the user to the OAuth server.
+            </summary>
+        </member>
+        <member name="M:WebApp.Helpers.WebLoginHelper.ExchangeAuthorizationCodeForCredentials">
+            <summary>
+            Exchanges the authorization code for credentials.
+            </summary>
+            <returns>The <see cref="P:WebApp.Helpers.WebLoginHelper.TokenResponse"/> object that contains the access
+            and refresh tokens.</returns>
+        </member>
+        <member name="P:WebApp.Helpers.WebLoginHelper.IsLoggedIn">
+            <summary>
+            Checks whether the user is logged in or not.
+            </summary>
+        </member>
+        <member name="P:WebApp.Helpers.WebLoginHelper.TokenResponse">
+            <summary>
+            Gets or sets the token response of the logged in user.
+            </summary>
+        </member>
+        <member name="M:WebApp.Helpers.WebLoginHelper.Logout">
+            <summary>
+            Logs out the current user.
+            </summary>
+        </member>
+        <member name="M:WebApp.Helpers.WebLoginHelper.IsCallbackFromOAuthServer">
+            <summary>
+            Determines whether the current page load is due to a callback from the OAuth server.
+            </summary>
+        </member>
+        <member name="M:WebApp.Helpers.WebLoginHelper.GetCurrentPagePath">
+            <summary>
+            Gets path to the current page.
+            </summary>
+            <returns>The path to the current page.</returns>
+        </member>
+        <member name="T:WebApp.Pages.GoogleAds.IndexModel">
+            <summary>
+            The model class for the index page.
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.RazorPages.PageModel" />
+        </member>
+        <member name="F:WebApp.Pages.GoogleAds.IndexModel.loginHelper">
+            <summary>
+            The login helper.
+            </summary>
+        </member>
+        <member name="F:WebApp.Pages.GoogleAds.IndexModel.config">
+            <summary>
+            The Google Ads configuration.
+            </summary>
+        </member>
+        <member name="M:WebApp.Pages.GoogleAds.IndexModel.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebApp.Pages.GoogleAds.IndexModel"/> class.
+            </summary>
+            <param name="configRoot">The configuration root.</param>
+        </member>
+        <member name="M:WebApp.Pages.GoogleAds.IndexModel.OnGet">
+            <summary>
+            Handles the GET call.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebApp.Pages.GoogleAds.IndexModel.OnPostLogin">
+            <summary>
+            Handles the POST call when the login button is clicked.
+            </summary>
+        </member>
+        <member name="M:WebApp.Pages.GoogleAds.IndexModel.OnPostLogout">
+            <summary>
+            Handles the POST call when the logout button is clicked.
+            </summary>
+        </member>
+    </members>
+</doc>

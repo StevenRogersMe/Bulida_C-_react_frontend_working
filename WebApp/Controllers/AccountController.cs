@@ -27,38 +27,7 @@ namespace WebApp.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet]
-        public IActionResult Login(string returnUrl = null)
-        {
-            ViewData["ReturnUrl"] = returnUrl ?? "/";
-            return View();
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, true, false);
-                if (result.Succeeded)
-                {
-                    //await Authenticate(model.Username);
-                    if (User.Identity.IsAuthenticated)
-                    {
-                       
-                    }
-                    return RedirectToAction("Index", "Home");
-                }
-                ModelState.AddModelError("", "Wrong login or password");
-            }
-            return View(model);
-        }
-
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterModel model)

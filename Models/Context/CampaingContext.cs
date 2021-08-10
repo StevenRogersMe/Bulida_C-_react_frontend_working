@@ -23,5 +23,6 @@ namespace Dal.Context
         public DbSet<CompaingAdGroupExt> CompaingAdGroupExt { get; set; }
         public DbSet<CompaingGroup> CompaingGroups { get; set; }
         public DbSet<CompaingKeyWord> KeyWords { get; set; }
-    }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+  }
 }

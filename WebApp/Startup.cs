@@ -1,6 +1,5 @@
 using Core.Users;
 using Dal.Context;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,108 +10,122 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Services.Authentication;
 using Services.Compaing;
-using System;
 using System.IO;
+using WebApp.IoC;
+using WebApp.Middleware;
 
 namespace WebApp
 {
-    public class Startup
+  public class Startup
+  {
+    public Startup(IConfiguration configuration)
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddRazorPages();
-            services.AddControllers();
-            services.AddSession();
-            services.AddHttpContextAccessor();
-
-            services.AddMvc(option => option.EnableEndpointRouting = false);
-            services.AddSpaStaticFiles(configuration =>
-            {
-              configuration.RootPath = "ReactClient/build";
-            });
-
-            // Adds EntityFramework.
-            services.AddDbContext<CampaingContext>(x =>
-            {
-                // Configuring EntityFramework for Postgres.
-                x.UseNpgsql(Configuration.GetConnectionString("CompaingDatabase"));
-            });
-
-            services.AddIdentity<AplicationUser, IdentityRole>(options =>
-            {
-                options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 6;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.User.RequireUniqueEmail = true;
-                options.SignIn.RequireConfirmedEmail = false;
-                options.SignIn.RequireConfirmedAccount = false;
-            })
-               .AddEntityFrameworkStores<CampaingContext>().AddDefaultTokenProviders();
-
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //    .AddCookie(options =>
-            //    {
-            //        options.LoginPath = new PathString("/Account/Login");
-            //        options.AccessDeniedPath = new PathString("/Account/Login");
-            //    });
-
-
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>(); 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<ICompaingAplicationService, CompaingAplicationService>();
-            services.AddScoped<IGoogleService, GoogleService>();
+      Configuration = configuration;
     }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+    public IConfiguration Configuration { get; }
 
-      app.UseSpa(spa =>
+    // This method gets called by the runtime. Use this method to add services to the container.
+    public void ConfigureServices(IServiceCollection services)
+    {
+      // Register dependencies for using CORS, required for app.UseCors().
+      services.AddCors();
+
+      services.AddControllers();
+      //services.AddSession();
+      services.AddHttpContextAccessor();
+
+
+      services.RegisterAllConfigurationSettings(Configuration);
+
+
+
+      // Adds EntityFramework.
+      services.AddDbContext<CampaingContext>(x =>
       {
-        spa.Options.SourcePath = Path.Join(env.ContentRootPath, "ReactClient");
-        if (env.IsDevelopment())
-        {
-          spa.UseReactDevelopmentServer(npmScript: "start");
-        }
+              // Configuring EntityFramework for Postgres.
+              x.UseNpgsql(Configuration.GetConnectionString("CompaingDatabase"));
       });
-     
-      app.UseStaticFiles();
-            app.UseRouting();
-            
-            app.UseHttpsRedirection();
-            app.UseAuthentication();
-            app.UseAuthorization();
-            app.UseSession();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-                endpoints.MapControllers();
-                endpoints.MapControllerRoute(
-                   name: "default",
-                   pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
-        }
+
+      services.AddIdentity<AplicationUser, IdentityRole>(options =>
+      {
+        options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.User.RequireUniqueEmail = true;
+        options.SignIn.RequireConfirmedEmail = false;
+        options.SignIn.RequireConfirmedAccount = false;
+      })
+         .AddEntityFrameworkStores<CampaingContext>().AddDefaultTokenProviders();
+
+      // Builds provider of our settings from appsettings.json.
+      var serviceProvider = services.BuildServiceProvider();
+
+      // Adding Authentication based on using of JwtToken.
+      var jwtSettings = serviceProvider.GetService<JwtSettings>();
+      var jwtIssuerSettings = serviceProvider.GetService<JwtIssuerSettings>();
+      services.AddAuthentication(jwtSettings, jwtIssuerSettings);
+
+      // Authorization.
+      services.AddAuthorization();
+
+      // Adds Swagger.
+      services.AddSwagger();
+      services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+      services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+      services.AddScoped<ICompaingAplicationService, CompaingAplicationService>();
+      services.AddScoped<IGoogleService, GoogleService>();
     }
+
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory factory)
+    {
+      if (env.IsDevelopment())
+      {
+        app.UseDeveloperExceptionPage();
+        // Add Swagger
+        app.UseSwaggerDocumentation();
+      }
+      else
+      {
+        app.UseExceptionHandler("/Error");
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
+      }
+
+      // Intercept exceptions
+      app.ConfigureExceptionHandler(factory.CreateLogger<Startup>());
+
+      // Auto redirect to https
+      app.UseHttpsRedirection();
+
+      // Adds setup HttpContext.User for each request.
+      app.UseAuthentication();
+
+      // Routing for requests
+      app.UseRouting();
+
+      var originSettings = app.ApplicationServices.GetRequiredService<OriginSettings>();
+      app.UseCors(x => x.WithOrigins(originSettings.FrontendOrigin)
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+
+      // Adds the component, which controls access to resources.
+      app.UseAuthorization();
+
+
+      // Adds our controllers and actions to the list of possible endpoints.
+      app.UseEndpoints(endpoints =>
+      {
+        endpoints.MapControllers();
+      });
+    }
+  }
 }
