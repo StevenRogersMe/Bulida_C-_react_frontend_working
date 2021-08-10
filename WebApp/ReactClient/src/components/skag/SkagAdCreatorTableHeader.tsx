@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { AdType, Expandable, AdGroupType } from 'src/utils/types';
 import { AD_TYPES_OPTIONS } from 'src/utils/consts';
 import { MIDropDown } from 'src/components/common/MIDropDown';
+import PlusIcon from 'src/images/general/plus-icon.svg';
 
 type Props = {
   adsCount: number;
@@ -26,44 +27,81 @@ export const SkagAdCreatorTableHeader = ({
 
   return (
     <TableHeader>
-      <ItemContainer>
-        <ItemHeader>
-          <Text>Ad types</Text>
-          <Text>
-            Total <Bold>{adsCount}</Bold>
-          </Text>
-        </ItemHeader>
-        <MIDropDown
-          label='Choose the type'
-          value={selectedAdType}
-          options={AD_TYPES_OPTIONS}
-          onChange={onSelectAdType}
-        />
-      </ItemContainer>
-      <ItemContainer>
-        <ItemHeader>
-          <Text>Ad groups</Text>
-          <Text>
-            Total <Bold>{adsCount}</Bold>
-          </Text>
-        </ItemHeader>
-        <MIDropDown
-          label='Choose the type'
-          value={selectedAdGroup}
-          options={adGroupOptions}
-          onChange={onSelectAdGroup}
-        />
-      </ItemContainer>
+      <LeftBlock>
+        <ItemContainer>
+          <ItemHeader>
+            <Text>Ad types</Text>
+            <Text>
+              Total <Bold>{adsCount}</Bold>
+            </Text>
+          </ItemHeader>
+          <MIDropDown
+            label='Choose the type'
+            value={selectedAdType}
+            options={AD_TYPES_OPTIONS}
+            onChange={onSelectAdType}
+          />
+        </ItemContainer>
+        <ItemContainer>
+          <ItemHeader>
+            <Text>Ad groups</Text>
+            <Text>
+              Total <Bold>{adsCount}</Bold>
+            </Text>
+          </ItemHeader>
+          <MIDropDown
+            label='Choose the type'
+            value={selectedAdGroup}
+            options={adGroupOptions}
+            onChange={onSelectAdGroup}
+          />
+        </ItemContainer>
+      </LeftBlock>
+      <RightBlock>
+        <CreateAdButton>
+          Add ads or extentions <CreateAdIcon src={PlusIcon} />
+        </CreateAdButton>
+      </RightBlock>
     </TableHeader>
   );
 };
 
 const TableHeader = styled.div`
-  width: 65%;
+  width: inherit;
   margin-bottom: 3rem;
   display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   color: ${(props) => props.theme.colors.grey2};
   ${(props) => props.theme.text.fontType.body1};
+`;
+
+const LeftBlock = styled.div`
+  display: flex;
+`;
+
+const RightBlock = styled.div``;
+
+const CreateAdButton = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-radius: 0.8rem;
+  color: ${(props) => props.theme.colors.blue1};
+  background-color: ${(props) => props.theme.colors.lightBlue1};
+  ${(props) => props.theme.text.fontType.body3};
+  font-weight: 500;
+
+  &:hover {
+    box-shadow: 0 0.5rem 1rem 0 rgba(33, 33, 36, 0.2);
+  }
+`;
+
+const CreateAdIcon = styled.img`
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: 1.5rem;
 `;
 
 const ItemContainer = styled.div`

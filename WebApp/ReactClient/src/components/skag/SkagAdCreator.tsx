@@ -51,7 +51,8 @@ export const SkagAdCreator = ({ campaign }: Props) => {
 };
 
 const Container = styled.div`
-  width: 100%;
+  width: -webkit-fill-available;
+  padding: 0 12rem;
   display: flex;
   flex-direction: column;
   align-items: center;

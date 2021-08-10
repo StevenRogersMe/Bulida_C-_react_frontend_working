@@ -77,7 +77,7 @@ const Children = styled.div``;
 const StepHeader = styled.div`
   display: flex;
   height: 4.8rem;
-  padding: 5rem 13rem 20rem 13rem;
+  padding: 5rem 12rem 20rem 12rem;
   margin-bottom: -15rem;
   background-color: ${(props) => props.theme.colors.pureWhite};
 `;

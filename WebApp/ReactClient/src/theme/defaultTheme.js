@@ -80,7 +80,7 @@ export const theme = {
     grey3: '#E1E3EA',
     grey4: '#F9F9FB',
     grey5: '#C0C6DA',
-    lightGrey1: '#F7FAFC',
+    lightBlue1: '#E7F0F6',
     blue1: '#127DBA',
     blue2: '#227DF3',
     background: '#DAE2F9',

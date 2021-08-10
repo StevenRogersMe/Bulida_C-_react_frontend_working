@@ -94,6 +94,7 @@ const LastStep = styled.div`
   border: 0.2rem dashed ${(props) => props.theme.colors.stroke};
   ${(props) => props.theme.text.fontType.body2};
   ${StepStyles};
+  margin-right: 0;
 `;
 
 const LastStepContainer = styled.div`
