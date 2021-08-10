@@ -25,8 +25,9 @@ export const useSkagCampaignBuilder = (): {
   const setSkagKeywords = (keywords: string[]) => {
     const adGroupList: AdGroupType[] = [];
 
-    keywords.forEach((keyword) => {
+    keywords.forEach((keyword, index) => {
       adGroupList.push({
+        id: index + 1,
         adGroup: keyword,
         keywords: [keyword],
         negatives: [],

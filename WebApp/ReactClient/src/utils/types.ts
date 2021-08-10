@@ -32,6 +32,7 @@ export type CampaignType = {
 };
 
 export type AdGroupType = {
+  id: number;
   adGroup: string;
   keywords: string[];
   negatives: string[];
