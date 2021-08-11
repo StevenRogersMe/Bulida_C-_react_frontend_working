@@ -36,6 +36,13 @@ export const SkagAdCreatorTableHeader = ({
       footerComponent: (
         <AdCreatorModalFooter createExpTextAdExt={createExpTextAdExt} />
       ),
+      titleComponent: (
+        <TitleContainer>
+          <Title>
+            Ad <Bold>Ad</Bold> Or <Bold>Extention</Bold>
+          </Title>
+        </TitleContainer>
+      ),
     }
   );
 
@@ -132,6 +139,17 @@ const ItemHeader = styled.div`
 `;
 
 const Text = styled.div``;
+
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+`;
+
+const Title = styled.span`
+  ${(props) => props.theme.text.fontType.h5};
+  font-weight: normal;
+`;
 
 const Bold = styled.span`
   font-weight: bold;

@@ -4,12 +4,14 @@ import styled from 'styled-components';
 import CloseIcon from 'src/images/general/close-icon.svg';
 
 type Props = {
+  titleComponent?: ReactNode;
   contentComponent?: ReactNode;
   footerComponent?: ReactNode;
   dismiss: (event: React.MouseEvent) => void;
 };
 
 export const MIModalMessage = ({
+  titleComponent,
   contentComponent,
   footerComponent,
   dismiss,
@@ -24,10 +26,10 @@ export const MIModalMessage = ({
               <CloseModalIcon src={CloseIcon} />
             </CloseButtonWrapper>
           )}
+          {titleComponent && <TitleContainer>{titleComponent}</TitleContainer>}
           {contentComponent && (
             <ContentContainer>{contentComponent}</ContentContainer>
           )}
-
           {footerComponent && (
             <FooterContainer>{footerComponent}</FooterContainer>
           )}
@@ -84,6 +86,8 @@ export const CloseButtonWrapper = styled.div`
   top: 1.8rem;
   right: 1.8rem;
 `;
+
+const TitleContainer = styled.div``;
 
 const ContentContainer = styled.div``;
 

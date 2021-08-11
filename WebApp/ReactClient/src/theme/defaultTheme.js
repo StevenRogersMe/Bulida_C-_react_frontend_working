@@ -25,7 +25,7 @@ export const theme = {
       `,
       h5: `
       font-size: 2.4rem;
-      line-height: 3.2rem;
+      line-height: 2.9rem;
       font-weight: bold;
       `,
       h6: `
