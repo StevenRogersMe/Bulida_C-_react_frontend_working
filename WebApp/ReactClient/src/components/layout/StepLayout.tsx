@@ -90,8 +90,6 @@ const StepFooter = styled.div<{ showStepFooter: boolean }>`
   justify-content: center;
   flex-direction: space-between;
   width: 100%;
-  position: absolute;
-  bottom: 0;
   margin: 2rem 0;
 `;
 

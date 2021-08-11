@@ -9,12 +9,12 @@ export const AdCreatorModalFooter = ({ createExpTextAdExt }: Props) => {
     <Wrapper>
       <ItemContainer>
         <Item onClick={createExpTextAdExt}>Add exp. text ad</Item>
-        <Item>Add snippet extention</Item>
+        <Item>Add resp.search ad</Item>
         <Item>Add call only ad</Item>
       </ItemContainer>
       <ItemContainer>
         <Item>Add callout extention</Item>
-        <Item>Add resp.search ad</Item>
+        <Item>Add snippet extention</Item>
         <Item>Add sitelink extention</Item>
       </ItemContainer>
     </Wrapper>
