@@ -49,7 +49,7 @@ export const SkagAdCreator = ({ campaign, createExpTextAdExt }: Props) => {
         onSelectAdGroup={onSelectAdGroup}
         createExpTextAdExt={createExpTextAdExt}
       />
-      <SkagAdCreatorTable />
+      <SkagAdCreatorTable adsCount={adsCount} />
     </Container>
   );
 };

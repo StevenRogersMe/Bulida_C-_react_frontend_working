@@ -63,7 +63,7 @@ const KeywordsContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  ${(props) => props.theme.text.fontType.h7};
+  ${(props) => props.theme.text.fontType.h6};
 `;
 
 const KeywordsInput = styled.textarea`

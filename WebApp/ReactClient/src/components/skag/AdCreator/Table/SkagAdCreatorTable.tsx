@@ -1,6 +1,12 @@
 import styled from 'styled-components';
+import { SkagAdCreatorTableEmptyState } from 'src/components/skag/AdCreator/Table/SkagAdCreatorTableEmptyState';
 
-export const SkagAdCreatorTable = () => {
+type Props = {
+  adsCount: number;
+};
+
+export const SkagAdCreatorTable = ({ adsCount }: Props) => {
+  const showEmptyState = adsCount === 0;
   return (
     <Container>
       <BlockContainer>
@@ -11,8 +17,14 @@ export const SkagAdCreatorTable = () => {
             <RightBlockItem>Add groups</RightBlockItem>
           </RightBlock>
         </Header>
-        <Table />
+        {showEmptyState ? <SkagAdCreatorTableEmptyState /> : <Table />}
       </BlockContainer>
+      {!showEmptyState && (
+        <BlockContainer>
+          <Table />
+          <Footer />
+        </BlockContainer>
+      )}
     </Container>
   );
 };
@@ -21,6 +33,11 @@ const Container = styled.div`
   width: inherit;
   margin-bottom: 3rem;
   display: flex;
+  flex-direction: column;
+
+  > div:nth-child(1) {
+    margin-bottom: 1rem;
+  }
 `;
 
 const BlockContainer = styled.div`
@@ -34,7 +51,6 @@ const BlockContainer = styled.div`
 
 const Header = styled.div`
   display: flex;
-  width: 100%;
   padding: 1.5rem 3rem;
   color: ${(props) => props.theme.colors.pureWhite};
   background-color: ${(props) => props.theme.colors.blue2};
@@ -44,7 +60,7 @@ const Header = styled.div`
 
 const LeftBlock = styled.div`
   display: flex;
-  width: 50%;
+  width: 55%;
 `;
 
 const RightBlock = styled.div`
@@ -59,7 +75,12 @@ const RightBlockItem = styled.div`
 
 const Table = styled.div`
   display: flex;
-  width: 100%;
   padding: 1.5rem 3rem;
   ${(props) => props.theme.text.fontType.body2};
+`;
+
+const Footer = styled.div`
+  display: flex;
+  padding: 1.5rem 3rem;
+  background-color: ${(props) => props.theme.colors.blue2};
 `;

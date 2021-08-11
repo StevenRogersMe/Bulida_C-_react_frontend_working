@@ -14,26 +14,21 @@ export const theme = {
       font-weight: bold;
       `,
       h3: `
-      font-size: 3.4rem;
-      line-height: 4.2rem;
-      font-weight: bold;
+      font-size: 2.4rem;
+      line-height: 3.4rem;
+      font-weight: 500;
       `,
       h4: `
-      font-size: 2.4rem;
-      line-height: 3.7rem;
-      font-weight: bold;
-      `,
-      h5: `
       font-size: 2.4rem;
       line-height: 2.9rem;
       font-weight: bold;
       `,
-      h6: `
+      h5: `
       font-size: 2rem;
       line-height: 3.3rem;
       font-weight: bold;
       `,
-      h7: `
+      h6: `
       font-size: 2rem;
       line-height: 2.4rem;
       font-weight: normal;

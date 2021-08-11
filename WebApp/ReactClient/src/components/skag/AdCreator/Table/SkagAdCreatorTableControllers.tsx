@@ -33,15 +33,19 @@ export const SkagAdCreatorTableControllers = ({
     MIModalMessage,
     {
       id: 'selectAdGroup',
+      titleComponent: (
+        <ModalTitleContainer>
+          <ModalTitle>
+            Ad <Bold>Ad</Bold> Or <Bold>Extention</Bold>
+          </ModalTitle>
+          <ModalSubtitle>
+            Creating ads here will change all ad groups. However in the next
+            section you can edit ads individually for each ad group.
+          </ModalSubtitle>
+        </ModalTitleContainer>
+      ),
       footerComponent: (
         <AdCreatorModalFooter createExpTextAdExt={createExpTextAdExt} />
-      ),
-      titleComponent: (
-        <TitleContainer>
-          <Title>
-            Ad <Bold>Ad</Bold> Or <Bold>Extention</Bold>
-          </Title>
-        </TitleContainer>
       ),
     }
   );
@@ -140,15 +144,24 @@ const ItemHeader = styled.div`
 
 const Text = styled.div``;
 
-const TitleContainer = styled.div`
+const ModalTitleContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   margin-bottom: 3rem;
 `;
 
-const Title = styled.span`
-  ${(props) => props.theme.text.fontType.h5};
+const ModalTitle = styled.span`
+  ${(props) => props.theme.text.fontType.h4};
   font-weight: normal;
+`;
+
+const ModalSubtitle = styled.span`
+  margin-top: 1rem;
+  max-width: 50rem;
+  text-align: center;
+  ${(props) => props.theme.text.fontType.body2};
 `;
 
 const Bold = styled.span`

@@ -35,7 +35,7 @@ const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   color: ${(props) => props.theme.colors.blue2};
-  ${(props) => props.theme.text.fontType.h5};
+  ${(props) => props.theme.text.fontType.h4};
 `;
 
 const Logo = styled.img``;

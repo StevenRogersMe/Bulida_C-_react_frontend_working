@@ -99,7 +99,7 @@ const StepButtonStyles = css`
   align-items: center;
   border-radius: 2rem;
   padding: 1rem 1rem 1rem 4rem;
-  ${(props) => props.theme.text.fontType.h6};
+  ${(props) => props.theme.text.fontType.h5};
 
   &:hover {
     box-shadow: 0 0.5rem 1rem 0 rgba(33, 33, 36, 0.2);
