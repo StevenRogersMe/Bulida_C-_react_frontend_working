@@ -20,7 +20,7 @@ const AppFooterContainer = styled.div`
   padding: 0.8rem 11rem 0.8rem 12rem;
   color: ${(props) => props.theme.colors.black2};
   background-color: ${(props) => props.theme.colors.pureWhite};
-  ${(props) => props.theme.text.fontType.body3};
+  ${(props) => props.theme.text.fontType.body2};
 `;
 
 const Copyright = styled.div``;

@@ -4,7 +4,7 @@ import { AD_TYPES_OPTIONS } from 'src/utils/consts';
 import { MIDropDown } from 'src/components/common/MIDropDown';
 import { useModal } from 'src/helpers/react/useModal';
 import { MIModalMessage } from 'src/components/common/MIModalMessage';
-import { AdCreatorModalFooter } from './Modal/AdCreatorModalFooter';
+import { AdCreatorModalFooter } from '../Modal/AdCreatorModalFooter';
 import PlusIcon from 'src/images/general/plus-icon.svg';
 
 type Props = {
@@ -17,7 +17,7 @@ type Props = {
   createExpTextAdExt: () => void;
 };
 
-export const SkagAdCreatorTableHeader = ({
+export const SkagAdCreatorTableControllers = ({
   adsCount,
   adGroupList,
   selectedAdType,
@@ -47,7 +47,7 @@ export const SkagAdCreatorTableHeader = ({
   );
 
   return (
-    <TableHeader>
+    <Container>
       {SelectAdGroupModal}
       <LeftBlock>
         <ItemContainer>
@@ -84,11 +84,11 @@ export const SkagAdCreatorTableHeader = ({
           Add ads or extentions <CreateAdIcon src={PlusIcon} />
         </CreateAdButton>
       </RightBlock>
-    </TableHeader>
+    </Container>
   );
 };
 
-const TableHeader = styled.div`
+const Container = styled.div`
   width: inherit;
   margin-bottom: 3rem;
   display: flex;
@@ -112,7 +112,7 @@ const CreateAdButton = styled.div`
   border-radius: 0.8rem;
   color: ${(props) => props.theme.colors.blue1};
   background-color: ${(props) => props.theme.colors.lightBlue1};
-  ${(props) => props.theme.text.fontType.body3};
+  ${(props) => props.theme.text.fontType.body2};
   font-weight: 500;
 
   &:hover {

@@ -44,7 +44,7 @@ const Menu = styled.div`
   display: flex;
   flex-direction: row;
   color: ${(props) => props.theme.colors.black1};
-  ${(props) => props.theme.text.fontType.body3};
+  ${(props) => props.theme.text.fontType.body2};
 
   > div:nth-child(2) {
     margin: 0 2rem;

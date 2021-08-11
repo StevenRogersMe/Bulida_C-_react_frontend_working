@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { CampaignType, AdType } from 'src/utils/types';
-import { SkagAdCreatorTableHeader } from 'src/components/skag/AdCreator/SkagAdCreatorTableHeader';
+import { SkagAdCreatorTableControllers } from 'src/components/skag/AdCreator/Table/SkagAdCreatorTableControllers';
+import { SkagAdCreatorTable } from './Table/SkagAdCreatorTable';
 
 type Props = {
   campaign: CampaignType;
@@ -39,7 +40,7 @@ export const SkagAdCreator = ({ campaign, createExpTextAdExt }: Props) => {
       <Title>
         <Bold>Ad</Bold> Creator
       </Title>
-      <SkagAdCreatorTableHeader
+      <SkagAdCreatorTableControllers
         adsCount={adsCount}
         adGroupList={adGroupList}
         selectedAdType={selectedAdType}
@@ -48,6 +49,7 @@ export const SkagAdCreator = ({ campaign, createExpTextAdExt }: Props) => {
         onSelectAdGroup={onSelectAdGroup}
         createExpTextAdExt={createExpTextAdExt}
       />
+      <SkagAdCreatorTable />
     </Container>
   );
 };

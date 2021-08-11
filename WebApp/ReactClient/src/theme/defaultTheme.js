@@ -49,8 +49,8 @@ export const theme = {
       font-weight: normal;
       `,
       body3: `
-      font-size: 1.6rem;
-      line-height: 2.4rem;
+      font-size: 1.8rem;
+      line-height: 2rem;
       font-weight: normal;
       `,
       body4: `
