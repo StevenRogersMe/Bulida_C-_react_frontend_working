@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 type Props = {
-  createExpTextAdExt: () => void;
+  onCreateExpTextAdExt: () => void;
 };
 
-export const AdCreatorModalFooter = ({ createExpTextAdExt }: Props) => {
+export const AdCreatorModalFooter = ({ onCreateExpTextAdExt }: Props) => {
   return (
     <Wrapper>
       <ItemContainer>
-        <Item onClick={createExpTextAdExt}>Add exp. text ad</Item>
+        <Item onClick={onCreateExpTextAdExt}>Add exp. text ad</Item>
         <Item>Add resp.search ad</Item>
         <Item>Add call only ad</Item>
       </ItemContainer>

@@ -1,3 +1,15 @@
+export enum NOTIFICATION_VARIANT {
+  SUCCESS = 'success',
+  INFO = 'info',
+  ERROR = 'error',
+}
+
+export const TIMEOUTS = {
+  CLOSE_MODAL: 2000,
+  MELIO_ME_INFO_MODAL: 2800,
+  CLOSE_NOTIFICATION: 3000,
+};
+
 export const PROGRESS_BAR_STEPS = {
   skag: [
     'Start',

@@ -1,6 +1,7 @@
 import 'src/theme/base.css';
 
 export const theme = {
+  fontFamily: "'Satoshi-Variable', sans-serif",
   text: {
     fontType: {
       h1: `
@@ -81,5 +82,8 @@ export const theme = {
     background: '#DAE2F9',
     stroke: '#CFD9E1',
     translucent1: 'rgba(33, 33, 36, 0.5)',
+    green: 'rgba(0, 210, 143, 1)',
+    main: 'rgba(33, 33, 36, 1)',
+    red: 'rgba(208, 2, 27, 1)',
   },
 };

@@ -5,6 +5,7 @@ import { MIDropDown } from 'src/components/common/MIDropDown';
 import { useModal } from 'src/helpers/react/useModal';
 import { MIModalMessage } from 'src/components/common/MIModalMessage';
 import { AdCreatorModalFooter } from '../Modal/AdCreatorModalFooter';
+import { notifySuccess } from 'src/services/notifications/notificationService';
 import PlusIcon from 'src/images/general/plus-icon.svg';
 
 type Props = {
@@ -29,6 +30,12 @@ export const SkagAdCreatorTableControllers = ({
   const adGroupOptions = adGroupList
     .map((el) => el.adGroup)
     .map((el) => ({ label: el, value: el }));
+
+  const onCreateExpTextAdExt = () => {
+    createExpTextAdExt();
+    notifySuccess({ msg: 'Exp. text ad was successfully created' });
+  };
+
   const [SelectAdGroupModal, showSelectAdGroupModal] = useModal(
     MIModalMessage,
     {
@@ -45,7 +52,7 @@ export const SkagAdCreatorTableControllers = ({
         </ModalTitleContainer>
       ),
       footerComponent: (
-        <AdCreatorModalFooter createExpTextAdExt={createExpTextAdExt} />
+        <AdCreatorModalFooter onCreateExpTextAdExt={onCreateExpTextAdExt} />
       ),
     }
   );
