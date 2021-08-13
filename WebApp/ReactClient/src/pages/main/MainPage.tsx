@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { StepLayout } from 'src/components/layout/StepLayout';
 import { BuilderContainer } from 'src/pages/main/components/BuilderContainer';
 import { useBuilderSelection } from 'src/hooks/useBuilderSelection';
+import { useSkagCampaignBuilder } from 'src/hooks/useSkagCampaignBuilder';
+import { AdBuilderType } from 'src/utils/types';
 
 export const MainPage = () => {
   const {
@@ -13,19 +15,30 @@ export const MainPage = () => {
     setSelectedBuilderType,
   } = useBuilderSelection();
 
+  const { skagCampaign, setSkagKeywords, createExpTextAdExt } =
+    useSkagCampaignBuilder();
+
+  const isSKAGFlow = selectedBuilderType === AdBuilderType.SKAG;
+
+  const campaign = isSKAGFlow && skagCampaign;
+
   return (
     <StepLayout
       currentStep={currentStep}
       progressBarSteps={progressBarSteps}
+      campaign={campaign || undefined}
       setCurrentStep={setCurrentStep}
       finishBuilderFlow={finishBuilderFlow}
     >
       <MainPageContainer>
         <BuilderContainer
           currentStep={currentStep}
+          skagCampaign={skagCampaign}
           selectedBuilderType={selectedBuilderType}
           setCurrentStep={setCurrentStep}
           setSelectedBuilderType={setSelectedBuilderType}
+          setSkagKeywords={setSkagKeywords}
+          createExpTextAdExt={createExpTextAdExt}
         />
       </MainPageContainer>
     </StepLayout>

@@ -4,11 +4,13 @@ import isEmpty from 'lodash/isEmpty';
 import PrevIcon from 'src/images/general/prev-icon.svg';
 import NextIcon from 'src/images/general/next-icon.svg';
 import { StepLayoutItem } from 'src/components/layout/StepLayoutItem';
+import { CampaignType } from 'src/utils/types';
 
 type Props = {
   children: React.ReactNode;
   currentStep: number;
   progressBarSteps: string[];
+  campaign?: CampaignType;
   setCurrentStep: (step: number) => void;
   finishBuilderFlow: () => void;
 };
@@ -17,12 +19,27 @@ export const StepLayout = ({
   children,
   currentStep,
   progressBarSteps,
+  campaign,
   setCurrentStep,
   finishBuilderFlow,
 }: Props) => {
+  const isKeywordsEmpty = campaign && isEmpty(campaign?.keywordsList);
   const isFirstStep = currentStep === 1 && !isNil(currentStep);
   const showStepFooter = !isNil(currentStep) && !isEmpty(progressBarSteps);
-  const isNextDisabled = currentStep === progressBarSteps.length - 1;
+
+  const calculateIsNextDisabled = () => {
+    if (currentStep === progressBarSteps.length - 1) {
+      return true;
+    }
+
+    if (isKeywordsEmpty) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const isNextDisabled = calculateIsNextDisabled();
 
   const onPrev = () => {
     if (isFirstStep) {

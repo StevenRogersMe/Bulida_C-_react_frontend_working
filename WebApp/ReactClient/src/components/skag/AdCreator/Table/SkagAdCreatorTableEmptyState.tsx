@@ -18,7 +18,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 4rem;
+  margin: 0 4rem 4rem 4rem;
 `;
 
 const EmptyStateIcon = styled.img`

@@ -11,8 +11,10 @@ type Props = {
 
 export const SkagAdCreator = ({ campaign, createExpTextAdExt }: Props) => {
   const [selectedAdType, setSelectedAdType] = useState<AdType>(AdType.ALL);
-  const [selectedAdGroup, setSelectedAdGroup] = useState<string>('');
   const { adGroupList } = campaign;
+  const [selectedAdGroup, setSelectedAdGroup] = useState<string>(
+    adGroupList[0].adGroup
+  );
   const adsCount = adGroupList.reduce((acc, el) => {
     const { callOnlyExt, callOutExt, expTextAdExt, searchExt, snippetExt } = el;
     return (
