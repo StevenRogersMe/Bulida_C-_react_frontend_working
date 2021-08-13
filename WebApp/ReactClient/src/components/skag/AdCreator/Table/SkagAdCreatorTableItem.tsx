@@ -1,5 +1,6 @@
-import { AdType } from 'src/utils/types';
 import styled from 'styled-components';
+import { AdType } from 'src/utils/types';
+import { TABLE_AD_TYPES } from 'src/utils/consts';
 
 type Props = {
   item: any;
@@ -10,29 +11,6 @@ export const SkagAdCreatorTableItem = ({ item }: Props) => {
     const { type } = item;
     if (type === AdType.EXPANDED) {
       return renderExpTextAd(item);
-    }
-  };
-
-  const calculateAdType = (item) => {
-    const { type } = item;
-    if (type === AdType.EXPANDED) {
-      return 'Expanded text ad';
-    }
-
-    if (type === AdType.CALL) {
-      return 'Call only ad';
-    }
-
-    if (type === AdType.RESPONSIVE) {
-      return 'Responsive research ad';
-    }
-
-    if (type === AdType.SNIPPET) {
-      return 'Snippet extention';
-    }
-
-    if (type === AdType.CALLOUT) {
-      return 'Callout extention';
     }
   };
 
@@ -48,7 +26,7 @@ export const SkagAdCreatorTableItem = ({ item }: Props) => {
           <Description>{item.descriptionTwo}</Description>
         </AdPreviewContainer>
         <RightBlock>
-          <TypeContainer>{calculateAdType(item)}</TypeContainer>
+          <TypeContainer>{TABLE_AD_TYPES[item.type]}</TypeContainer>
           <AdGroupsContainer>TEST</AdGroupsContainer>
         </RightBlock>
       </>

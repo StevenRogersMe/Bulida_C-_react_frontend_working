@@ -9,11 +9,11 @@ export enum AdBuilderType {
 
 export enum AdType {
   ALL = 'all',
-  EXPANDED = 'expanded',
-  CALL = 'call',
-  RESPONSIVE = 'responsive',
-  SNIPPET = 'snippet',
-  CALLOUT = 'callout',
+  EXPANDED = 'expTextAdExt',
+  CALL = 'callOnlyExt',
+  RESPONSIVE = 'searchExt',
+  SNIPPET = 'snippetExt',
+  CALLOUT = 'callOutExt',
 }
 
 export type CampaignType = {

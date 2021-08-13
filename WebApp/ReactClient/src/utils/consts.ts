@@ -36,22 +36,30 @@ export const AD_TYPES_OPTIONS = [
   },
   {
     label: 'Expanded text ad',
-    value: 'expanded',
+    value: 'expTextAdExt',
   },
   {
     label: 'Call only ad',
-    value: 'call',
+    value: 'callOnlyExt',
   },
   {
     label: 'Responsive research ad',
-    value: 'responsive',
+    value: 'searchExt',
   },
   {
     label: 'Snippet extention',
-    value: 'snippet',
+    value: 'snippetExt',
   },
   {
     label: 'Callout extention',
-    value: 'callout',
+    value: 'callOutExt',
   },
 ];
+
+export const TABLE_AD_TYPES = {
+  expTextAdExt: 'Expanded text ad',
+  callOnlyExt: 'Call only ad',
+  searchExt: 'Responsive research ad',
+  snippetExt: 'Snippet extention',
+  callOutExt: 'Callout extention',
+};
