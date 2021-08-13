@@ -4,12 +4,12 @@ import { AdBuilderType } from 'src/utils/types';
 import { BuilderItem } from 'src/pages/main/components/BuilderItem';
 import { StagBuilder } from 'src/components/stag/StagBuilder';
 import { StagAdCreator } from 'src/components/stag/StagAdCreator';
-import { StagConfigurator } from 'src/components/stag/StagConfigurator';
-import { StagReviewer } from 'src/components/stag/StagReviewer';
+import { StagSettings } from 'src/components/stag/StagSettings';
+import { StagReviewEditor } from 'src/components/stag/StagReviewEditor';
 import { SkagBuilder } from 'src/components/skag/SkagBuilder';
 import { SkagAdCreator } from 'src/components/skag/AdCreator/SkagAdCreator';
-import { SkagConfigurator } from 'src/components/skag/SkagConfigurator';
-import { SkagReviewer } from 'src/components/skag/SkagReviewer';
+import { SkagSettings } from 'src/components/skag/SkagSettings';
+import { SkagReviewEditor } from 'src/components/skag/SkagReviewEditor';
 import { useSkagCampaignBuilder } from 'src/hooks/useSkagCampaignBuilder';
 
 type Props = {
@@ -54,15 +54,15 @@ export const BuilderContainer = ({
         createExpTextAdExt={createExpTextAdExt}
       />
     ),
-    3: <SkagConfigurator />,
-    4: <SkagReviewer />,
+    3: <SkagSettings />,
+    4: <SkagReviewEditor />,
   };
 
   const STAGFlowPages = {
     1: <StagBuilder />,
     2: <StagAdCreator />,
-    3: <StagConfigurator />,
-    4: <StagReviewer />,
+    3: <StagSettings />,
+    4: <StagReviewEditor />,
   };
 
   const renderBuilderStep = () => {

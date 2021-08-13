@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const StagConfigurator = () => {
+export const StagReviewEditor = () => {
   return (
     <Container>
-      <Title>Configurator</Title>
+      <Title>Review editor</Title>
     </Container>
   );
 };

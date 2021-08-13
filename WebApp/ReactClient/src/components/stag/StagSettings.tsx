@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const SkagConfigurator = () => {
+export const StagSettings = () => {
   return (
     <Container>
-      <Title>Configurator</Title>
+      <Title>Settings</Title>
     </Container>
   );
 };
