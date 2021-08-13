@@ -15,7 +15,6 @@ export const AdCreatorModalFooter = ({ onCreateExpTextAdExt }: Props) => {
       <ItemContainer>
         <Item>Add callout extention</Item>
         <Item>Add snippet extention</Item>
-        <Item>Add sitelink extention</Item>
       </ItemContainer>
     </Wrapper>
   );

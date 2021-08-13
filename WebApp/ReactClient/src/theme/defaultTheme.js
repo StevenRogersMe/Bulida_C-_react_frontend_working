@@ -47,7 +47,7 @@ export const theme = {
       body3: `
       font-size: 1.8rem;
       line-height: 2rem;
-      font-weight: normal;
+      font-weight: 500;
       `,
       body4: `
       font-size: 1.3rem;
@@ -63,6 +63,11 @@ export const theme = {
       font-size: 1.6rem;
       line-height: 1.9rem;
       font-weight: bold;
+      `,
+      link: `
+      font-size: 1.2rem;
+      line-height: 1.6rem;
+      font-weight: normal;
       `,
     },
   },
@@ -85,5 +90,6 @@ export const theme = {
     green: 'rgba(0, 210, 143, 1)',
     main: 'rgba(33, 33, 36, 1)',
     red: 'rgba(208, 2, 27, 1)',
+    link: '#0D9F12',
   },
 };

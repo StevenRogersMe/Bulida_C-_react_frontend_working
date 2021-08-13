@@ -1,12 +1,64 @@
 import styled from 'styled-components';
 import { SkagAdCreatorTableEmptyState } from 'src/components/skag/AdCreator/Table/SkagAdCreatorTableEmptyState';
+import { AdType, AdGroupType } from 'src/utils/types';
+import { SkagAdCreatorTableItem } from 'src/components/skag/AdCreator/Table/SkagAdCreatorTableItem';
 
 type Props = {
   adsCount: number;
+  adGroupList: AdGroupType[];
+  selectedAdType: AdType;
+  selectedAdGroup: string;
 };
 
-export const SkagAdCreatorTable = ({ adsCount }: Props) => {
+export const SkagAdCreatorTable = ({
+  adsCount,
+  adGroupList,
+  selectedAdType,
+  selectedAdGroup,
+}: Props) => {
   const showEmptyState = adsCount === 0;
+
+  const renderItems = () => {
+    const selectedAd = adGroupList.find((el) => el.adGroup === selectedAdGroup);
+    const items: any = [];
+
+    if (selectedAdType === AdType.ALL) {
+      items.push(selectedAd?.callOnlyExt);
+      items.push(selectedAd?.callOutExt);
+      items.push(selectedAd?.expTextAdExt);
+      items.push(selectedAd?.searchExt);
+      items.push(selectedAd?.snippetExt);
+    }
+
+    if (selectedAdType === AdType.CALL) {
+      items.push(selectedAd?.callOnlyExt);
+    }
+
+    if (selectedAdType === AdType.CALLOUT) {
+      items.push(selectedAd?.callOutExt);
+    }
+
+    if (selectedAdType === AdType.EXPANDED) {
+      items.push(selectedAd?.expTextAdExt);
+    }
+
+    if (selectedAdType === AdType.RESPONSIVE) {
+      items.push(selectedAd?.searchExt);
+    }
+
+    if (selectedAdType === AdType.SNIPPET) {
+      items.push(selectedAd?.snippetExt);
+    }
+
+    return (
+      <>
+        {items.map((item, index) => (
+          <SkagAdCreatorTableItem key={index} item={item} />
+        ))}
+      </>
+    );
+  };
+
   return (
     <Container>
       <BlockContainer>
@@ -17,14 +69,13 @@ export const SkagAdCreatorTable = ({ adsCount }: Props) => {
             <RightBlockItem>Add groups</RightBlockItem>
           </RightBlock>
         </Header>
-        {showEmptyState ? <SkagAdCreatorTableEmptyState /> : <Table />}
+        {showEmptyState ? (
+          <SkagAdCreatorTableEmptyState />
+        ) : (
+          <ItemsContainer>{renderItems()}</ItemsContainer>
+        )}
+        <Footer />
       </BlockContainer>
-      {!showEmptyState && (
-        <BlockContainer>
-          <Table />
-          <Footer />
-        </BlockContainer>
-      )}
     </Container>
   );
 };
@@ -73,9 +124,10 @@ const RightBlockItem = styled.div`
   display: flex;
 `;
 
-const Table = styled.div`
+const ItemsContainer = styled.div`
   display: flex;
-  padding: 1.5rem 3rem;
+  flex-direction: column;
+  padding: 3rem;
   ${(props) => props.theme.text.fontType.body2};
 `;
 

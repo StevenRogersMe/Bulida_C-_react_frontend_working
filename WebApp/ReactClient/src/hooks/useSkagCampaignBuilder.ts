@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CampaignType, AdGroupType } from 'src/utils/types';
+import { CampaignType, AdGroupType, AdType } from 'src/utils/types';
 
 export const useSkagCampaignBuilder = (): {
   skagCampaign: CampaignType;
@@ -59,9 +59,10 @@ export const useSkagCampaignBuilder = (): {
         headlineThree: 'Free Delivery',
         descriptionOne: `Buy online ${keyword}`,
         descriptionTwo: `Vast collection of ${keyword}`,
-        finalURL: `https://books.com/?q=_${keyword}_`,
+        finalURL: `https://google.com/?q=_${keyword}_`,
         pathOne: 'shop',
         pathTwo: 'now',
+        type: AdType.EXPANDED,
       });
     });
 
