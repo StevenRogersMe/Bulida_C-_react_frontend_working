@@ -53,7 +53,7 @@ export const SkagAdCreatorTable = ({
     return (
       <>
         {items.map((item, index) => (
-          <SkagAdCreatorTableItem key={index} item={item} />
+          <SkagAdCreatorTableItem key={index} item={item} adGroupList={adGroupList} />
         ))}
       </>
     );

@@ -69,6 +69,11 @@ export const theme = {
       line-height: 1.6rem;
       font-weight: normal;
       `,
+      hint: `
+      font-size: 1rem;
+      line-height: 1.2rem;
+      font-weight: normal;
+      `,
     },
   },
   colors: {

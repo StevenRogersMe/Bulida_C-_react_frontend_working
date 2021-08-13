@@ -1,20 +1,39 @@
 import styled from 'styled-components';
-import { AdType } from 'src/utils/types';
+import { AdType, AdGroupType } from 'src/utils/types';
 import { TABLE_AD_TYPES } from 'src/utils/consts';
+import { calculateAdGroupNamesByType } from 'src/utils/builder';
 
 type Props = {
   item: any;
+  adGroupList: AdGroupType[];
 };
 
-export const SkagAdCreatorTableItem = ({ item }: Props) => {
+export const SkagAdCreatorTableItem = ({ item, adGroupList }: Props) => {
   const renderItem = (item) => {
     const { type } = item;
+    const adGroupNames = calculateAdGroupNamesByType(type, adGroupList);
     if (type === AdType.EXPANDED) {
-      return renderExpTextAd(item);
+      return renderExpTextAd(item, adGroupNames);
     }
   };
 
-  const renderExpTextAd = (item) => {
+  const renderAdGroupNames = (adGroupNames) => {
+    const visibleAdGroupNames = adGroupNames.slice(0, 3);
+    const unVisibleAdGroupNamesCount = adGroupNames.length - 3;
+    const showUnVisibleAdGroupNamesCount = unVisibleAdGroupNamesCount > 0;
+    return (
+      <>
+        {visibleAdGroupNames.map((name, index) => {
+          return <AdGroupName key={index}>{name}</AdGroupName>;
+        })}
+        {showUnVisibleAdGroupNamesCount && (
+          <AdGroupNamesCount>{` + ${unVisibleAdGroupNamesCount}`}</AdGroupNamesCount>
+        )}
+      </>
+    );
+  };
+
+  const renderExpTextAd = (item, adGroupNames) => {
     return (
       <>
         <AdPreviewContainer>
@@ -27,7 +46,9 @@ export const SkagAdCreatorTableItem = ({ item }: Props) => {
         </AdPreviewContainer>
         <RightBlock>
           <TypeContainer>{TABLE_AD_TYPES[item.type]}</TypeContainer>
-          <AdGroupsContainer>TEST</AdGroupsContainer>
+          <AdGroupsContainer>
+            {renderAdGroupNames(adGroupNames)}
+          </AdGroupsContainer>
         </RightBlock>
       </>
     );
@@ -45,12 +66,14 @@ export const SkagAdCreatorTableItem = ({ item }: Props) => {
 const Container = styled.div`
   width: inherit;
   display: flex;
+  align-items: center;
   margin-bottom: 2rem;
 `;
 
 const AdPreviewContainer = styled.div`
   display: flex;
   width: 55%;
+  height: fit-content;
   flex-direction: column;
   padding: 1.7rem;
   box-sizing: border-box;
@@ -91,11 +114,11 @@ const TypeContainer = styled.span`
 
 const AdGroupsContainer = styled.span`
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 50%;
+  flex-direction: column;
+  width: 40%;
   max-width: 30rem;
-  font-weight: 500;
+  font-weight: 300;
 `;
 
 const RightBlock = styled.div`
@@ -103,4 +126,18 @@ const RightBlock = styled.div`
   width: 45%;
   justify-content: space-between;
   padding-left: 3rem;
+`;
+
+const AdGroupName = styled.span`
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const AdGroupNamesCount = styled.span`
+  background-color: #ebedf3;
+  border-radius: 0.5rem;
+  width: fit-content;
+  margin-top: 1rem;
+  padding: 0.5rem 0.6rem;
+  ${(props) => props.theme.text.fontType.hint};
 `;
