@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { config } from 'src/config/default';
-import { CampaignType, AdBuilderType } from 'src/utils/types';
+import { CampaignType, AdBuilderType, AdType } from 'src/utils/types';
 import { BuilderItem } from 'src/pages/main/components/BuilderItem';
 import { StagBuilder } from 'src/components/stag/StagBuilder';
 import { StagAdCreator } from 'src/components/stag/StagAdCreator';
@@ -18,7 +18,7 @@ type Props = {
   setCurrentStep: (step: number) => void;
   setSelectedBuilderType: (type: AdBuilderType) => void;
   setSkagKeywords: (keywords: string[]) => void;
-  createExpTextAdExt: () => void;
+  createAds: (type: AdType) => void;
 };
 
 export const BuilderContainer = ({
@@ -28,7 +28,7 @@ export const BuilderContainer = ({
   setCurrentStep,
   setSelectedBuilderType,
   setSkagKeywords,
-  createExpTextAdExt,
+  createAds,
 }: Props) => {
   const isSKAGFlow = selectedBuilderType === AdBuilderType.SKAG;
   const isSTAGFlow = selectedBuilderType === AdBuilderType.STAG;
@@ -50,12 +50,7 @@ export const BuilderContainer = ({
 
   const SKAGFlowPages = {
     1: <SkagBuilder campaign={skagCampaign} setKeywords={setSkagKeywords} />,
-    2: (
-      <SkagAdCreator
-        campaign={skagCampaign}
-        createExpTextAdExt={createExpTextAdExt}
-      />
-    ),
+    2: <SkagAdCreator campaign={skagCampaign} createAds={createAds} />,
     3: <SkagSettings />,
     4: <SkagReviewEditor />,
   };

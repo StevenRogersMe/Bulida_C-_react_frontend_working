@@ -55,11 +55,12 @@ export type SnippetExtensionType = {
 
 export type RespSearchAdType = {
   id: number;
+  headlineOne: string;
+  headlineTwo: string;
+  headlineThree: string;
   descriptionOne: string;
   descriptionTwo: string;
-  descriptionThree: string;
-  descriptionFour: string;
-  finalURL: string;
+  finalUrl: string;
   pathOne: string;
   pathTwo: string;
   adGroupName: string;
@@ -93,7 +94,7 @@ export type ExpTextAdExtType = {
   headlineThree: string;
   descriptionOne: string;
   descriptionTwo: string;
-  finalURL: string;
+  finalUrl: string;
   pathOne: string;
   pathTwo: string;
   type: AdType.EXPANDED;

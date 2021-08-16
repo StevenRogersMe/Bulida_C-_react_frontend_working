@@ -1,16 +1,26 @@
 import styled from 'styled-components';
+import { AdType } from 'src/utils/types';
+import { notifySuccess } from 'src/services/notifications/notificationService';
 
 type Props = {
-  onCreateExpTextAdExt: () => void;
+  createAds: (type: AdType) => void;
 };
 
-export const AdCreatorModalFooter = ({ onCreateExpTextAdExt }: Props) => {
+export const AdCreatorModalFooter = ({ createAds }: Props) => {
+  const onCreateAds = (type: AdType) => {
+    createAds(type);
+    notifySuccess({ msg: 'Ad was successfully created' });
+  };
   return (
     <Wrapper>
       <ItemContainer>
-        <Item onClick={onCreateExpTextAdExt}>Add exp. text ad</Item>
-        <Item>Add resp.search ad</Item>
-        <Item>Add call only ad</Item>
+        <Item onClick={() => onCreateAds(AdType.EXPANDED)}>
+          Add exp. text ad
+        </Item>
+        <Item onClick={() => onCreateAds(AdType.RESPONSIVE)}>
+          Add resp.search ad
+        </Item>
+        <Item onClick={() => onCreateAds(AdType.CALL)}>Add call only ad</Item>
       </ItemContainer>
       <ItemContainer>
         <Item>Add callout extention</Item>

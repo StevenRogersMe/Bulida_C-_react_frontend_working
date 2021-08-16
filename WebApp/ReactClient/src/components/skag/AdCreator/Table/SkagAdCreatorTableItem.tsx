@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { AdType, AdGroupType } from 'src/utils/types';
 import { TABLE_AD_TYPES } from 'src/utils/consts';
 import { calculateAdGroupNamesByType } from 'src/utils/builder';
+import CallIcon from 'src/images/general/call-icon.svg';
+import ResponsiveIcon from 'src/images/general/responsive-icon.svg';
 
 type Props = {
   item: any;
@@ -14,6 +16,14 @@ export const SkagAdCreatorTableItem = ({ item, adGroupList }: Props) => {
     const adGroupNames = calculateAdGroupNamesByType(type, adGroupList);
     if (type === AdType.EXPANDED) {
       return renderExpTextAd(item, adGroupNames);
+    }
+
+    if (type === AdType.CALL) {
+      return renderCallOnlyAd(item, adGroupNames);
+    }
+
+    if (type === AdType.RESPONSIVE) {
+      return renderResponsiveSearchAd(item, adGroupNames);
     }
   };
 
@@ -40,7 +50,55 @@ export const SkagAdCreatorTableItem = ({ item, adGroupList }: Props) => {
           <Title>
             {`${item.headlineOne} | ${item.headlineTwo} | ${item.headlineThree}`}
           </Title>
-          <Link>{item.finalURL}</Link>
+          <Link>{item.finalUrl}</Link>
+          <Description>{item.descriptionOne}</Description>
+          <Description>{item.descriptionTwo}</Description>
+        </AdPreviewContainer>
+        <RightBlock>
+          <TypeContainer>{TABLE_AD_TYPES[item.type]}</TypeContainer>
+          <AdGroupsContainer>
+            {renderAdGroupNames(adGroupNames)}
+          </AdGroupsContainer>
+        </RightBlock>
+      </>
+    );
+  };
+
+  const renderCallOnlyAd = (item, adGroupNames) => {
+    return (
+      <>
+        <AdPreviewContainer>
+          <TitleContainer>
+            <AdIcon src={CallIcon} />
+            <Title>
+              {`${item.headlineOne} | ${item.headlineTwo} ${item.phoneNumber}`}
+            </Title>
+          </TitleContainer>
+          <Link>{item.finalUrl}</Link>
+          <Description>{item.descriptionOne}</Description>
+          <Description>{item.descriptionTwo}</Description>
+        </AdPreviewContainer>
+        <RightBlock>
+          <TypeContainer>{TABLE_AD_TYPES[item.type]}</TypeContainer>
+          <AdGroupsContainer>
+            {renderAdGroupNames(adGroupNames)}
+          </AdGroupsContainer>
+        </RightBlock>
+      </>
+    );
+  };
+
+  const renderResponsiveSearchAd = (item, adGroupNames) => {
+    return (
+      <>
+        <AdPreviewContainer>
+          <TitleContainer>
+            <AdIcon src={ResponsiveIcon} />
+            <Title>
+              {`${item.headlineOne} | ${item.headlineTwo} ${item.headlineThree}`}
+            </Title>
+          </TitleContainer>
+          <Link>{item.finalUrl}</Link>
           <Description>{item.descriptionOne}</Description>
           <Description>{item.descriptionTwo}</Description>
         </AdPreviewContainer>
@@ -87,6 +145,11 @@ const Title = styled.span`
   ${(props) => props.theme.text.fontType.body3};
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+const TitleContainer = styled.span`
+  display: flex;
+  align-items: center;
 `;
 
 const Link = styled.span`
@@ -140,4 +203,10 @@ const AdGroupNamesCount = styled.span`
   margin-top: 1rem;
   padding: 0.5rem 0.6rem;
   ${(props) => props.theme.text.fontType.hint};
+`;
+
+const AdIcon = styled.img`
+  width: 2.2rem;
+  height: 2.2rem;
+  margin-right: 0.8rem;
 `;

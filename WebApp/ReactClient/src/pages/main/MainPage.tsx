@@ -15,7 +15,7 @@ export const MainPage = () => {
     setSelectedBuilderType,
   } = useBuilderSelection();
 
-  const { skagCampaign, setSkagKeywords, createExpTextAdExt } =
+  const { skagCampaign, setSkagKeywords, createAds } =
     useSkagCampaignBuilder();
 
   const isSKAGFlow = selectedBuilderType === AdBuilderType.SKAG;
@@ -38,7 +38,7 @@ export const MainPage = () => {
           setCurrentStep={setCurrentStep}
           setSelectedBuilderType={setSelectedBuilderType}
           setSkagKeywords={setSkagKeywords}
-          createExpTextAdExt={createExpTextAdExt}
+          createAds={createAds}
         />
       </MainPageContainer>
     </StepLayout>
