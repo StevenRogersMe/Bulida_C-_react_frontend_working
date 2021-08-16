@@ -26,8 +26,8 @@ export const SkagAdCreatorTable = ({
       items.push(selectedAd?.expTextAdExt);
       items.push(selectedAd?.callOnlyExt);
       items.push(selectedAd?.searchExt);
-      items.push(selectedAd?.callOutExt);
       items.push(selectedAd?.snippetExt);
+      items.push(selectedAd?.callOutExt);
     }
 
     if (selectedAdType === AdType.CALL) {

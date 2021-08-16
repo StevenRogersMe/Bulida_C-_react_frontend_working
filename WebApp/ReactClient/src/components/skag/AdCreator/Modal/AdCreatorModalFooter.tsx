@@ -23,8 +23,12 @@ export const AdCreatorModalFooter = ({ createAds }: Props) => {
         <Item onClick={() => onCreateAds(AdType.CALL)}>Add call only ad</Item>
       </ItemContainer>
       <ItemContainer>
-        <Item>Add callout extention</Item>
-        <Item>Add snippet extention</Item>
+        <Item onClick={() => onCreateAds(AdType.CALLOUT)}>
+          Add callout extention
+        </Item>
+        <Item onClick={() => onCreateAds(AdType.SNIPPET)}>
+          Add snippet extention
+        </Item>
       </ItemContainer>
     </Wrapper>
   );

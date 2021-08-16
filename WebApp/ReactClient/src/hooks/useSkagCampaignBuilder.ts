@@ -110,6 +110,24 @@ export const useSkagCampaignBuilder = (): {
       });
     }
 
+    if (type === AdType.SNIPPET) {
+      adGroupList.forEach((adGroup) => {
+        const id = adGroup.snippetExt.length + 1;
+        const keyword = adGroup.keywords[0];
+        const adGroupId = adGroup.id;
+        const adGroupName = adGroup.adGroup;
+        adGroup.snippetExt.push({
+          id: id,
+          adGroupId: adGroupId,
+          language: 'English',
+          adGroupName: adGroupName,
+          headerType: keyword,
+          snippetValues: ['Snippet 1', 'Snippet 3', 'Snippet 2'],
+          type: AdType.SNIPPET,
+        });
+      });
+    }
+
     setSkagCampaign({
       ...skagCampaign,
       adGroupList: adGroupList || [],
