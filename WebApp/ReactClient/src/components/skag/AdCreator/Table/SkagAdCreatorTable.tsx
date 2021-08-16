@@ -23,10 +23,10 @@ export const SkagAdCreatorTable = ({
     const items: any = [];
 
     if (selectedAdType === AdType.ALL) {
-      items.push(selectedAd?.callOnlyExt);
-      items.push(selectedAd?.callOutExt);
       items.push(selectedAd?.expTextAdExt);
+      items.push(selectedAd?.callOnlyExt);
       items.push(selectedAd?.searchExt);
+      items.push(selectedAd?.callOutExt);
       items.push(selectedAd?.snippetExt);
     }
 
@@ -53,7 +53,11 @@ export const SkagAdCreatorTable = ({
     return (
       <>
         {items.map((item, index) => (
-          <SkagAdCreatorTableItem key={index} item={item} adGroupList={adGroupList} />
+          <SkagAdCreatorTableItem
+            key={index}
+            item={item}
+            adGroupList={adGroupList}
+          />
         ))}
       </>
     );
