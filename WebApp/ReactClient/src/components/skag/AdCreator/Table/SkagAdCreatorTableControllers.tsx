@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { AdType, Expandable, AdGroupType } from 'src/utils/types';
 import { AD_TYPES_OPTIONS } from 'src/utils/consts';
@@ -56,6 +57,10 @@ export const SkagAdCreatorTableControllers = ({
       ),
     }
   );
+
+  useEffect(() => {
+    showSelectAdGroupModal();
+  }, [showSelectAdGroupModal]);
 
   return (
     <Container>
