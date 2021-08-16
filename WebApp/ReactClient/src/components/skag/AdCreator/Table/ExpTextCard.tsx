@@ -41,7 +41,6 @@ const AdPreviewContainer = styled.div`
   padding: 1.7rem;
   box-sizing: border-box;
   border-radius: 1rem;
-  max-width: 60rem;
   border: 0.1rem solid ${(props) => props.theme.colors.grey5};
 `;
 

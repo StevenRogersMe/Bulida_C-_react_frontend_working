@@ -35,7 +35,6 @@ const AdPreviewContainer = styled.div`
   flex-direction: column;
   padding: 1.7rem;
   box-sizing: border-box;
-  max-width: 60rem;
   border-radius: 0 0 1rem 1rem;
   border: 0.1rem solid ${(props) => props.theme.colors.grey5};
   border-top: 0.1rem dashed ${(props) => props.theme.colors.grey5};
