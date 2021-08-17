@@ -51,8 +51,10 @@ export const SkagAdCreatorTableControllers = ({
   );
 
   useEffect(() => {
-    showSelectAdGroupModal();
-  }, [showSelectAdGroupModal]);
+    if (adsCount === 0) {
+      showSelectAdGroupModal();
+    }
+  }, [adsCount, showSelectAdGroupModal]);
 
   return (
     <Container>
