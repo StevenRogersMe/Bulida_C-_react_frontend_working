@@ -63,3 +63,8 @@ export const TABLE_AD_TYPES = {
   snippetExt: 'Snippet extention',
   callOutExt: 'Callout extention',
 };
+
+export enum TEXT_INPUT_SIZE {
+  INLINE = 'inline',
+  WIZARD = 'wizard',
+}

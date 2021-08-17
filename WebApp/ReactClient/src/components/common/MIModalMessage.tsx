@@ -7,7 +7,7 @@ type Props = {
   titleComponent?: ReactNode;
   contentComponent?: ReactNode;
   footerComponent?: ReactNode;
-  dismiss: (event: React.MouseEvent) => void;
+  dismiss?: (event: React.MouseEvent) => void;
 };
 
 export const MIModalMessage = ({
@@ -64,7 +64,7 @@ const ModalContainer = styled.div`
   overflow-y: auto;
   z-index: 1;
   border-radius: 2rem;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.lightBlue2};
 `;
 
 const ModalContentContainer = styled.div`

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Breakjs from 'breakjs';
-import { breaks } from '../theme/appDevices';
+import { breaks } from 'src/theme/appDevices';
 
 export const appLayout = Breakjs(breaks);
 

@@ -1,3 +1,5 @@
+import { TEXT_INPUT_SIZE } from 'src/utils/consts';
+
 export type Expandable<T> = T & Record<string, any>;
 
 export enum AdBuilderType {
@@ -100,3 +102,7 @@ export type ExpTextAdExtType = {
   pathTwo: string;
   type: AdType.EXPANDED;
 };
+
+export type TextInputSize = TEXT_INPUT_SIZE.INLINE | TEXT_INPUT_SIZE.WIZARD;
+
+export type FieldType = { id: string; value: string };

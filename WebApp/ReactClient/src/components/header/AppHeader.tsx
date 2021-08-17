@@ -1,23 +1,31 @@
 import styled from 'styled-components';
+import { useModal } from 'src/helpers/react/useModal';
+import { SignInModal } from 'src/components/header/Modal/SignInModal';
 import LogoImage from 'src/images/general/logo.svg';
 
 export const AppHeader = () => {
+  const [SignIn, showSignIn] = useModal(SignInModal, {
+    id: 'signInModal',
+  });
   return (
-    <AppHeaderContainer>
-      <LogoContainer>
-        <Logo src={LogoImage} />
-        Builda
-      </LogoContainer>
-      <Menu>
-        <MenuItem>Product tour</MenuItem>
-        <MenuItem>Help center</MenuItem>
-        <MenuItem>Pricing</MenuItem>
-      </Menu>
-      <Auth>
-        <LogInButton>SIGN IN</LogInButton>
-        <SignUpButton>SIGN UP</SignUpButton>
-      </Auth>
-    </AppHeaderContainer>
+    <>
+      {SignIn}
+      <AppHeaderContainer>
+        <LogoContainer>
+          <Logo src={LogoImage} />
+          Builda
+        </LogoContainer>
+        <Menu>
+          <MenuItem>Product tour</MenuItem>
+          <MenuItem>Help center</MenuItem>
+          <MenuItem>Pricing</MenuItem>
+        </Menu>
+        <Auth>
+          <LogInButton onClick={showSignIn}>SIGN IN</LogInButton>
+          <SignUpButton>SIGN UP</SignUpButton>
+        </Auth>
+      </AppHeaderContainer>
+    </>
   );
 };
 

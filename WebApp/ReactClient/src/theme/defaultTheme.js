@@ -87,6 +87,7 @@ export const theme = {
     grey4: '#F9F9FB',
     grey5: '#C0C6DA',
     lightBlue1: '#E7F0F6',
+    lightBlue2: '#F7FAFC',
     blue1: '#127DBA',
     blue2: '#227DF3',
     background: '#DAE2F9',
