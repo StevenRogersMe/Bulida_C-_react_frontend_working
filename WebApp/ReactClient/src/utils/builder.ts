@@ -1,7 +1,8 @@
+import isEmpty from 'lodash/isEmpty';
 import SkagIcon from 'src/images/general/skag-icon.png';
 import StagIcon from 'src/images/general/stag-icon.svg';
 import AdIcon from 'src/images/general/ad-icon.svg';
-import { AdBuilderType } from './types';
+import { AdBuilderType, AdType, AdGroupType } from './types';
 
 export const calculateBuilderItemDescription = (type: AdBuilderType) => {
   let description;
@@ -52,4 +53,17 @@ export const calculateBuilderItemBackground = (type: AdBuilderType) => {
   }
 
   return background;
+};
+
+export const calculateAdGroupNamesByType = (
+  type: AdType,
+  adGroupList: AdGroupType[]
+) => {
+  let names: string[] = [];
+
+  adGroupList.forEach(
+    (adGroup) => !isEmpty(adGroup[type]) && names.push(adGroup.adGroup)
+  );
+
+  return names;
 };

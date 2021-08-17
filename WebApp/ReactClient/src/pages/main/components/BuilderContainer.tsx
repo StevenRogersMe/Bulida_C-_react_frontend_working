@@ -1,34 +1,37 @@
 import styled from 'styled-components';
 import { config } from 'src/config/default';
-import { AdBuilderType } from 'src/utils/types';
+import { CampaignType, AdBuilderType, AdType } from 'src/utils/types';
 import { BuilderItem } from 'src/pages/main/components/BuilderItem';
 import { StagBuilder } from 'src/components/stag/StagBuilder';
 import { StagAdCreator } from 'src/components/stag/StagAdCreator';
-import { StagConfigurator } from 'src/components/stag/StagConfigurator';
-import { StagReviewer } from 'src/components/stag/StagReviewer';
+import { StagSettings } from 'src/components/stag/StagSettings';
+import { StagReviewEditor } from 'src/components/stag/StagReviewEditor';
 import { SkagBuilder } from 'src/components/skag/SkagBuilder';
-import { SkagAdCreator } from 'src/components/skag/SkagAdCreator';
-import { SkagConfigurator } from 'src/components/skag/SkagConfigurator';
-import { SkagReviewer } from 'src/components/skag/SkagReviewer';
-import { useSkagCampaignBuilder } from 'src/hooks/useSkagCampaignBuilder';
+import { SkagAdCreator } from 'src/components/skag/AdCreator/SkagAdCreator';
+import { SkagSettings } from 'src/components/skag/SkagSettings';
+import { SkagReviewEditor } from 'src/components/skag/SkagReviewEditor';
 
 type Props = {
   currentStep: number;
+  skagCampaign: CampaignType;
   selectedBuilderType: AdBuilderType;
   setCurrentStep: (step: number) => void;
   setSelectedBuilderType: (type: AdBuilderType) => void;
+  setSkagKeywords: (keywords: string[]) => void;
+  createAds: (type: AdType) => void;
 };
 
 export const BuilderContainer = ({
   currentStep,
+  skagCampaign,
   selectedBuilderType,
   setCurrentStep,
   setSelectedBuilderType,
+  setSkagKeywords,
+  createAds,
 }: Props) => {
   const isSKAGFlow = selectedBuilderType === AdBuilderType.SKAG;
   const isSTAGFlow = selectedBuilderType === AdBuilderType.STAG;
-
-  const { skagCampaign, setSkagKeywords } = useSkagCampaignBuilder();
 
   const startSKAGFlow = () => {
     setCurrentStep(1);
@@ -47,16 +50,16 @@ export const BuilderContainer = ({
 
   const SKAGFlowPages = {
     1: <SkagBuilder campaign={skagCampaign} setKeywords={setSkagKeywords} />,
-    2: <SkagAdCreator campaign={skagCampaign} />,
-    3: <SkagConfigurator />,
-    4: <SkagReviewer />,
+    2: <SkagAdCreator campaign={skagCampaign} createAds={createAds} />,
+    3: <SkagSettings />,
+    4: <SkagReviewEditor />,
   };
 
   const STAGFlowPages = {
     1: <StagBuilder />,
     2: <StagAdCreator />,
-    3: <StagConfigurator />,
-    4: <StagReviewer />,
+    3: <StagSettings />,
+    4: <StagReviewEditor />,
   };
 
   const renderBuilderStep = () => {

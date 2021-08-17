@@ -35,7 +35,7 @@ const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   color: ${(props) => props.theme.colors.blue2};
-  ${(props) => props.theme.text.fontType.h5};
+  ${(props) => props.theme.text.fontType.h4};
 `;
 
 const Logo = styled.img``;
@@ -44,7 +44,7 @@ const Menu = styled.div`
   display: flex;
   flex-direction: row;
   color: ${(props) => props.theme.colors.black1};
-  ${(props) => props.theme.text.fontType.body3};
+  ${(props) => props.theme.text.fontType.body2};
 
   > div:nth-child(2) {
     margin: 0 2rem;

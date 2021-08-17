@@ -1,5 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, Bounce } from 'react-toastify';
 import { ThemeProvider } from 'styled-components';
 import { useBreak } from 'src/hooks/useBreak';
 import { theme } from 'src/theme/defaultTheme';
@@ -20,6 +22,12 @@ export const AppLayout = ({ children }: Props) => {
         <ThemeProvider theme={theme}>
           <Container>
             <AppHeader />
+            <ToastContainer
+              transition={Bounce}
+              closeButton={false}
+              className='MIToastContainer'
+              toastClassName='MIToastInner'
+            />
             <Main>{children}</Main>
             <AppFooter />
           </Container>

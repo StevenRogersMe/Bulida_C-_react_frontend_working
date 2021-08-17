@@ -63,7 +63,7 @@ const KeywordsContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  ${(props) => props.theme.text.fontType.h7};
+  ${(props) => props.theme.text.fontType.h6};
 `;
 
 const KeywordsInput = styled.textarea`
@@ -78,7 +78,7 @@ const KeywordsInput = styled.textarea`
   background-color: ${(props) => props.theme.colors.white};
   color: ${(props) => props.theme.colors.black1};
   border: 0.1rem solid ${(props) => props.theme.colors.stroke};
-  ${(props) => props.theme.text.fontType.body3};
+  ${(props) => props.theme.text.fontType.body2};
 
   &:focus {
     outline: none;

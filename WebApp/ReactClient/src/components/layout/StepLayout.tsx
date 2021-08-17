@@ -4,11 +4,13 @@ import isEmpty from 'lodash/isEmpty';
 import PrevIcon from 'src/images/general/prev-icon.svg';
 import NextIcon from 'src/images/general/next-icon.svg';
 import { StepLayoutItem } from 'src/components/layout/StepLayoutItem';
+import { CampaignType } from 'src/utils/types';
 
 type Props = {
   children: React.ReactNode;
   currentStep: number;
   progressBarSteps: string[];
+  campaign?: CampaignType;
   setCurrentStep: (step: number) => void;
   finishBuilderFlow: () => void;
 };
@@ -17,11 +19,27 @@ export const StepLayout = ({
   children,
   currentStep,
   progressBarSteps,
+  campaign,
   setCurrentStep,
   finishBuilderFlow,
 }: Props) => {
+  const isKeywordsEmpty = campaign && isEmpty(campaign?.keywordsList);
   const isFirstStep = currentStep === 1 && !isNil(currentStep);
   const showStepFooter = !isNil(currentStep) && !isEmpty(progressBarSteps);
+
+  const calculateIsNextDisabled = () => {
+    if (currentStep === progressBarSteps.length - 1) {
+      return true;
+    }
+
+    if (isKeywordsEmpty) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const isNextDisabled = calculateIsNextDisabled();
 
   const onPrev = () => {
     if (isFirstStep) {
@@ -32,7 +50,9 @@ export const StepLayout = ({
   };
 
   const onNext = () => {
-    setCurrentStep(currentStep + 1);
+    if (!isNextDisabled) {
+      setCurrentStep(currentStep + 1);
+    }
   };
 
   return (
@@ -61,7 +81,7 @@ export const StepLayout = ({
             <PrevStepIcon src={PrevIcon} />
           </PrevStepIconContainer>
         </PrevStepButton>
-        <NextStepButton onClick={onNext}>
+        <NextStepButton onClick={onNext} isDisabled={isNextDisabled}>
           NEXT
           <NextStepIconContainer>
             <NextStepIcon src={NextIcon} />
@@ -77,7 +97,7 @@ const Children = styled.div``;
 const StepHeader = styled.div`
   display: flex;
   height: 4.8rem;
-  padding: 5rem 13rem 20rem 13rem;
+  padding: 5rem 12rem 20rem 12rem;
   margin-bottom: -15rem;
   background-color: ${(props) => props.theme.colors.pureWhite};
 `;
@@ -87,8 +107,6 @@ const StepFooter = styled.div<{ showStepFooter: boolean }>`
   justify-content: center;
   flex-direction: space-between;
   width: 100%;
-  position: absolute;
-  bottom: 0;
   margin: 2rem 0;
 `;
 
@@ -98,7 +116,7 @@ const StepButtonStyles = css`
   align-items: center;
   border-radius: 2rem;
   padding: 1rem 1rem 1rem 4rem;
-  ${(props) => props.theme.text.fontType.h6};
+  ${(props) => props.theme.text.fontType.h5};
 
   &:hover {
     box-shadow: 0 0.5rem 1rem 0 rgba(33, 33, 36, 0.2);
@@ -127,11 +145,17 @@ const PrevStepIcon = styled.img`
   height: 2rem;
 `;
 
-const NextStepButton = styled.button`
+const NextStepButton = styled.button<{ isDisabled: boolean }>`
   color: ${(props) => props.theme.colors.white};
-  background-color: ${(props) => props.theme.colors.blue2};
+  background-color: ${(props) =>
+    props.isDisabled ? props.theme.colors.stroke : props.theme.colors.blue2};
   border: none;
   ${StepButtonStyles}
+  cursor: ${(props) => props.isDisabled && 'default'};
+
+  &:hover {
+    box-shadow: ${(props) => props.isDisabled && 'none'};
+  }
 `;
 
 const NextStepIconContainer = styled.div`

@@ -9,11 +9,11 @@ export enum AdBuilderType {
 
 export enum AdType {
   ALL = 'all',
-  EXPANDED = 'expanded',
-  CALL = 'call',
-  RESPONSIVE = 'responsive',
-  SNIPPET = 'snippet',
-  CALLOUT = 'callout',
+  EXPANDED = 'expTextAdExt',
+  CALL = 'callOnlyExt',
+  RESPONSIVE = 'searchExt',
+  SNIPPET = 'snippetExt',
+  CALLOUT = 'callOutExt',
 }
 
 export type CampaignType = {
@@ -32,6 +32,7 @@ export type CampaignType = {
 };
 
 export type AdGroupType = {
+  id: number;
   adGroup: string;
   keywords: string[];
   negatives: string[];
@@ -49,19 +50,22 @@ export type SnippetExtensionType = {
   adGroupName: string;
   headerType: string;
   snippetValues: string[];
+  type: AdType.SNIPPET;
 };
 
 export type RespSearchAdType = {
   id: number;
+  headlineOne: string;
+  headlineTwo: string;
+  headlineThree: string;
   descriptionOne: string;
   descriptionTwo: string;
-  descriptionThree: string;
-  descriptionFour: string;
-  finalURL: string;
+  finalUrl: string;
   pathOne: string;
   pathTwo: string;
   adGroupName: string;
   headLines: string[];
+  type: AdType.RESPONSIVE;
 };
 
 export type CallOnlyAdType = {
@@ -75,9 +79,13 @@ export type CallOnlyAdType = {
   businessName: string;
   verificationURL: string;
   finalUrl: string;
+  type: AdType.CALL;
 };
 
-export type CallOutAdType = {};
+export type CallOutAdType = {
+  id: number;
+  type: AdType.CALLOUT;
+};
 
 export type ExpTextAdExtType = {
   id: number;
@@ -86,7 +94,8 @@ export type ExpTextAdExtType = {
   headlineThree: string;
   descriptionOne: string;
   descriptionTwo: string;
-  finalURL: string;
+  finalUrl: string;
   pathOne: string;
   pathTwo: string;
+  type: AdType.EXPANDED;
 };

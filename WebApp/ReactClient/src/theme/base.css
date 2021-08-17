@@ -23,3 +23,29 @@ textarea {
   width: 100%;
   height: 100%;
 }
+
+.Toastify {
+  display: flex;
+  justify-content: center;
+}
+
+.Toastify__toast-body {
+  padding: 0;
+}
+
+.MIToastContainer {
+  margin: 0;
+  padding: 0;
+  width: auto;
+  top: 3.5rem;
+  z-index: 11000;
+}
+
+.MIToastInner {
+  margin: 0 0 2rem 0;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: 0 5px 10px 0 rgba(33, 33, 36, 0.2);
+  min-height: auto;
+  border-radius: 0.8rem;
+}

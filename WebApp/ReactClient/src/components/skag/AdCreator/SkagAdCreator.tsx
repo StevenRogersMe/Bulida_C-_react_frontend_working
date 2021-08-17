@@ -1,16 +1,20 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { CampaignType, AdType } from 'src/utils/types';
-import { SkagAdCreatorTableHeader } from 'src/components/skag/SkagAdCreatorTableHeader';
+import { SkagAdCreatorTableControllers } from 'src/components/skag/AdCreator/Table/SkagAdCreatorTableControllers';
+import { SkagAdCreatorTable } from './Table/SkagAdCreatorTable';
 
 type Props = {
   campaign: CampaignType;
+  createAds: (type: AdType) => void;
 };
 
-export const SkagAdCreator = ({ campaign }: Props) => {
+export const SkagAdCreator = ({ campaign, createAds }: Props) => {
   const [selectedAdType, setSelectedAdType] = useState<AdType>(AdType.ALL);
-  const [selectedAdGroup, setSelectedAdGroup] = useState<string>('');
   const { adGroupList } = campaign;
+  const [selectedAdGroup, setSelectedAdGroup] = useState<string>(
+    adGroupList[0].adGroup
+  );
   const adsCount = adGroupList.reduce((acc, el) => {
     const { callOnlyExt, callOutExt, expTextAdExt, searchExt, snippetExt } = el;
     return (
@@ -38,20 +42,28 @@ export const SkagAdCreator = ({ campaign }: Props) => {
       <Title>
         <Bold>Ad</Bold> Creator
       </Title>
-      <SkagAdCreatorTableHeader
+      <SkagAdCreatorTableControllers
         adsCount={adsCount}
         adGroupList={adGroupList}
         selectedAdType={selectedAdType}
         selectedAdGroup={selectedAdGroup}
         onSelectAdType={onSelectAdType}
         onSelectAdGroup={onSelectAdGroup}
+        createAds={createAds}
+      />
+      <SkagAdCreatorTable
+        adsCount={adsCount}
+        adGroupList={adGroupList}
+        selectedAdType={selectedAdType}
+        selectedAdGroup={selectedAdGroup}
       />
     </Container>
   );
 };
 
 const Container = styled.div`
-  width: 100%;
+  width: -webkit-fill-available;
+  padding: 0 12rem;
   display: flex;
   flex-direction: column;
   align-items: center;
