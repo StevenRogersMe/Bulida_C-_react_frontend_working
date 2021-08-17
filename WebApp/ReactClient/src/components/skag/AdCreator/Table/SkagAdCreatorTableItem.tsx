@@ -5,6 +5,7 @@ import { ExpTextCard } from 'src/components/skag/AdCreator/Table/ExpTextCard';
 import { CallOnlyCard } from 'src/components/skag/AdCreator/Table/CallOnlyCard';
 import { ResponsiveSearchCard } from 'src/components/skag/AdCreator/Table/ResponsiveSearchCard';
 import { SnippetCard } from 'src/components/skag/AdCreator/Table/SnippetCard';
+import { CallOutCard } from 'src/components/skag/AdCreator/Table/CallOutCard';
 
 type Props = {
   item: any;
@@ -48,6 +49,16 @@ export const SkagAdCreatorTableItem = ({ item, adGroupList }: Props) => {
     if (type === AdType.SNIPPET) {
       return (
         <SnippetCard
+          item={item}
+          adGroupNames={adGroupNames}
+          renderAdGroupNames={renderAdGroupNames}
+        />
+      );
+    }
+
+    if (type === AdType.CALLOUT) {
+      return (
+        <CallOutCard
           item={item}
           adGroupNames={adGroupNames}
           renderAdGroupNames={renderAdGroupNames}

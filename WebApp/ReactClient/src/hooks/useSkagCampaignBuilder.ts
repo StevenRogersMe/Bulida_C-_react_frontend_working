@@ -128,6 +128,17 @@ export const useSkagCampaignBuilder = (): {
       });
     }
 
+    if (type === AdType.CALLOUT) {
+      adGroupList.forEach((adGroup) => {
+        const id = adGroup.callOutExt.length + 1;
+        adGroup.callOutExt.push({
+          id: id,
+          values: ['Snippet 1', 'Snippet 3', 'Snippet 2'],
+          type: AdType.CALLOUT,
+        });
+      });
+    }
+
     setSkagCampaign({
       ...skagCampaign,
       adGroupList: adGroupList || [],

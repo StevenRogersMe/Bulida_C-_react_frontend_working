@@ -84,6 +84,7 @@ export type CallOnlyAdType = {
 
 export type CallOutAdType = {
   id: number;
+  values: string[];
   type: AdType.CALLOUT;
 };
 
