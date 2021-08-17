@@ -12,6 +12,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ReactClient\src\infrastructure\jwtToken\JwtTokenCacheProvider.ts" />
+    <None Remove="ReactClient\src\infrastructure\jwtToken\JwtTokenParser.ts" />
+    <None Remove="ReactClient\src\infrastructure\jwtToken\models\JwtToken.ts" />
+    <None Remove="ReactClient\src\infrastructure\jwtToken\models\UserModel.ts" />
+    <None Remove="ReactClient\src\infrastructure\restClient\models\AuthenticationErrorType.ts" />
+    <None Remove="ReactClient\src\infrastructure\restClient\models\AuthenticationRequest.ts" />
+    <None Remove="ReactClient\src\infrastructure\restClient\models\AuthenticationResponse.ts" />
+    <None Remove="ReactClient\src\infrastructure\restClient\models\IErrorContent.ts" />
+    <None Remove="ReactClient\src\infrastructure\restClient\models\IRestResponse.ts" />
+    <None Remove="ReactClient\src\infrastructure\restClient\models\RefreshTokenRequest.ts" />
+    <None Remove="ReactClient\src\infrastructure\restClient\RestClient.ts" />
+    <None Remove="ReactClient\src\infrastructure\stores\TokenLocalStore.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.18" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.17" />
@@ -40,6 +55,21 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ReactClient\src\infrastructure\jwtToken\JwtTokenCacheProvider.ts" />
+    <TypeScriptCompile Include="ReactClient\src\infrastructure\jwtToken\JwtTokenParser.ts" />
+    <TypeScriptCompile Include="ReactClient\src\infrastructure\jwtToken\models\JwtToken.ts" />
+    <TypeScriptCompile Include="ReactClient\src\infrastructure\jwtToken\models\UserModel.ts" />
+    <TypeScriptCompile Include="ReactClient\src\infrastructure\restClient\models\AuthenticationErrorType.ts" />
+    <TypeScriptCompile Include="ReactClient\src\infrastructure\restClient\models\AuthenticationRequest.ts" />
+    <TypeScriptCompile Include="ReactClient\src\infrastructure\restClient\models\AuthenticationResponse.ts" />
+    <TypeScriptCompile Include="ReactClient\src\infrastructure\restClient\models\IErrorContent.ts" />
+    <TypeScriptCompile Include="ReactClient\src\infrastructure\restClient\models\IRestResponse.ts" />
+    <TypeScriptCompile Include="ReactClient\src\infrastructure\restClient\models\RefreshTokenRequest.ts" />
+    <TypeScriptCompile Include="ReactClient\src\infrastructure\restClient\RestClient.ts" />
+    <TypeScriptCompile Include="ReactClient\src\infrastructure\stores\TokenLocalStore.ts" />
   </ItemGroup>
 
 </Project>
