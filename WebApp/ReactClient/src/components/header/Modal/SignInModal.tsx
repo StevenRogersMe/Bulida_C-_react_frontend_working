@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { notifySuccess } from 'src/services/notifications/notificationService';
-import AuthenticationService from '../../../services/authenticationService';
-import { AuthenticationErrorType } from '../../../infrastructure/restClient/models/AuthenticationErrorType';
 import { FieldType } from 'src/utils/types';
 import { MIModalMessage } from 'src/components/common/MIModalMessage';
 import { MITextInput } from 'src/components/common/MITextInput';
 import MIPasswordInput from 'src/components/common/MIPasswordInput';
+import { notifySuccess } from 'src/services/notifications/notificationService';
+import AuthenticationService from '../../../services/authenticationService';
+import { AuthenticationErrorType } from '../../../infrastructure/restClient/models/AuthenticationErrorType';
 
 type Props = {
   dismiss?: (event: React.MouseEvent) => void;
 };
+
 export const SignInModal = ({ dismiss }: Props) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -29,10 +30,14 @@ export const SignInModal = ({ dismiss }: Props) => {
 const handleSubmit = async event => {
   event.preventDefault();
 
-    const authenticationResult = await AuthenticationService.authenticate(email, password);
+  const authenticationResult = await AuthenticationService.authenticate(email, password);
+
     if (authenticationResult.is_error) {
       notifySuccess({ msg: 'Server error' });
       return;
+    }
+    if (authenticationResult.content?.authenticationErrorType === AuthenticationErrorType.None){
+            // close modal , reload footer
     }
 
       switch (authenticationResult.content?.authenticationErrorType) {
@@ -46,8 +51,6 @@ const handleSubmit = async event => {
         break;
       }
     };
-
-
 
   return (
     <MIModalMessage
