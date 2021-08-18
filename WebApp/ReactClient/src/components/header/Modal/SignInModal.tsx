@@ -4,55 +4,59 @@ import { FieldType } from 'src/utils/types';
 import { MIModalMessage } from 'src/components/common/MIModalMessage';
 import { MITextInput } from 'src/components/common/MITextInput';
 import MIPasswordInput from 'src/components/common/MIPasswordInput';
-import { notifySuccess } from 'src/services/notifications/notificationService';
-import AuthenticationService from '../../../services/authenticationService';
-import { AuthenticationErrorType } from '../../../infrastructure/restClient/models/AuthenticationErrorType';
+import { notifyError } from 'src/services/notifications/notificationService';
+import AuthenticationService from 'src/services/authenticationService';
+import { AuthenticationErrorType } from 'src/infrastructure/restClient/models/AuthenticationErrorType';
 
 type Props = {
   dismiss?: (event: React.MouseEvent) => void;
 };
 
-  export const SignInModal = ({ dismiss }: Props) => {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+export const SignInModal = ({ dismiss }: Props) => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-    const handleSubmit = async event => {
-      event.preventDefault();
-    
-      const authenticationResult = await AuthenticationService.authenticate(email, password);
-    
-        if (authenticationResult.is_error) {
-          notifySuccess({ msg: 'Server error' });
-          return;
-        }
-        if (authenticationResult.content?.authenticationErrorType === AuthenticationErrorType.None){
-                // close modal , reload footer
-        }
-    
-          switch (authenticationResult.content?.authenticationErrorType) {
-            case AuthenticationErrorType.IsUserNotFound: 
-              notifySuccess({ msg: 'User not found' });
-              break;
-            case AuthenticationErrorType.IsWrongPassword:
-              notifySuccess({ msg: 'Wrong password' });
-            break;
-            default: 
-            break;
-          }
-          
-    
-      };
-  
-    const onFieldChanged = ({ id, value }: FieldType) => {
-      if (id === 'email') {
-        setEmail(value);
-      }
-  
-      if (id === 'password') {
-        setPassword(value);
-      }
-    };
-  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const authenticationResult = await AuthenticationService.authenticate(
+      email,
+      password
+    );
+
+    if (authenticationResult.is_error) {
+      notifyError({ msg: 'Server error' });
+      return;
+    }
+    if (
+      authenticationResult.content?.authenticationErrorType ===
+      AuthenticationErrorType.None
+    ) {
+      // close modal , reload footer
+    }
+
+    switch (authenticationResult.content?.authenticationErrorType) {
+      case AuthenticationErrorType.IsUserNotFound:
+        notifyError({ msg: 'User not found' });
+        break;
+      case AuthenticationErrorType.IsWrongPassword:
+        notifyError({ msg: 'Wrong password' });
+        break;
+      default:
+        break;
+    }
+  };
+
+  const onFieldChanged = ({ id, value }: FieldType) => {
+    if (id === 'email') {
+      setEmail(value);
+    }
+
+    if (id === 'password') {
+      setPassword(value);
+    }
+  };
+
   return (
     <MIModalMessage
       dismiss={dismiss}
@@ -95,11 +99,12 @@ const ModalTitleContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 3rem;
+  width: 100%;
 `;
 
 const ModalTitle = styled.span`
   ${(props) => props.theme.text.fontType.h4};
-  font-weight: normal;
+  font-weight: 300;
 `;
 
 const Bold = styled.span`
@@ -108,18 +113,22 @@ const Bold = styled.span`
 
 const InputsContainer = styled.div`
   margin-top: 1rem;
+  width: 100%;
 `;
 
 const SignUpButton = styled.div`
   display: flex;
   align-items: center;
-  padding: 2.5rem 3.3rem;
+  justify-content: center;
+  width: 100%;
+  padding: 1.5rem 0;
   border-radius: 1.2rem;
   cursor: pointer;
   color: ${(props) => props.theme.colors.pureWhite};
-  background-color: ${(props) => props.theme.colors.blue1};
+  background-color: ${(props) => props.theme.colors.blue2};
+  ${(props) => props.theme.text.fontType.body3};
 
   &:hover {
     box-shadow: 0 0.5rem 1rem 0 rgba(33, 33, 36, 0.2);
-  
+  }
 `;

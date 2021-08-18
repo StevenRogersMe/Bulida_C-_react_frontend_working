@@ -52,7 +52,7 @@ class MIPasswordInput extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { type, size, viewOnly, id } = this.props;
+    const { type, size, viewOnly } = this.props;
     const shouldShowValue = this.state.shouldShowValue && !viewOnly;
     const inputType = this.inputTypeHandler();
     const passwordIcon = shouldShowValue ? Eye : ClosedEye;

@@ -1,4 +1,4 @@
-import { ReactNode, MouseEvent } from 'react';
+import { ReactNode } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import CloseIcon from 'src/images/general/close-icon.svg';
@@ -60,6 +60,7 @@ const Backdrop = styled.div`
 `;
 
 const ModalContainer = styled.div`
+  min-width: 50rem;
   max-height: calc(100vh - 8rem);
   overflow-y: auto;
   z-index: 1;
