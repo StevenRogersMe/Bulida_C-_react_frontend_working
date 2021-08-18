@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { notifySuccess } from 'src/services/notifications/notificationService';
+import AuthenticationService from '../../../services/authenticationService';
+import { AuthenticationErrorType } from '../../../infrastructure/restClient/models/AuthenticationErrorType';
 import { FieldType } from 'src/utils/types';
 import { MIModalMessage } from 'src/components/common/MIModalMessage';
 import { MITextInput } from 'src/components/common/MITextInput';
@@ -8,7 +11,6 @@ import MIPasswordInput from 'src/components/common/MIPasswordInput';
 type Props = {
   dismiss?: (event: React.MouseEvent) => void;
 };
-
 export const SignInModal = ({ dismiss }: Props) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -22,6 +24,30 @@ export const SignInModal = ({ dismiss }: Props) => {
       setPassword(value);
     }
   };
+
+
+const handleSubmit = async event => {
+  event.preventDefault();
+
+    const authenticationResult = await AuthenticationService.authenticate(email, password);
+    if (authenticationResult.is_error) {
+      notifySuccess({ msg: 'Server error' });
+      return;
+    }
+
+      switch (authenticationResult.content?.authenticationErrorType) {
+        case AuthenticationErrorType.IsUserNotFound: 
+          notifySuccess({ msg: 'User not found' });
+          break;
+        case AuthenticationErrorType.IsWrongPassword:
+          notifySuccess({ msg: 'Wrong password' });
+        break;
+        default: 
+        break;
+      }
+    };
+
+
 
   return (
     <MIModalMessage
@@ -50,9 +76,9 @@ export const SignInModal = ({ dismiss }: Props) => {
               label='Password'
               required
               onChange={onFieldChanged}
-              // errorMessage={validationErrors.password}
             />
           </InputsContainer>
+          <SignUpButton onClick={handleSubmit}>Log In</SignUpButton>
         </ModalTitleContainer>
       }
     />
@@ -78,4 +104,18 @@ const Bold = styled.span`
 
 const InputsContainer = styled.div`
   margin-top: 1rem;
+`;
+
+const SignUpButton = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 2.5rem 3.3rem;
+  border-radius: 1.2rem;
+  cursor: pointer;
+  color: ${(props) => props.theme.colors.pureWhite};
+  background-color: ${(props) => props.theme.colors.blue1};
+
+  &:hover {
+    box-shadow: 0 0.5rem 1rem 0 rgba(33, 33, 36, 0.2);
+  
 `;
