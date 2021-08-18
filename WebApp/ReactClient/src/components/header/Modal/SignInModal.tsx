@@ -12,9 +12,9 @@ type Props = {
   dismiss?: (event: React.MouseEvent) => void;
 };
 
-  export const SignInModal = ({ dismiss }: Props) => {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+export const SignInModal = ({ dismiss }: Props) => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
     const handleSubmit = async event => {
       event.preventDefault();
@@ -95,11 +95,12 @@ const ModalTitleContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 3rem;
+  width: 100%;
 `;
 
 const ModalTitle = styled.span`
   ${(props) => props.theme.text.fontType.h4};
-  font-weight: normal;
+  font-weight: 300;
 `;
 
 const Bold = styled.span`
@@ -108,18 +109,22 @@ const Bold = styled.span`
 
 const InputsContainer = styled.div`
   margin-top: 1rem;
+  width: 100%;
 `;
 
 const SignUpButton = styled.div`
   display: flex;
   align-items: center;
-  padding: 2.5rem 3.3rem;
+  justify-content: center;
+  width: 100%;
+  padding: 1.5rem 0;
   border-radius: 1.2rem;
   cursor: pointer;
   color: ${(props) => props.theme.colors.pureWhite};
-  background-color: ${(props) => props.theme.colors.blue1};
+  background-color: ${(props) => props.theme.colors.blue2};
+  ${(props) => props.theme.text.fontType.body3};
 
   &:hover {
     box-shadow: 0 0.5rem 1rem 0 rgba(33, 33, 36, 0.2);
-  
+  }
 `;

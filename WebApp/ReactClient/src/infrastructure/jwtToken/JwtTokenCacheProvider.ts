@@ -1,45 +1,45 @@
-﻿import { JwtToken } from "./models/JwtToken";
-import { UserModel } from "./models/UserModel";
-import TokenLocalStore from "../stores/TokenLocalStore";
-import JwtTokenParser from "./JwtTokenParser";
+﻿import { JwtToken } from './models/JwtToken';
+import { UserModel } from './models/UserModel';
+import TokenLocalStore from '../stores/TokenLocalStore';
+import JwtTokenParser from './JwtTokenParser';
 
 export default class JwtTokenCacheProvider {
-    private static jwtToken: JwtToken | null = null;
+  private static jwtToken: JwtToken | null = null;
 
-    public static getJwtToken(): JwtToken | null {
-        if (this.jwtToken === null) {
-            const jwtTokenString = TokenLocalStore.getJwtToken();
-            this.jwtToken = JwtTokenParser.parseJwtToken(jwtTokenString);
-        }
-
-        return this.jwtToken;
+  public static getJwtToken(): JwtToken | null {
+    if (this.jwtToken === null) {
+      const jwtTokenString = TokenLocalStore.getJwtToken();
+      this.jwtToken = JwtTokenParser.parseJwtToken(jwtTokenString);
     }
 
-    public static getExpirationMilliseconds(): number {
-        const jwtToken = JwtTokenCacheProvider.getJwtToken();
-        if (jwtToken === null) {
-            return 0;
-        }
+    return this.jwtToken;
+  }
 
-        const jwtTokenMilliseconds = jwtToken.exp * 1000;
-        return jwtTokenMilliseconds;
+  public static getExpirationMilliseconds(): number {
+    const jwtToken = JwtTokenCacheProvider.getJwtToken();
+    if (jwtToken === null) {
+      return 0;
     }
 
-    public static getUser(): UserModel | null {
-        const jwtToken = JwtTokenCacheProvider.getJwtToken();
-        if (jwtToken === null) {
-            return null;
-        }
-        const userModel = {
-            firstName: jwtToken.given_name,
-            lastName: jwtToken.family_name,
-            id: jwtToken.nameid
-        } as UserModel;
+    const jwtTokenMilliseconds = jwtToken.exp * 1000;
+    return jwtTokenMilliseconds;
+  }
 
-        return userModel;
+  public static getUser(): UserModel | null {
+    const jwtToken = JwtTokenCacheProvider.getJwtToken();
+    if (jwtToken === null) {
+      return null;
     }
+    const userModel = {
+      firstName: jwtToken.given_name,
+      lastName: jwtToken.family_name,
+      id: jwtToken.nameid,
+    } as UserModel;
 
-    public static clearCache(): void {
-        this.jwtToken = null;
-    }
+    return userModel;
+  }
+
+  public static clearCache(): void {
+    this.jwtToken = null;
+  }
 }
