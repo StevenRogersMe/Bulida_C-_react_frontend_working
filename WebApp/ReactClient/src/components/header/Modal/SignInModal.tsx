@@ -4,7 +4,7 @@ import { FieldType } from 'src/utils/types';
 import { MIModalMessage } from 'src/components/common/MIModalMessage';
 import { MITextInput } from 'src/components/common/MITextInput';
 import MIPasswordInput from 'src/components/common/MIPasswordInput';
-import { notifySuccess } from 'src/services/notifications/notificationService';
+import { notifyError } from 'src/services/notifications/notificationService';
 import AuthenticationService from '../../../services/authenticationService';
 import { AuthenticationErrorType } from '../../../infrastructure/restClient/models/AuthenticationErrorType';
 
@@ -22,7 +22,7 @@ type Props = {
       const authenticationResult = await AuthenticationService.authenticate(email, password);
     
         if (authenticationResult.is_error) {
-          notifySuccess({ msg: 'Server error' });
+          notifyError({ msg: 'Server error' });
           return;
         }
         if (authenticationResult.content?.authenticationErrorType === AuthenticationErrorType.None){
@@ -31,10 +31,10 @@ type Props = {
     
           switch (authenticationResult.content?.authenticationErrorType) {
             case AuthenticationErrorType.IsUserNotFound: 
-              notifySuccess({ msg: 'User not found' });
+            notifyError({ msg: 'User not found' });
               break;
             case AuthenticationErrorType.IsWrongPassword:
-              notifySuccess({ msg: 'Wrong password' });
+              notifyError({ msg: 'Wrong password' });
             break;
             default: 
             break;

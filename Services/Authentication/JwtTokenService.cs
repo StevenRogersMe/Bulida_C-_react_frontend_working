@@ -39,8 +39,6 @@ namespace Services.Authentication
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iss, _jwtIssuerSettings.Issuer),
                 new Claim(JwtRegisteredClaimNames.Aud, _jwtIssuerSettings.Audience),
-                new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
-                new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             });
 

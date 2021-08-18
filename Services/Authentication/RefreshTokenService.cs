@@ -13,6 +13,11 @@ namespace Services.Authentication
   {
     private readonly JwtSettings _jwtSettings;
 
+    public RefreshTokenService(JwtSettings jwtSettings)
+    {
+      _jwtSettings = jwtSettings;
+    }
+
     public RefreshToken GenerateRefreshToken(string userId, string jwtId)
     {
       return new RefreshToken

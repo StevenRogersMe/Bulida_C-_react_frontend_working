@@ -4,11 +4,14 @@ import { AuthenticationResponse } from "../restClient/models/AuthenticationRespo
 import { AuthenticationErrorType } from "../restClient/models/AuthenticationErrorType";
 import TokenLocalStore from "../stores/TokenLocalStore";
 import JwtTokenCacheProvider from "../jwtToken/JwtTokenCacheProvider";
+const { COPMAIGN_APP_API } = process.env;
 
 // Required for process.env.COPMAIGN_APP_API
 require('dotenv').config();
 
 export default class RestClient {
+
+    private static COPMAIGN_APP_API  = 'https://localhost:5001/';
     public static get<TResponse>(url: string): Promise<IRestResponse<TResponse>> {
         return RestClient.request<TResponse>("GET", url, null, false);
     }
@@ -46,7 +49,7 @@ export default class RestClient {
         headers.set('Accept', 'application/json');
         headers.set('Content-Type', 'application/json');
 
-        const fullUrl = process.env.COPMAIGN_APP_API + 'api/authentication/refresh';
+        const fullUrl = RestClient.COPMAIGN_APP_API + 'api/authentication/refresh';
 
         const data = {
             jwtToken: TokenLocalStore.getJwtToken(),
@@ -106,7 +109,7 @@ export default class RestClient {
             body = data;
         }
 
-        const fullUrl = process.env.REACT_APP_DASHBOARD_API + url;
+        const fullUrl = RestClient.COPMAIGN_APP_API + url;
         return fetch(fullUrl, {
             method: method,
             headers: headers,

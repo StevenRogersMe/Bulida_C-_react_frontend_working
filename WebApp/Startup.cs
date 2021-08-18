@@ -1,5 +1,7 @@
 using Core.Users;
 using Dal.Context;
+using Dal.Repositories.RefreshTokens;
+using Dal.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Services.Authentication;
 using Services.Compaing;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using WebApp.IoC;
 using WebApp.Middleware;
@@ -81,6 +84,12 @@ namespace WebApp
       services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
       services.AddScoped<ICompaingAplicationService, CompaingAplicationService>();
       services.AddScoped<IGoogleService, GoogleService>();
+      services.AddScoped<IAuthenticationService, AuthenticationService>();
+      services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+      services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+      services.AddScoped<IJwtTokenService, JwtTokenService>();
+      services.AddScoped<IUnitOfWork, UnitOfWork>();
+      services.AddScoped<JwtSecurityTokenHandler>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
