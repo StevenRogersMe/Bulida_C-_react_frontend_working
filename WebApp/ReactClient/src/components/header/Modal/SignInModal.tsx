@@ -12,46 +12,47 @@ type Props = {
   dismiss?: (event: React.MouseEvent) => void;
 };
 
-export const SignInModal = ({ dismiss }: Props) => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  export const SignInModal = ({ dismiss }: Props) => {
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
 
-  const onFieldChanged = ({ id, value }: FieldType) => {
-    if (id === 'email') {
-      setEmail(value);
-    }
-
-    if (id === 'password') {
-      setPassword(value);
-    }
-  };
-
-
-const handleSubmit = async event => {
-  event.preventDefault();
-
-  const authenticationResult = await AuthenticationService.authenticate(email, password);
-
-    if (authenticationResult.is_error) {
-      notifySuccess({ msg: 'Server error' });
-      return;
-    }
-    if (authenticationResult.content?.authenticationErrorType === AuthenticationErrorType.None){
-            // close modal , reload footer
-    }
-
-      switch (authenticationResult.content?.authenticationErrorType) {
-        case AuthenticationErrorType.IsUserNotFound: 
-          notifySuccess({ msg: 'User not found' });
-          break;
-        case AuthenticationErrorType.IsWrongPassword:
-          notifySuccess({ msg: 'Wrong password' });
-        break;
-        default: 
-        break;
+    const handleSubmit = async event => {
+      event.preventDefault();
+    
+      const authenticationResult = await AuthenticationService.authenticate(email, password);
+    
+        if (authenticationResult.is_error) {
+          notifySuccess({ msg: 'Server error' });
+          return;
+        }
+        if (authenticationResult.content?.authenticationErrorType === AuthenticationErrorType.None){
+                // close modal , reload footer
+        }
+    
+          switch (authenticationResult.content?.authenticationErrorType) {
+            case AuthenticationErrorType.IsUserNotFound: 
+              notifySuccess({ msg: 'User not found' });
+              break;
+            case AuthenticationErrorType.IsWrongPassword:
+              notifySuccess({ msg: 'Wrong password' });
+            break;
+            default: 
+            break;
+          }
+          
+    
+      };
+  
+    const onFieldChanged = ({ id, value }: FieldType) => {
+      if (id === 'email') {
+        setEmail(value);
+      }
+  
+      if (id === 'password') {
+        setPassword(value);
       }
     };
-
+  
   return (
     <MIModalMessage
       dismiss={dismiss}
