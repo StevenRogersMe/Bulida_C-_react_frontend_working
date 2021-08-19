@@ -104,10 +104,8 @@ const PrimaryButton = styled(Button)`
   &:disabled {
     color: ${(props) =>
       props.processing ? 'transparent' : 'rgba(33, 33, 36, 0.3)'};
-    background-color: transparent;
-    border: solid 0.1rem
-      ${(props) =>
-        props.processing ? props.theme.colors.blue2 : 'rgba(33, 33, 36, 0.3)'};
+    background-color: ${(props) =>
+      props.processing ? props.theme.colors.blue2 : props.theme.colors.blue1};
   }
 
   &:active {

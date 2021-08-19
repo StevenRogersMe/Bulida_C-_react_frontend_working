@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useModal } from 'src/helpers/react/useModal';
 import { SignInModal } from 'src/components/header/Modal/SignInModal';
 import { MIButton } from 'src/components/common/MIButton';
-import AuthenticationService from 'src/services/authenticationService';
+// import AuthenticationService from 'src/services/authenticationService';
 import LogoImage from 'src/images/general/logo.svg';
 import { BUTTON_VARIANT } from 'src/utils/consts';
 
