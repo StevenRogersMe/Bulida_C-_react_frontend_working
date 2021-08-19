@@ -11,9 +11,10 @@ import { MIButton } from 'src/components/common/MIButton';
 
 type Props = {
   dismiss?: (event: React.MouseEvent) => void;
+  setIsSignedIn: (value: boolean) => void;
 };
 
-export const SignInModal = ({ dismiss }: Props) => {
+export const SignInModal = ({ dismiss, setIsSignedIn }: Props) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -37,6 +38,7 @@ export const SignInModal = ({ dismiss }: Props) => {
       AuthenticationErrorType.None
     ) {
       setLoading(false);
+      setIsSignedIn(true);
       dismiss && dismiss(event);
     }
 

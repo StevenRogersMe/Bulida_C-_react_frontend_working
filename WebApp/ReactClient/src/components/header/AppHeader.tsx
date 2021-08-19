@@ -1,17 +1,34 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useModal } from 'src/helpers/react/useModal';
 import { SignInModal } from 'src/components/header/Modal/SignInModal';
 import { MIButton } from 'src/components/common/MIButton';
-// import AuthenticationService from 'src/services/authenticationService';
+import AuthenticationService from 'src/services/authenticationService';
 import LogoImage from 'src/images/general/logo.svg';
 import { BUTTON_VARIANT } from 'src/utils/consts';
 
 export const AppHeader = () => {
+  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+
+  const checkIfUserSignedIn = async () => {
+    const result = await AuthenticationService.isSignedIn();
+    setIsSignedIn(result);
+  };
+
+  useEffect(() => {
+    checkIfUserSignedIn();
+  }, []);
+
+  const logOut = async () => {
+    await AuthenticationService.signOut();
+    setIsSignedIn(false);
+  };
+
   const [SignIn, showSignIn] = useModal(SignInModal, {
     id: 'signInModal',
+    setIsSignedIn: setIsSignedIn,
   });
-  // TODO: Add value to the store
-  const isSignedIn = false;
+
   return (
     <>
       {SignIn}
@@ -27,10 +44,7 @@ export const AppHeader = () => {
         </Menu>
         <Auth>
           {isSignedIn ? (
-            <MIButton
-              label='LOG OUT'
-              onClick={() => console.log('log out')}
-            />
+            <MIButton label='LOG OUT' onClick={logOut} />
           ) : (
             <>
               <MIButton
