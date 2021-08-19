@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 import { useModal } from 'src/helpers/react/useModal';
 import { SignInModal } from 'src/components/header/Modal/SignInModal';
+import { MIButton } from 'src/components/common/MIButton';
+import AuthenticationService from 'src/services/authenticationService';
 import LogoImage from 'src/images/general/logo.svg';
+import { BUTTON_VARIANT } from 'src/utils/consts';
 
 export const AppHeader = () => {
   const [SignIn, showSignIn] = useModal(SignInModal, {
     id: 'signInModal',
   });
+  // TODO: Add value to the store
+  const isSignedIn = false;
   return (
     <>
       {SignIn}
@@ -21,8 +26,24 @@ export const AppHeader = () => {
           <MenuItem>Pricing</MenuItem>
         </Menu>
         <Auth>
-          <LogInButton onClick={showSignIn}>SIGN IN</LogInButton>
-          <SignUpButton>SIGN UP</SignUpButton>
+          {isSignedIn ? (
+            <MIButton
+              label='LOG OUT'
+              onClick={() => console.log('log out')}
+            />
+          ) : (
+            <>
+              <MIButton
+                label='SIGN IN'
+                variant={BUTTON_VARIANT.SECONDARY}
+                onClick={showSignIn}
+              />
+              <MIButton
+                label='SIGN UP'
+                onClick={() => console.log('register')}
+              />
+            </>
+          )}
         </Auth>
       </AppHeaderContainer>
     </>
@@ -70,36 +91,7 @@ const Auth = styled.div`
   height: 5rem;
   ${(props) => props.theme.text.fontType.body4};
 
-  > div:nth-child(1) {
+  > button:nth-child(1) {
     margin: 0 0.5rem 0 0;
-  }
-`;
-
-const LogInButton = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 2.5rem 3.3rem;
-  border-radius: 1.2rem;
-  cursor: pointer;
-  border: 0.1rem solid ${(props) => props.theme.colors.stroke};
-  color: ${(props) => props.theme.colors.blue1};
-  background-color: ${(props) => props.theme.colors.pureWhite};
-
-  &:hover {
-    box-shadow: 0 0.5rem 1rem 0 rgba(33, 33, 36, 0.2);
-  }
-`;
-
-const SignUpButton = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 2.5rem 3.3rem;
-  border-radius: 1.2rem;
-  cursor: pointer;
-  color: ${(props) => props.theme.colors.pureWhite};
-  background-color: ${(props) => props.theme.colors.blue1};
-
-  &:hover {
-    box-shadow: 0 0.5rem 1rem 0 rgba(33, 33, 36, 0.2);
   }
 `;

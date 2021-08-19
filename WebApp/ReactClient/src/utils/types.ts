@@ -1,4 +1,4 @@
-import { TEXT_INPUT_SIZE } from 'src/utils/consts';
+import { TEXT_INPUT_SIZE, BUTTON_VARIANT, BUTTON_SIZE } from 'src/utils/consts';
 
 export type Expandable<T> = T & Record<string, any>;
 
@@ -106,3 +106,12 @@ export type ExpTextAdExtType = {
 export type TextInputSize = TEXT_INPUT_SIZE.INLINE | TEXT_INPUT_SIZE.WIZARD;
 
 export type FieldType = { id: string; value: string };
+
+export type ButtonVariantType =
+  | BUTTON_VARIANT.PRIMARY
+  | BUTTON_VARIANT.SECONDARY;
+export type ButtonSizeType =
+  | BUTTON_SIZE.NORMAL
+  | BUTTON_SIZE.SMALL
+  | BUTTON_SIZE.TINY
+  | BUTTON_SIZE.VERY_SMALL;

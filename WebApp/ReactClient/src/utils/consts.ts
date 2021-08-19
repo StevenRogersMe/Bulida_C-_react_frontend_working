@@ -68,3 +68,15 @@ export enum TEXT_INPUT_SIZE {
   INLINE = 'inline',
   WIZARD = 'wizard',
 }
+
+export enum BUTTON_VARIANT {
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+}
+
+export enum BUTTON_SIZE {
+  SMALL = 'small',
+  TINY = 'tiny',
+  NORMAL = 'normal',
+  VERY_SMALL = 'very-small',
+}
