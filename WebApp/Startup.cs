@@ -2,6 +2,7 @@ using Core.Users;
 using Dal.Context;
 using Dal.Repositories.RefreshTokens;
 using Dal.UnitOfWork;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Services.Authentication;
 using Services.Compaing;
 using System.IdentityModel.Tokens.Jwt;
@@ -73,7 +75,8 @@ namespace WebApp
       // Adding Authentication based on using of JwtToken.
       var jwtSettings = serviceProvider.GetService<JwtSettings>();
       var jwtIssuerSettings = serviceProvider.GetService<JwtIssuerSettings>();
-      services.AddAuthentication(jwtSettings, jwtIssuerSettings);
+      var googleSettings = serviceProvider.GetService<GoogleSettings>();
+      services.AddAuthentication(jwtSettings, jwtIssuerSettings, googleSettings);
 
       // Authorization.
       services.AddAuthorization();

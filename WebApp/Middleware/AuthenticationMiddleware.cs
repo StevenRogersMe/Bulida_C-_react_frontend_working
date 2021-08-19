@@ -11,7 +11,7 @@ namespace WebApp.Middleware
   {
     public static void AddAuthentication(this IServiceCollection services,
                                             JwtSettings jwtSettings,
-                                            JwtIssuerSettings jwtIssuerSettings)
+                                            JwtIssuerSettings jwtIssuerSettings, GoogleSettings googleSettings)
     {
 
       var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey));
@@ -54,7 +54,12 @@ namespace WebApp.Middleware
         x.TokenValidationParameters = tokenValidationParameters;
         x.ClaimsIssuer = jwtIssuerSettings.Issuer;
         x.SaveToken = true;
+      }).AddGoogle(options =>
+      {
+        options.ClientId = googleSettings.OAuth2ClientId;
+        options.ClientSecret = googleSettings.OAuth2ClientSecret;
       });
+
     }
   }
 }

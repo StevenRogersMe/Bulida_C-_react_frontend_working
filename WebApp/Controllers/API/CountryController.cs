@@ -1,25 +1,22 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApp.Controllers.API
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CountryController : ControllerBase
+  [Route("api/[controller]")]
+  [Authorize]
+  [ApiController]
+  public class CountryController : ControllerBase
+  {
+    public IActionResult Index()
     {
-        public IActionResult Index()
-        {
-            return RedirectToAction();
-        }
-
-        [HttpGet]
-        public void GetCoutry()
-        {
-
-        }
+      return RedirectToAction();
     }
+
+    [HttpGet]
+    public void GetCoutry()
+    {
+
+    }
+  }
 }

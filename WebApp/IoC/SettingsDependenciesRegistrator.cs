@@ -25,6 +25,14 @@ namespace WebApp.IoC
 
       #endregion
 
+      #region GoogleSettings
+
+      var googleSettings = new GoogleSettings();
+      configuration.GetSection(nameof(GoogleSettings)).Bind(googleSettings);
+      services.AddSingleton(x => googleSettings);
+
+      #endregion
+
 
       #region OriginSettings
 
