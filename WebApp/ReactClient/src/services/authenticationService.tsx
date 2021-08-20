@@ -37,8 +37,7 @@ export default class AuthenticationService {
     return false;
   }
 
-  public static singInByGoogle(googleToken : GoogleRequest){
-    
+  public static singInByGoogle(googleToken: GoogleRequest) {
     return RestClient.post<AuthenticationResponse>(
       `api/authentication/google-login`,
       googleToken

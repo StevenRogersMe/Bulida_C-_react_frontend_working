@@ -1,4 +1,3 @@
 export interface GoogleRequest {
-    tokenId: string;
-  }
-  
+  tokenId: string;
+}
