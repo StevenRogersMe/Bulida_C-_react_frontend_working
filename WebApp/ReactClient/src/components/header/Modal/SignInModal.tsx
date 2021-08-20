@@ -105,7 +105,7 @@ export const SignInModal = ({ dismiss, setIsSignedIn }: Props) => {
             fullWidth
           />
           <BottomButtonOrSeparator>
-            <OrText>Or</OrText>
+            <OrText>or</OrText>
           </BottomButtonOrSeparator>
           <GoogleLoginButton />
         </ModalTitleContainer>
@@ -148,6 +148,6 @@ const BottomButtonOrSeparator = styled.div`
   text-align: center;
   border-bottom: 0.1rem solid ${(props) => props.theme.colors.grey5};
   line-height: 0.1rem;
-  padding-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  padding-top: 2rem;
+  margin-bottom: 2rem;
 `;
