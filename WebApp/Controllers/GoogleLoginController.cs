@@ -15,11 +15,11 @@ namespace WebApp.Controllers
         /// </summary>
         private GoogleAdsConfig config;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LoginController"/> class.
-        /// </summary>
-        /// <param name="configRoot">The configuration root.</param>
-        public GoogleLoginController(IConfiguration configRoot)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GoogleLoginController"/> class.
+    /// </summary>
+    /// <param name="configRoot">The configuration root.</param>
+    public GoogleLoginController(IConfiguration configRoot)
         {
             IConfigurationSection section = configRoot.GetSection("GoogleAdsApi");
             config = new GoogleAdsConfig(section);

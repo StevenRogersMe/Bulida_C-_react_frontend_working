@@ -1,12 +1,14 @@
-﻿
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Authentication;
-using System;
-using System.Collections.Generic;
+using Services.Authentication.Google;
 using System.Linq;
 using System.Threading.Tasks;
+using IAuthenticationService = Services.Authentication.IAuthenticationService;
 
 namespace WebApp.Controllers
 {
@@ -48,5 +50,39 @@ namespace WebApp.Controllers
 
       return Ok(response);
     }
+
+    /// <summary>
+    /// Google athentication
+    /// </summary>
+    [AllowAnonymous]
+    [HttpPost("google-login")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public IActionResult GoogleLogin(GoogleRequest googleRequest)
+    {
+      var properties = new AuthenticationProperties { RedirectUri = Url.Action("GoogleResponse") };
+      return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+    }
+
+    /// <summary>
+    /// Get google user
+    /// </summary>
+    [AllowAnonymous]
+    [Route("google-response")]
+    public async Task<IActionResult> GoogleResponse()
+    {
+      var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+      var claims = result.Principal.Identities
+          .FirstOrDefault().Claims.Select(claim => new
+          {
+            claim.Issuer,
+            claim.OriginalIssuer,
+            claim.Type,
+            claim.Value
+          });
+
+      return Ok(result);
+    }
+
   }
 }

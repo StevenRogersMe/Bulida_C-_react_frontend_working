@@ -4,6 +4,7 @@ import { AuthenticationRequest } from '../infrastructure/restClient/models/Authe
 import { AuthenticationErrorType } from '../infrastructure/restClient/models/AuthenticationErrorType';
 import JwtTokenCacheProvider from '../infrastructure/jwtToken/JwtTokenCacheProvider';
 import TokenLocalStore from '../infrastructure/stores/TokenLocalStore';
+import { GoogleRequest } from '../infrastructure/restClient/models/GoogleRequest';
 
 export default class AuthenticationService {
   public static async isSignedIn(): Promise<boolean> {
@@ -34,6 +35,20 @@ export default class AuthenticationService {
     TokenLocalStore.removeRefreshToken();
 
     return false;
+  }
+
+  public static singInByGoogle(googleToken : GoogleRequest){
+    
+    return RestClient.post<AuthenticationResponse>(
+      `api/authentication/google-login`,
+      googleToken
+    ).then((response) => {
+      if (!response.is_error && response.content) {
+        TokenLocalStore.setJwtToken(response.content.jwtToken);
+        TokenLocalStore.setRefreshToken(response.content.refreshToken);
+      }
+      return response;
+    });
   }
 
   public static authenticate(email: string, password: string) {

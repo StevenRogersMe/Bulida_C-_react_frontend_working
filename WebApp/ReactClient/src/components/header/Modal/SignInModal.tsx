@@ -2,12 +2,14 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { FieldType } from 'src/utils/types';
 import { MIModalMessage } from 'src/components/common/MIModalMessage';
+import  GoogleLoginButton  from 'src/components/common/GoogleLoginButton';
 import { MITextInput } from 'src/components/common/MITextInput';
 import MIPasswordInput from 'src/components/common/MIPasswordInput';
 import { notifyInfo } from 'src/services/notifications/notificationService';
 import AuthenticationService from 'src/services/authenticationService';
 import { AuthenticationErrorType } from 'src/infrastructure/restClient/models/AuthenticationErrorType';
 import { MIButton } from 'src/components/common/MIButton';
+
 
 type Props = {
   dismiss?: (event: React.MouseEvent) => void;
@@ -102,6 +104,8 @@ export const SignInModal = ({ dismiss, setIsSignedIn }: Props) => {
             onClick={handleSubmit}
             isProcessing={loading}
             fullWidth
+          />
+          <GoogleLoginButton
           />
         </ModalTitleContainer>
       }

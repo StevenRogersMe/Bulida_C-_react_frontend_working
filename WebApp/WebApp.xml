@@ -14,6 +14,16 @@
             Refresh token
             </summary>
         </member>
+        <member name="M:WebApp.Controllers.AuthenticationController.GoogleLogin(Services.Authentication.Google.GoogleRequest)">
+            <summary>
+            Google athentication
+            </summary>
+        </member>
+        <member name="M:WebApp.Controllers.AuthenticationController.GoogleResponse">
+            <summary>
+            Get google user
+            </summary>
+        </member>
         <member name="F:WebApp.Controllers.GoogleAdsController.client">
             <summary>
             The Google Ads client.
@@ -43,7 +53,7 @@
         </member>
         <member name="M:WebApp.Controllers.GoogleLoginController.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
-            Initializes a new instance of the <see cref="!:LoginController"/> class.
+            Initializes a new instance of the <see cref="T:WebApp.Controllers.GoogleLoginController"/> class.
             </summary>
             <param name="configRoot">The configuration root.</param>
         </member>
