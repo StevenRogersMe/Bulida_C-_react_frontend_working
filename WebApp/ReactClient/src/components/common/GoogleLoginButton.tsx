@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import AuthenticationService from 'src/services/authenticationService';
+import { notifyError } from 'src/services/notifications/notificationService';
 
 
 
  class GoogleLoginButton extends Component  {
 
    handleGoogleSingIn = async (event) => {
-    console.log(event);
     if (!event.tokenId) {
-      console.error("Unable to get tokenId from Google", event)
+      notifyError({ msg: 'Unable to get tokenId from Google' });
       return;
     }
    const result = AuthenticationService.singInByGoogle(event.tokenId)

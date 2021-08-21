@@ -5,7 +5,7 @@ import { MIModalMessage } from 'src/components/common/MIModalMessage';
 import  GoogleLoginButton  from 'src/components/common/GoogleLoginButton';
 import { MITextInput } from 'src/components/common/MITextInput';
 import MIPasswordInput from 'src/components/common/MIPasswordInput';
-import { notifyInfo } from 'src/services/notifications/notificationService';
+import { notifyError } from 'src/services/notifications/notificationService';
 import AuthenticationService from 'src/services/authenticationService';
 import { AuthenticationErrorType } from 'src/infrastructure/restClient/models/AuthenticationErrorType';
 import { MIButton } from 'src/components/common/MIButton';
@@ -32,7 +32,7 @@ export const SignInModal = ({ dismiss, setIsSignedIn }: Props) => {
 
     if (authenticationResult.is_error) {
       setLoading(false);
-      notifyInfo({ msg: 'Server error.' });
+      notifyError({ msg: 'Server error.' });
       return;
     }
     if (
@@ -47,11 +47,11 @@ export const SignInModal = ({ dismiss, setIsSignedIn }: Props) => {
     switch (authenticationResult.content?.authenticationErrorType) {
       case AuthenticationErrorType.IsUserNotFound:
         setLoading(false);
-        notifyInfo({ msg: 'User not found' });
+        notifyError({ msg: 'User not found' });
         break;
       case AuthenticationErrorType.IsWrongPassword:
         setLoading(false);
-        notifyInfo({ msg: 'Wrong password' });
+        notifyError({ msg: 'Wrong password' });
         break;
       default:
         break;

@@ -14,7 +14,7 @@
             Refresh token
             </summary>
         </member>
-        <member name="M:WebApp.Controllers.AuthenticationController.GoogleLogin(Services.Authentication.Google.GoogleRequest)">
+        <member name="M:WebApp.Controllers.AuthenticationController.GoogleLoginAsync(Services.Authentication.Google.GoogleRequest)">
             <summary>
             Google athentication
             </summary>

@@ -5,12 +5,15 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using static Google.Apis.Auth.GoogleJsonWebSignature;
 
 namespace Services.Authentication
 {
   public interface IJwtTokenService
   {
     SecurityToken GenerateJwtToken(AplicationUser user);
+
+    SecurityToken GetGoogleSecurityToken(AplicationUser user, Payload payload);
 
     ClaimsPrincipal GetClaimsPrincipal(string jwtToken);
 
@@ -39,6 +42,30 @@ namespace Services.Authentication
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iss, _jwtIssuerSettings.Issuer),
                 new Claim(JwtRegisteredClaimNames.Aud, _jwtIssuerSettings.Audience),
+                new Claim(ClaimTypes.NameIdentifier, user.Id)
+            });
+
+      var secretKey = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
+      var signingCredentials = new SigningCredentials(key: new SymmetricSecurityKey(secretKey),
+                                                      algorithm: _algorithm);
+
+      var tokenDescriptor = new SecurityTokenDescriptor
+      {
+        Subject = claims,
+        SigningCredentials = signingCredentials,
+        Expires = DateTime.UtcNow.Add(_jwtSettings.TokenLifeTime)
+      };
+
+      return _jwtSecurityTokenHandler.CreateToken(tokenDescriptor);
+    }
+
+    public SecurityToken GetGoogleSecurityToken(AplicationUser user, Payload payload)
+    {
+      var claims = new ClaimsIdentity(new[]
+      {
+                new Claim(JwtRegisteredClaimNames.Jti, payload.JwtId),
+                new Claim(JwtRegisteredClaimNames.Iss, payload.Issuer),
+                new Claim(JwtRegisteredClaimNames.Aud, payload.Audience.ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             });
 

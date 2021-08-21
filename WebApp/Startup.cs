@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Services.Authentication;
 using Services.Compaing;
+using Services.User;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using WebApp.IoC;
@@ -92,6 +93,7 @@ namespace WebApp
       services.AddScoped<IRefreshTokenService, RefreshTokenService>();
       services.AddScoped<IJwtTokenService, JwtTokenService>();
       services.AddScoped<IUnitOfWork, UnitOfWork>();
+      services.AddScoped<IUserService, UserService>();
       services.AddScoped<JwtSecurityTokenHandler>();
     }
 

@@ -37,11 +37,12 @@ export default class AuthenticationService {
     return false;
   }
 
-  public static singInByGoogle(googleToken : GoogleRequest){
+  public static singInByGoogle(googleToken : string){
+    const request = {TokenId :googleToken} as GoogleRequest;
     
     return RestClient.post<AuthenticationResponse>(
       `api/authentication/google-login`,
-      googleToken
+      request
     ).then((response) => {
       if (!response.is_error && response.content) {
         TokenLocalStore.setJwtToken(response.content.jwtToken);

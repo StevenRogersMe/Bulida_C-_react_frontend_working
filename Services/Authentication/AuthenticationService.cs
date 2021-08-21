@@ -1,8 +1,12 @@
 ﻿using Core.Users;
 using Dal.Repositories.RefreshTokens;
 using Dal.UnitOfWork;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Identity;
+using Services.Authentication.Google;
+using Services.User;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Services.Authentication
@@ -10,6 +14,8 @@ namespace Services.Authentication
   public interface IAuthenticationService
   {
     Task<AuthenticationResponse> Authenticate(AuthenticationRequest request);
+
+    Task<AuthenticationResponse> AuthenticateGoogleUser(GoogleRequest request);
 
     Task<AuthenticationResponse> Refresh(RefreshTokenRequest request);
   }
@@ -21,8 +27,9 @@ namespace Services.Authentication
     private readonly IJwtTokenService _jwtTokenService;
     private readonly UserManager<AplicationUser> _userManager;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserService _userService;
 
-    public AuthenticationService(JwtSecurityTokenHandler jwtSecurityTokenHandler, IRefreshTokenRepository refreshTokenRepository, IRefreshTokenService refreshTokenService, IJwtTokenService jwtTokenService, UserManager<AplicationUser> userManager, IUnitOfWork unitOfWork)
+    public AuthenticationService(JwtSecurityTokenHandler jwtSecurityTokenHandler, IRefreshTokenRepository refreshTokenRepository, IRefreshTokenService refreshTokenService, IJwtTokenService jwtTokenService, UserManager<AplicationUser> userManager, IUnitOfWork unitOfWork, IUserService userService)
     {
       _jwtSecurityTokenHandler = jwtSecurityTokenHandler;
       _refreshTokenRepository = refreshTokenRepository;
@@ -30,6 +37,7 @@ namespace Services.Authentication
       _jwtTokenService = jwtTokenService;
       _userManager = userManager;
       _unitOfWork = unitOfWork;
+      _userService = userService;
     }
 
     public async Task<AuthenticationResponse> Authenticate(AuthenticationRequest request)
@@ -57,6 +65,30 @@ namespace Services.Authentication
         JwtToken = _jwtSecurityTokenHandler.WriteToken(token),
         RefreshToken = refreshToken.Token
       };
+    }
+
+    public async Task<AuthenticationResponse> AuthenticateGoogleUser(GoogleRequest request)
+    {
+      var payload = GoogleJsonWebSignature.ValidateAsync(request.TokenId, new GoogleJsonWebSignature.ValidationSettings()).Result;
+      var user = await _userManager.FindByEmailAsync(payload.Email);
+
+      if(user == null)
+      {
+        user = await _userService.CreateGoogleUser(payload);
+      }
+
+      var token = _jwtTokenService.GetGoogleSecurityToken(user, payload);
+      var refreshToken = _refreshTokenService.GenerateRefreshToken(user.Id, token.Id);
+
+      _refreshTokenRepository.Add(refreshToken);
+      await _unitOfWork.SaveChangesAsync();
+
+      return new AuthenticationResponse
+      {
+        JwtToken = _jwtSecurityTokenHandler.WriteToken(token),
+        RefreshToken = refreshToken.Token
+      };
+
     }
 
     public async Task<AuthenticationResponse> Refresh(RefreshTokenRequest request)

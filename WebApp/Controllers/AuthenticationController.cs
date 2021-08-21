@@ -57,10 +57,11 @@ namespace WebApp.Controllers
     [AllowAnonymous]
     [HttpPost("google-login")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public IActionResult GoogleLogin(GoogleRequest googleRequest)
+    public async Task<ActionResult<AuthenticationResponse>> GoogleLoginAsync([FromBody] GoogleRequest googleRequest)
     {
-      var properties = new AuthenticationProperties { RedirectUri = Url.Action("GoogleResponse") };
-      return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+      var response = await authenticationService.AuthenticateGoogleUser(googleRequest);
+
+      return Ok(response);
     }
 
     /// <summary>
