@@ -1,6 +1,8 @@
 ﻿using Core.Compaings;
 using Dal.Context;
 using Dal.ViewModels;
+using Dal.ViewModels.Requests;
+using Dal.ViewModels.Responces;
 using Google.Ads.GoogleAds.Examples;
 using Google.Ads.GoogleAds.Lib;
 using Google.Ads.GoogleAds.V8.Common;
@@ -28,6 +30,7 @@ namespace Services.Compaing
   public interface IGoogleService
   {
     Task<GoogleResponceViewModel> PostCurrentCampaing(string userId, GoogleAdsClient client, long customerId);
+    Task<GoogleAccountListResponce> GetGoogleAccountList(GetGoogleAccountListRequest request, string userId, GoogleAdsClient client);
   }
   public class GoogleService : IGoogleService
   {
@@ -38,6 +41,15 @@ namespace Services.Compaing
     public GoogleService(CampaingContext campaingContext)
     {
       this.campaingContext = campaingContext;
+    }
+
+    public async Task<GoogleAccountListResponce> GetGoogleAccountList(GetGoogleAccountListRequest request, string userId, GoogleAdsClient client)
+    {
+      var user = await campaingContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
+      if(user.IsGoogleUser)
+      {
+
+      }
     }
 
     public async Task<GoogleResponceViewModel> PostCurrentCampaing(string userId, GoogleAdsClient client, long customerId)
