@@ -11,7 +11,7 @@ require('dotenv').config();
 
 export default class RestClient {
 
-    private static COPMAIGN_APP_API  = 'https://localhost:5001/';
+    private static COPMAIGN_APP_API  = 'http://campingapp-dev.us-east-1.elasticbeanstalk.com/';
     public static get<TResponse>(url: string): Promise<IRestResponse<TResponse>> {
         return RestClient.request<TResponse>("GET", url, null, false);
     }
