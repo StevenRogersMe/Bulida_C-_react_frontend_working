@@ -52,9 +52,9 @@ namespace WebApp.Controllers
 
     [HttpPost("google-users")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<GoogleAccountListResponce>> GetGoogleAccountList([FromBody] GetGoogleAccountListRequest googleRequest)
+    public async Task<ActionResult<GoogleAccountListResponce>> GetGoogleAccountList()
     {
-      var response = await googleService.GetGoogleAccountList(googleRequest);
+      var response = await googleService.GetGoogleAccountList(UserId, client);
 
       return Ok(response);
     }

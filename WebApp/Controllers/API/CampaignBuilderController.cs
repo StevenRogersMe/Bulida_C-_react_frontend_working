@@ -17,17 +17,12 @@ namespace WebApp.Controllers.API
   {
     private readonly ICompaingAplicationService compaingService;
     private readonly string UserId;
-    private readonly IConfiguration configRoot;
-    public WebLoginHelper loginHelper;
-    private GoogleAdsClient client;
 
-    public CampaignBuilderController(ICompaingAplicationService compaingService, IHttpContextAccessor httpContextAccessor, IConfiguration configRoot)
+
+    public CampaignBuilderController(ICompaingAplicationService compaingService, IHttpContextAccessor httpContextAccessor)
     {
       this.compaingService = compaingService;
       this.UserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-      IConfigurationSection section = configRoot.GetSection("GoogleAdsApi");
-      GoogleAdsConfig config = new GoogleAdsConfig(section);
-      client = new GoogleAdsClient(config);
     }
 
     [HttpPost]

@@ -10,6 +10,7 @@ namespace Core.Compaings
         public int CampignId { get; set; }
         public string AdGroup { get; set; }
         public virtual ADCompaing Compaing { get; set; }
+        public List<string> Negatives { get; set; }
         public virtual ICollection<CompaingKeyWord> KeyWords { get; set; }
         public virtual ICollection<ExpTxtAd> ExpTxtAds { get; set; }
         public virtual ICollection<CallOnlyAd> CallOnlyAds { get; set; }
