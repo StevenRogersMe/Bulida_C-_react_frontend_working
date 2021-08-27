@@ -42,12 +42,6 @@
             <param name="googleService"></param>
             <param name="httpContextAccessor"></param>
         </member>
-        <member name="M:WebApp.Controllers.GoogleAdsController.PostCampaign(System.Int64)">
-            <summary>
-            Called before the action method is invoked.
-            </summary>
-            <param name="context">The action executing context.</param>
-        </member>
         <member name="F:WebApp.Controllers.GoogleLoginController.config">
             <summary>
             The Google Ads configuration.

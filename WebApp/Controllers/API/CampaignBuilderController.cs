@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Services.Compaing;
 using System.IO;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using WebApp.Helpers;
 using WebApp.ViewModels;
 
@@ -43,9 +44,9 @@ namespace WebApp.Controllers.API
 
     [HttpPost]
     [Route("api/[controller]/google")]
-    public void SaveAndPostGoogleAsync([FromBody] CampaignViewModel campaign)
+    public async Task SaveAndPostGoogleAsync([FromBody] CampaignViewModel campaign)
     {
-      //var dbModel = await compaingService.AddAsync(campaign, UserId);
+      var dbModel = await compaingService.AddAsync(campaign, UserId);
     }
   }
 }

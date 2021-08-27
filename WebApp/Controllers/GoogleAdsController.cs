@@ -1,12 +1,13 @@
-﻿using Dal.ViewModels.Requests;
+﻿
 using Dal.ViewModels.Responces;
 using Google.Ads.GoogleAds.Config;
 using Google.Ads.GoogleAds.Lib;
 using Google.Ads.GoogleAds.V8.Errors;
+using Google.Apis.Auth.AspNetCore3;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Services.Compaing;
 using System.Security.Claims;
@@ -50,20 +51,6 @@ namespace WebApp.Controllers
     }
 
 
-    [HttpPost("google-users")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<GoogleAccountListResponce>> GetGoogleAccountList()
-    {
-      var response = await googleService.GetGoogleAccountList(UserId, client);
-
-      return Ok(response);
-    }
-
-
-    /// <summary>
-    /// Called before the action method is invoked.
-    /// </summary>
-    /// <param name="context">The action executing context.</param>
     //public override void OnActionExecuting(ActionExecutingContext context)
     //{
     //  this.loginHelper = new WebLoginHelper(this.HttpContext, client.Config);
@@ -74,12 +61,20 @@ namespace WebApp.Controllers
     //  base.OnActionExecuting(context);
     //}
 
+    [HttpGet("google-users")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<GoogleAccountListResponce>> GetGoogleAccountList([FromServices] IGoogleAuthProvider auth)
+    {
+      GoogleCredential cred = await auth.GetCredentialAsync();
 
+       var response = await googleService.GetGoogleAccountList(UserId, client);
+
+      return Ok(response);
+    }
 
     [HttpGet("[controller]/{customerId}/campaign")]
     public async Task<IActionResult> PostCampaign(long customerId)
     {
-
       try
       {
         var resp = await googleService.PostCurrentCampaing(UserId, client, customerId);
