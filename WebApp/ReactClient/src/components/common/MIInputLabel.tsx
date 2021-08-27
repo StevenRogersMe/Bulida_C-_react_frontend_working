@@ -6,7 +6,6 @@ type Props = {
   required?: boolean;
   size?: 'inline' | 'wizard';
   errorMessage?: string | null;
-  labelValues?: Record<string, any>;
 };
 
 export const MIInputLabel = ({

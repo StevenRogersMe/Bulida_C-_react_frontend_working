@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import AuthenticationService from 'src/services/authenticationService';
 import { notifyError } from 'src/services/notifications/notificationService';
 import GoogleServise from 'src/services/google/googleService';
 
-
- class GoogleLoginButton extends Component  {
-
-   handleGoogleSingIn = async (event) => {
-
+class GoogleLoginButton extends Component {
+  handleGoogleSingIn = async (event) => {
     if (!event.tokenId) {
       notifyError({ msg: 'Unable to get tokenId from Google' });
       return;

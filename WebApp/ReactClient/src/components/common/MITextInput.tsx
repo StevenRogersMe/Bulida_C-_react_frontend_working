@@ -37,14 +37,11 @@ export type MITextInputBaseProps = {
   id: string;
   value?: string | number | null;
   label: string;
-  labelValues: Record<string, any>;
   placeholder?: string;
-  placeholderValues?: Record<string, any>;
   type?: InputType;
   step?: number;
   notices?: Array<string>;
   errorMessage?: string | null;
-  errorMessageValues?: Record<string, any>;
   errorMessageIcon?: React.ReactNode;
   disabled?: boolean;
   required?: boolean;
@@ -63,7 +60,6 @@ export type MITextInputBaseProps = {
   pattern?: string;
   inputMode?: InputModeType;
   suffix?: any;
-  noticeValues?: Record<string, string | number>;
   withDefaultInputArrows?: boolean;
 };
 
@@ -93,7 +89,6 @@ class MITextInputBase<
     size: TEXT_INPUT_SIZE.WIZARD,
     viewOnly: false,
     errorMessage: null,
-    errorMessageValues: {},
     errorMessageIcon: null,
     autoFocus: false,
     passthroughOnChange: false,
@@ -103,8 +98,6 @@ class MITextInputBase<
     pattern: undefined,
     inputMode: undefined,
     suffix: undefined,
-    labelValues: undefined,
-    noticeValues: {},
     withDefaultInputArrows: false,
   };
 
@@ -138,7 +131,6 @@ class MITextInputBase<
       pattern,
       inputMode,
       suffix,
-      labelValues,
       withDefaultInputArrows,
     } = this.props as MITextInputBaseProps;
     const placeholderText = !placeholder ? '' : placeholder;
@@ -152,7 +144,6 @@ class MITextInputBase<
         <MIInputLabel
           inputId={id}
           label={label}
-          labelValues={labelValues}
           errorMessage={errorMessage}
           size={size}
           required={required}

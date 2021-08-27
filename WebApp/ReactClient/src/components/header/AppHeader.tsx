@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useModal } from 'src/helpers/react/useModal';
 import { SignInModal } from 'src/components/header/Modal/SignInModal';
@@ -6,13 +7,28 @@ import { MIButton } from 'src/components/common/MIButton';
 import AuthenticationService from 'src/services/authenticationService';
 import LogoImage from 'src/images/general/logo.svg';
 import { BUTTON_VARIANT } from 'src/utils/consts';
+import { removeUser, saveUser } from 'src/redux/user/actions';
+import { getIsLoggedIn } from 'src/redux/user/selectors';
 
 export const AppHeader = () => {
-  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const isSignedIn = useSelector(getIsLoggedIn);
+
+  const setIsSignedIn = useCallback(() => {
+    dispatch(saveUser());
+  }, [dispatch]);
+
+  const setIsLoggedOut = useCallback(() => {
+    dispatch(removeUser())
+  }, [dispatch]);
 
   const checkIfUserSignedIn = async () => {
     const result = await AuthenticationService.isSignedIn();
-    setIsSignedIn(result);
+    if (result) {
+      setIsSignedIn();
+    } else {
+      setIsLoggedOut();
+    }
   };
 
   useEffect(() => {
@@ -21,7 +37,7 @@ export const AppHeader = () => {
 
   const logOut = async () => {
     await AuthenticationService.signOut();
-    setIsSignedIn(false);
+    setIsLoggedOut();
   };
 
   const [SignIn, showSignIn] = useModal(SignInModal, {
