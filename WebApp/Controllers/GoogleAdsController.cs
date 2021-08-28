@@ -1,4 +1,5 @@
 ﻿
+using Dal.ViewModels;
 using Dal.ViewModels.Responces;
 using Google.Ads.GoogleAds.Config;
 using Google.Ads.GoogleAds.Lib;
@@ -51,39 +52,33 @@ namespace WebApp.Controllers
     }
 
 
-    //public override void OnActionExecuting(ActionExecutingContext context)
-    //{
-    //  this.loginHelper = new WebLoginHelper(this.HttpContext, client.Config);
-    //  if (loginHelper.IsLoggedIn)
-    //  {
-    //    client.Config.OAuth2RefreshToken = loginHelper.TokenResponse.RefreshToken;
-    //  }
-    //  base.OnActionExecuting(context);
-    //}
-
     [HttpGet("google-users")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<GoogleAccountListResponce>> GetGoogleAccountList([FromServices] IGoogleAuthProvider auth)
     {
       GoogleCredential cred = await auth.GetCredentialAsync();
 
-       var response = await googleService.GetGoogleAccountList(UserId, client);
+      var response = await googleService.GetGoogleAccountList(UserId, client);
 
       return Ok(response);
     }
 
-    [HttpGet("[controller]/{customerId}/campaign")]
+    [HttpGet("put-to-google")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> PostCampaign(long customerId)
     {
+      var resp = new GoogleResponceViewModel();
       try
       {
-        var resp = await googleService.PostCurrentCampaing(UserId, client, customerId);
+        resp = await googleService.PostCurrentCampaing(UserId, client, customerId);
 
-        return Content($"[{string.Join(",\n", resp)}]");
+        return Ok(resp);
       }
       catch (GoogleAdsException e)
       {
-        return Problem(e.Message);
+        resp.Error = e.Message;
+
+        return Ok(resp);
       }
     }
   }
