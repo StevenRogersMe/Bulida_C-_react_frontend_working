@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Core.Widgets
+namespace Dal.ViewModels
 {
-  public class SnippetExtension
+  public class SnippetExtensionModel
   {
-    public int Id { get; set; }
-    public int AdGroupId { get; set; }
     public string Language { get; set; }
     public string AdGroupName { get; set; }
     public string HeaderType { get; set; } // ???
     public List<string> SnippetValues { get; set; }
-
   }
 }

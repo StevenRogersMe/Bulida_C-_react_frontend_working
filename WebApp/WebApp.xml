@@ -39,12 +39,8 @@
             Initializes a new instance of the <see cref="T:WebApp.Controllers.GoogleAdsController"/> class.
             </summary>
             <param name="configRoot">The configuration root.</param>
-        </member>
-        <member name="M:WebApp.Controllers.GoogleAdsController.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
-            <summary>
-            Called before the action method is invoked.
-            </summary>
-            <param name="context">The action executing context.</param>
+            <param name="googleService"></param>
+            <param name="httpContextAccessor"></param>
         </member>
         <member name="F:WebApp.Controllers.GoogleLoginController.config">
             <summary>

@@ -70,6 +70,7 @@ namespace Services.Authentication
     public async Task<AuthenticationResponse> AuthenticateGoogleUser(GoogleRequest request)
     {
       var payload = GoogleJsonWebSignature.ValidateAsync(request.TokenId, new GoogleJsonWebSignature.ValidationSettings()).Result;
+
       var user = await _userManager.FindByEmailAsync(payload.Email);
 
       if(user == null)

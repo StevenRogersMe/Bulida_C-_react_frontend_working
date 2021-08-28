@@ -62,10 +62,10 @@ namespace Services.Authentication
     public SecurityToken GetGoogleSecurityToken(AplicationUser user, Payload payload)
     {
       var claims = new ClaimsIdentity(new[]
-      {
-                new Claim(JwtRegisteredClaimNames.Jti, payload.JwtId),
-                new Claim(JwtRegisteredClaimNames.Iss, payload.Issuer),
-                new Claim(JwtRegisteredClaimNames.Aud, payload.Audience.ToString()),
+     {
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Iss, _jwtIssuerSettings.Issuer),
+                new Claim(JwtRegisteredClaimNames.Aud, _jwtIssuerSettings.Audience),
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             });
 

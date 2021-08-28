@@ -1,38 +1,39 @@
 ﻿using CsvHelper;
 using Google.Ads.GoogleAds.Config;
 using Google.Ads.GoogleAds.Lib;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Services.Compaing;
 using System.IO;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using WebApp.Helpers;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers.API
 {
 
+  [Authorize]
+  [ApiController]
+  [Route("api/google-ads")]
+  [Produces("application/json")]
   public class CampaignBuilderController : Controller
   {
     private readonly ICompaingAplicationService compaingService;
     private readonly string UserId;
-    private readonly IConfiguration configRoot;
-    public WebLoginHelper loginHelper;
-    private GoogleAdsClient client;
 
-    public CampaignBuilderController(ICompaingAplicationService compaingService, IHttpContextAccessor httpContextAccessor, IConfiguration configRoot)
+
+    public CampaignBuilderController(ICompaingAplicationService compaingService, IHttpContextAccessor httpContextAccessor)
     {
       this.compaingService = compaingService;
       this.UserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-      IConfigurationSection section = configRoot.GetSection("GoogleAdsApi");
-      GoogleAdsConfig config = new GoogleAdsConfig(section);
-      client = new GoogleAdsClient(config);
     }
 
-    [HttpPost]
-    [Route("api/[controller]/csv")]
-    public FileResult Post([FromBody] CampaignViewModel campaign)
+    [HttpPost("save-csv")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public FileResult GetCsvFile([FromBody] CampaignViewModel campaign)
     {
 
       var csvModels = compaingService.GetCSVByIdAsync(campaign);
@@ -47,10 +48,9 @@ namespace WebApp.Controllers.API
     }
 
     [HttpPost]
-    [Route("api/[controller]/google")]
-    public void SaveAndPostGoogleAsync([FromBody] CampaignViewModel campaign)
+    public async Task SaveAndPostGoogleAsync([FromBody] CampaignViewModel campaign)
     {
-      //var dbModel = await compaingService.AddAsync(campaign, UserId);
+      var dbModel = await compaingService.AddAsync(campaign, UserId);
     }
   }
 }

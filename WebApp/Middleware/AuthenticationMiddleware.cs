@@ -46,15 +46,16 @@ namespace WebApp.Middleware
 
       services.AddAuthentication(x =>
       {
-        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        //x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        //x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        //x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
       }).AddJwtBearer(x =>
       {
         x.TokenValidationParameters = tokenValidationParameters;
         x.ClaimsIssuer = jwtIssuerSettings.Issuer;
         x.SaveToken = true;
-      }).AddGoogle(options =>
+      })
+      .AddGoogle(options =>
       {
         options.ClientId = googleSettings.OAuth2ClientId;
         options.ClientSecret = googleSettings.OAuth2ClientSecret;

@@ -2,7 +2,10 @@ using Core.Users;
 using Dal.Context;
 using Dal.Repositories.RefreshTokens;
 using Dal.UnitOfWork;
+using Google.Apis.Auth.AspNetCore3;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +20,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Services.Authentication;
 using Services.Compaing;
+using Services.Helpers;
 using Services.User;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
@@ -41,7 +45,7 @@ namespace WebApp
       services.AddCors();
 
       services.AddControllers();
-      //services.AddSession();
+
       services.AddHttpContextAccessor();
 
 
@@ -80,7 +84,12 @@ namespace WebApp
       services.AddAuthentication(jwtSettings, jwtIssuerSettings, googleSettings);
 
       // Authorization.
-      services.AddAuthorization();
+      services.AddAuthorization(options =>
+      {
+        var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(GoogleOpenIdConnectDefaults.AuthenticationScheme, JwtBearerDefaults.AuthenticationScheme);
+        defaultAuthorizationPolicyBuilder = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+        options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+      });
 
       // Adds Swagger.
       services.AddSwagger();
@@ -94,6 +103,7 @@ namespace WebApp
       services.AddScoped<IJwtTokenService, JwtTokenService>();
       services.AddScoped<IUnitOfWork, UnitOfWork>();
       services.AddScoped<IUserService, UserService>();
+      services.AddScoped<ICSVHelper, CSVHelper>();
       services.AddScoped<JwtSecurityTokenHandler>();
     }
 
@@ -133,7 +143,6 @@ namespace WebApp
 
       // Adds the component, which controls access to resources.
       app.UseAuthorization();
-
 
       // Adds our controllers and actions to the list of possible endpoints.
       app.UseEndpoints(endpoints =>
