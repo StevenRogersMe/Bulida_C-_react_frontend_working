@@ -12,7 +12,6 @@ using WebApp.ViewModels;
 
 namespace WebApp.Controllers.API
 {
-
   public class CampaignBuilderController : Controller
   {
     private readonly ICompaingAplicationService compaingService;
@@ -43,6 +42,7 @@ namespace WebApp.Controllers.API
         csv.WriteRecords(csvModels);
       }
       stream.Position = 0; //reset stream
+
       return File(stream, "application/octet-stream", "ADCompaign.csv");
     }
 
