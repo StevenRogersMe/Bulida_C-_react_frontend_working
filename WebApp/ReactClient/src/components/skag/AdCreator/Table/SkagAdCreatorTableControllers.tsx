@@ -7,6 +7,9 @@ import { useModal } from 'src/helpers/react/useModal';
 import { MIModalMessage } from 'src/components/common/MIModalMessage';
 import { AdCreatorModalFooter } from '../Modal/AdCreatorModalFooter';
 import PlusIcon from 'src/images/general/plus-icon.svg';
+import { ExpandedTextModalFooter } from '../Modal/ExpandedTextModalFooter';
+import { useDispatch } from 'react-redux';
+import { createAds } from 'src/redux/skagCompaign/actions';
 
 type Props = {
   adsCount: number;
@@ -15,7 +18,6 @@ type Props = {
   selectedAdGroup: string;
   onSelectAdType: (change: Expandable<{ value: string }>) => void;
   onSelectAdGroup: (change: Expandable<{ value: string }>) => void;
-  createAds: (type: AdType) => void;
 };
 
 export const SkagAdCreatorTableControllers = ({
@@ -25,13 +27,42 @@ export const SkagAdCreatorTableControllers = ({
   selectedAdGroup,
   onSelectAdType,
   onSelectAdGroup,
-  createAds,
 }: Props) => {
+  const dispatch = useDispatch();
   const adGroupOptions = adGroupList
     .map((el) => el.adGroup)
     .map((el) => ({ label: el, value: el }));
 
-  const [SelectAdGroupModal, showSelectAdGroupModal] = useModal(
+  const creationHandler = (type: string, data: any) => {
+    if (type === AdType.EXPANDED) {
+      showExpandedTextFormModal();
+    } else {
+      dispatch(createAds(type, data));
+    }
+  };
+
+  const closeModal = () => {
+    dismiss();
+  };
+
+  const [ExpandedTextFormModal, showExpandedTextFormModal, _, dismiss] = useModal(
+    MIModalMessage,
+    {
+      id: 'expandedTextFormModal',
+      titleComponent: (
+        <ModalTitleContainer>
+          <ModalTitle>
+            Edit expanded <Bold>Text Ad</Bold>
+          </ModalTitle>
+        </ModalTitleContainer>
+      ),
+      footerComponent: <ExpandedTextModalFooter closeModal={closeModal} />,
+    }
+  );
+
+
+
+  const [SelectAdGroupModal, showSelectAdGroupModal, ] = useModal(
     MIModalMessage,
     {
       id: 'selectAdGroup',
@@ -46,7 +77,7 @@ export const SkagAdCreatorTableControllers = ({
           </ModalSubtitle>
         </ModalTitleContainer>
       ),
-      footerComponent: <AdCreatorModalFooter createAds={createAds} />,
+      footerComponent: <AdCreatorModalFooter createAds={creationHandler} />,
     }
   );
 
@@ -59,6 +90,7 @@ export const SkagAdCreatorTableControllers = ({
   return (
     <Container>
       {SelectAdGroupModal}
+      {ExpandedTextFormModal}
       <LeftBlock>
         <ItemContainer>
           <ItemHeader>

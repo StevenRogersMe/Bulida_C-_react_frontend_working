@@ -115,3 +115,9 @@ export type ButtonSizeType =
   | BUTTON_SIZE.SMALL
   | BUTTON_SIZE.TINY
   | BUTTON_SIZE.VERY_SMALL;
+
+export type InputValue = {
+  id: string;
+  value: string;
+  valueAsNumber: number;
+};

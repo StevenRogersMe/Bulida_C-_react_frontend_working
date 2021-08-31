@@ -10,7 +10,8 @@ export type ModalShowCallback = (params?: { [key: string]: any }) => void;
 export type UseModalReturn = [
   React.ReactNode | null | false,
   ModalShowCallback,
-  boolean
+  boolean,
+  any
 ];
 
 export function useModal(Component, options: UseModalOptions): UseModalReturn {
@@ -45,5 +46,5 @@ export function useModal(Component, options: UseModalOptions): UseModalReturn {
       {props.children}
     </Component>
   );
-  return [DialogComponent, showDialog, state.showing];
+  return [DialogComponent, showDialog, state.showing, dismiss];
 }

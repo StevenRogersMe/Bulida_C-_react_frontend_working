@@ -2,14 +2,15 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import isEmpty from 'lodash/isEmpty';
 import KeywordsIcon from 'src/images/general/keywords-icon.svg';
-import { CampaignType } from 'src/utils/types';
+import { AdGroupType, CampaignType } from 'src/utils/types';
+import { useDispatch } from 'react-redux';
+import { setSkagKeywords } from 'src/redux/skagCompaign/actions';
 
 type Props = {
   campaign: CampaignType;
-  setKeywords: (keywords: string[]) => void;
 };
 
-export const SkagBuilder = ({ campaign, setKeywords }: Props) => {
+export const SkagBuilder = ({ campaign }: Props) => {
   const defaultKeywords = isEmpty(campaign.keywordsList)
     ? ''
     : campaign.keywordsList.join('\r\n');
@@ -18,10 +19,25 @@ export const SkagBuilder = ({ campaign, setKeywords }: Props) => {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const keywords = value.split(/\s+/).filter((el) => !isEmpty(el));
-    setKeywords(keywords);
+    const adGroupList: AdGroupType[] = [];
+
+    keywords.forEach((keyword, index) => {
+      adGroupList.push({
+        id: index + 1,
+        adGroup: keyword,
+        keywords: [keyword],
+        negatives: [],
+        snippetExt: [],
+        searchExt: [],
+        callOnlyExt: [],
+        callOutExt: [],
+        expTextAdExt: [],
+      });
+    });
+    dispatch(setSkagKeywords(keywords, adGroupList));
     setKeywordsCount(keywords.length);
   }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
 

@@ -29,8 +29,8 @@ export const MINotices = ({
       notices &&
       notices.map((notice, index) => (
         <Notice key={index} size={size} align={align}>
-          {typeof notice === 'string' && { notice }}
-          {typeof notice !== 'string' && notice}
+          {typeof notice === 'string' && notice }
+          {typeof notice !== 'string' && { notice }}
         </Notice>
       ))}
   </Notices>
@@ -53,7 +53,7 @@ const Notice = styled.label<{ size?: SizeType; align?: string }>`
 `;
 
 const ErrorNotice = styled(Notice)`
-  color: ${(props) => props.theme.text.color.error};
+  color: ${(props) => props.theme.colors.red};
   display: flex;
   flex-direction: row;
   align-items: center;

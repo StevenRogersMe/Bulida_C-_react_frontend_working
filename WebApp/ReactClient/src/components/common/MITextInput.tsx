@@ -61,6 +61,7 @@ export type MITextInputBaseProps = {
   inputMode?: InputModeType;
   suffix?: any;
   withDefaultInputArrows?: boolean;
+  outlined?: boolean;
 };
 
 type Props = MITextInputBaseProps & {
@@ -131,6 +132,7 @@ class MITextInputBase<
       pattern,
       inputMode,
       suffix,
+      outlined,
       withDefaultInputArrows,
     } = this.props as MITextInputBaseProps;
     const placeholderText = !placeholder ? '' : placeholder;
@@ -173,9 +175,9 @@ class MITextInputBase<
                 autoComplete={autocomplete}
                 min={min}
                 max={max}
-                maxLength={maxlength}
                 pattern={pattern}
                 inputMode={inputMode}
+                outlined={outlined}
               />
             </React.Fragment>
           }
@@ -187,6 +189,15 @@ class MITextInputBase<
           errorMessage={errorMessage}
           errorMessageIcon={errorMessageIcon}
         />
+        {!errorMessage && maxlength ? (
+          <MINotices
+            size={size}
+            notices={[
+              `used ${String(value || '').length} of ${maxlength} chars`,
+            ]}
+            align='center'
+          />
+        ) : null}
       </Container>
     );
   }
@@ -280,17 +291,23 @@ const TextInput = styled.input.attrs<{
     props.inline === TEXT_INPUT_SIZE.INLINE ? '3rem' : '3.8rem'};
   background-color: transparent;
   padding: 0 0
-    ${(props) => (props.inline === TEXT_INPUT_SIZE.INLINE ? '0' : '0.5rem')} 0;
-  border: none;
+    ${(props) =>
+      props.inline === TEXT_INPUT_SIZE.INLINE ? '0' : '0.5rem'} 10px;
+  border: ${(props) =>
+    props.outlined
+      ? props.inline === TEXT_INPUT_SIZE.INLINE
+        ? '0.1rem solid'
+        : '0.2rem solid'
+      : 'none'};
   border-bottom: ${(props) =>
     props.inline === TEXT_INPUT_SIZE.INLINE ? '0.1rem solid' : '0.2rem solid'};
   border-color: ${(props) =>
     props.error ? props.theme.colors.red : props.theme.colors.stroke};
-  outline: none;
+  outline: ${(props) => (props.outlined ? 'true' : 'none')};
   line-height: ${(props) =>
     props.inline === TEXT_INPUT_SIZE.INLINE ? '3rem' : '3.8rem'};
   color: ${(props) => props.theme.colors.black1};
-  border-radius: 0;
+  border-radius: ${(props) => (props.outlined ? '14px' : '0px')};
 
   ${(props) =>
     props.viewOnly &&
@@ -323,7 +340,12 @@ const TextInput = styled.input.attrs<{
   }
 
   &:focus {
-    border-color: rgba(33, 33, 33, 1);
+    border-color: #4D90FE;
+    ${(props) =>
+      props.outlined &&
+      css`
+        outline: none;
+      `}
   }
 
   &:disabled {

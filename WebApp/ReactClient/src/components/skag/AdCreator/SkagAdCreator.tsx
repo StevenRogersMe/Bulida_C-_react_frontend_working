@@ -6,10 +6,9 @@ import { SkagAdCreatorTable } from './Table/SkagAdCreatorTable';
 
 type Props = {
   campaign: CampaignType;
-  createAds: (type: AdType) => void;
 };
 
-export const SkagAdCreator = ({ campaign, createAds }: Props) => {
+export const SkagAdCreator = ({ campaign }: Props) => {
   const [selectedAdType, setSelectedAdType] = useState<AdType>(AdType.ALL);
   const { adGroupList } = campaign;
   const [selectedAdGroup, setSelectedAdGroup] = useState<string>(
@@ -49,7 +48,6 @@ export const SkagAdCreator = ({ campaign, createAds }: Props) => {
         selectedAdGroup={selectedAdGroup}
         onSelectAdType={onSelectAdType}
         onSelectAdGroup={onSelectAdGroup}
-        createAds={createAds}
       />
       <SkagAdCreatorTable
         adsCount={adsCount}
