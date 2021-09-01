@@ -13,6 +13,7 @@ import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { createAds, updateAds } from 'src/redux/skagCompaign/actions';
 import { notifySuccess } from 'src/services/notifications/notificationService';
+import { ExpTextCardPreview } from 'src/components/skag/AdCreator/form/ExpandedTextForm/ExpTextCardPreview';
 
 type Props = {
   initialValues: ExpTextAdExtType;
@@ -82,6 +83,10 @@ export const ExpandedTextForm = ({ initialValues, closeModal }: Props) => {
       <ShortItems>{renderInputs(firstRow)}</ShortItems>
       <ShortItems>{renderInputs(secondRow)}</ShortItems>
       {renderInputs(fullRow)}
+      <PreviewContainer>
+        <PreviewTitle>Preview</PreviewTitle>
+        <ExpTextCardPreview item={formik.values} />
+      </PreviewContainer>
       <Buttons>
         <MIButton
           label='BACK'
@@ -113,6 +118,22 @@ const ShortItems = styled.div`
   > div:nth-child(2) {
     margin: 0 1rem 0 1rem;
   }
+`;
+
+const PreviewContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding: 2.4rem 0 4.8rem 0;
+  border-radius: 0.8rem;
+  background-color: ${(props) => props.theme.colors.lightBlue1};
+`;
+
+const PreviewTitle = styled.div`
+  margin-bottom: 2.4rem;
+  ${(props) => props.theme.text.fontType.h4};
 `;
 
 const Buttons = styled.div`
