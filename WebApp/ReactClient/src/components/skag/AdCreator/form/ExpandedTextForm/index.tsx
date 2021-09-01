@@ -1,20 +1,21 @@
 import styled from 'styled-components';
 import { MITextInput } from 'src/components/common/MITextInput';
-import { AdType, InputValue } from 'src/utils/types';
+import {
+  AdType,
+  InputValue,
+  ExpTextAdExtType,
+  ExpTextAdExtTypeErrors,
+} from 'src/utils/types';
 import { firstRow, fullRow, secondRow, validationRule } from './data';
 import { MIButton } from 'src/components/common/MIButton';
 import { BUTTON_VARIANT } from 'src/utils/consts';
 import { useFormik } from 'formik';
-import {
-  ExpandedTextForm as ExpandedTextFormType,
-  ExpandedTextFormErrors,
-} from './types';
 import { useDispatch } from 'react-redux';
 import { createAds, updateAdsExp } from 'src/redux/skagCompaign/actions';
 import { notifySuccess } from 'src/services/notifications/notificationService';
 
 type Props = {
-  initialValues: ExpandedTextFormType;
+  initialValues: ExpTextAdExtType;
   closeModal: any;
 };
 
@@ -22,7 +23,7 @@ export const ExpandedTextForm = ({ initialValues, closeModal }: Props) => {
   const isNewData = initialValues?.id === undefined;
   const dispatch = useDispatch();
   const validate = (values) => {
-    const errors: ExpandedTextFormErrors = {};
+    const errors: ExpTextAdExtTypeErrors = {};
     if (!values.finalUrl) {
       errors.finalUrl = 'This field is required';
     } else if (!validationRule.test(values.finalUrl)) {

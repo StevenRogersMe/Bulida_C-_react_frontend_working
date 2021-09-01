@@ -1,12 +1,15 @@
 import { ExpandedTextForm } from '../form/ExpandedTextForm';
 import { defaultData } from '../form/ExpandedTextForm/data';
-import { ExpandedTextForm as ExpandedTextFormType } from '../form/ExpandedTextForm/types';
+import { ExpTextAdExtType } from 'src/utils/types';
 
 type Props = {
-  values?: ExpandedTextFormType;
+  values?: ExpTextAdExtType;
   closeModal?: any;
 };
 
-export const ExpandedTextModalFooter = ({ values = defaultData, closeModal }: Props) => {
-  return <ExpandedTextForm initialValues={values} closeModal={closeModal} />
+export const ExpandedTextModalFooter = ({
+  values = defaultData,
+  closeModal,
+}: Props) => {
+  return <ExpandedTextForm initialValues={values} closeModal={closeModal} />;
 };

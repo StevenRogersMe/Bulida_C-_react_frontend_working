@@ -91,7 +91,7 @@ export type CallOutAdType = {
 };
 
 export type ExpTextAdExtType = {
-  id: number;
+  id?: number;
   headlineOne: string;
   headlineTwo: string;
   headlineThree: string;
@@ -101,6 +101,10 @@ export type ExpTextAdExtType = {
   pathOne: string;
   pathTwo: string;
   type: AdType.EXPANDED;
+};
+
+export type ExpTextAdExtTypeErrors = {
+  finalUrl?: string,
 };
 
 export type TextInputSize = TEXT_INPUT_SIZE.INLINE | TEXT_INPUT_SIZE.WIZARD;
