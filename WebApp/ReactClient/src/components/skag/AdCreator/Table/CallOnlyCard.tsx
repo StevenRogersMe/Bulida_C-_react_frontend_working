@@ -7,16 +7,18 @@ type Props = {
   item: CallOnlyAdType;
   adGroupNames: string[];
   renderAdGroupNames: (adGroupNames: string[]) => void;
+  showEditFormModal: (data: any) => void;
 };
 
 export const CallOnlyCard = ({
   item,
   adGroupNames,
   renderAdGroupNames,
+  showEditFormModal,
 }: Props) => {
   return (
     <>
-      <AdPreviewContainer>
+      <AdPreviewContainer onClick={() => showEditFormModal(item)}>
         <TitleContainer>
           <AdIcon src={CallIcon} />
           <Title>
@@ -40,6 +42,7 @@ export const CallOnlyCard = ({
 const AdPreviewContainer = styled.div`
   display: flex;
   width: 55%;
+  cursor: pointer;
   height: fit-content;
   flex-direction: column;
   padding: 1.7rem;

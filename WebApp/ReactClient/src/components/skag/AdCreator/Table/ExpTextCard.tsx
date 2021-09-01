@@ -1,43 +1,23 @@
 import styled from 'styled-components';
 import { TABLE_AD_TYPES } from 'src/utils/consts';
 import { ExpTextAdExtType } from 'src/utils/types';
-import { useModal } from 'src/helpers/react/useModal';
-import { MIModalMessage } from 'src/components/common/MIModalMessage';
-import { ExpandedTextModalFooter } from '../Modal/ExpandedTextModalFooter';
 
 type Props = {
   item: ExpTextAdExtType;
   adGroupNames: string[];
   renderAdGroupNames: (adGroupNames: string[]) => void;
+  showEditFormModal: (data: any) => void;
 };
 
 export const ExpTextCard = ({
   item,
   adGroupNames,
   renderAdGroupNames,
+  showEditFormModal,
 }: Props) => {
-  const closeModal = () => {
-    dismiss();
-  };
-
-  const [ExpandedTextFormModal, showExpandedTextFormModal, , dismiss] =
-    useModal(MIModalMessage, {
-      id: 'expandedTextFormModal',
-      titleComponent: (
-        <>
-          <ModalTitleContainer>
-            <ModalTitle>
-              Edit expanded <Bold>Text Ad</Bold>
-            </ModalTitle>
-          </ModalTitleContainer>
-          <ExpandedTextModalFooter closeModal={closeModal} />
-        </>
-      ),
-    });
   return (
     <>
-      {ExpandedTextFormModal}
-      <AdPreviewContainer onClick={showExpandedTextFormModal}>
+      <AdPreviewContainer onClick={() => showEditFormModal(item)}>
         <Title>
           {`${item.headlineOne} | ${item.headlineTwo} | ${item.headlineThree}`}
         </Title>
@@ -111,21 +91,4 @@ const RightBlock = styled.div`
   width: 45%;
   justify-content: space-between;
   padding-left: 3rem;
-`;
-
-const ModalTitleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 3rem;
-`;
-
-const ModalTitle = styled.span`
-  ${(props) => props.theme.text.fontType.h4};
-  font-weight: normal;
-`;
-
-const Bold = styled.span`
-  font-weight: bold;
 `;

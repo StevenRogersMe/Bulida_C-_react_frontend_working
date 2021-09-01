@@ -14,7 +14,7 @@ type Props = {
 export const AdCreatorModalFooter = ({ createAds }: Props) => {
   const onCreateAds = (type: AdType, data: any) => {
     createAds(type, data);
-    if (type !== AdType.EXPANDED) {
+    if (type !== AdType.EXPANDED && type !== AdType.CALL) {
       notifySuccess({ msg: 'Ad was successfully created' });
     }
   };

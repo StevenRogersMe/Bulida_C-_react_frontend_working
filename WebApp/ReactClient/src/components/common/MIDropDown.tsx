@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Expandable } from 'src/utils/types';
 import DropDownIcon from 'src/images/general/dropdown-arrow.svg';
 import { withOutsideClickHandler } from 'src/hok/withOutsideClickHandler';
+import { MINotices } from './MINotices';
 
 export type OptionType = {
   label: string;
@@ -15,6 +16,8 @@ export type MIDropDownProps = {
   label?: string;
   value?: any;
   onChange: (change: Expandable<{ value: string }>) => void;
+  simpleStyles?: boolean;
+  errorMessage?: string;
 };
 
 export const MIDropDown = ({
@@ -22,6 +25,8 @@ export const MIDropDown = ({
   label,
   value,
   onChange,
+  simpleStyles,
+  errorMessage,
 }: MIDropDownProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -34,10 +39,13 @@ export const MIDropDown = ({
 
   return (
     <SingleSelectContainer handleClickOutside={() => setOpen(false)}>
-      <SingleSelect onClick={() => setOpen(!open)}>
-        <SingleSelectLabel>{label}</SingleSelectLabel>
+      <SingleSelect simpleStyles={simpleStyles} error={errorMessage} onClick={() => setOpen(!open)}>
+        <SingleSelectLabel simpleStyles={simpleStyles}>
+          {label}
+        </SingleSelectLabel>
         <DropDownIndicator src={DropDownIcon} isOpen={open} />
       </SingleSelect>
+      <MINotices errorMessage={errorMessage} />
       <DropDownContainer hidden={!open}>
         <List>
           {options.map((option, index) => {
@@ -51,6 +59,7 @@ export const MIDropDown = ({
                 key={index}
                 onClick={onSelected(option)}
                 isSelected={isSelected}
+                simpleStyles={simpleStyles}
               >
                 {option.label}
               </DropDownOption>
@@ -66,6 +75,7 @@ const SingleSelectContainer = withOutsideClickHandler(styled.div`
   position: relative;
   box-sizing: border-box;
   cursor: pointer;
+  width: 100%;
 `);
 
 const SingleSelect = styled.div`
@@ -74,13 +84,33 @@ const SingleSelect = styled.div`
   justify-content: space-between;
   padding: 1rem 1.5rem;
   min-width: 30rem;
-  background: rgba(96, 100, 115, 0.05);
+  background: ${(props) =>
+    props.simpleStyles ? 'transparent' : 'rgba(96, 100, 115, 0.05)'};
   border-radius: 1.2rem;
   border: 0.1rem solid ${(props) => props.theme.colors.grey5};
+  ${(props) =>
+    props.simpleStyles &&
+    css`
+      height: 3.8rem;
+      padding: 0.5rem 0.5rem 0.5rem 10px;
+      border: 0.2rem solid;
+      border-bottom: 0.2rem solid;
+      border-color: ${(props) =>
+        props.error ? props.theme.colors.red : props.theme.colors.stroke};
+      line-height: 3.8rem;
+      color: ${(props) => props.theme.colors.black1};
+      border-radius: 14px;
+    `}
 `;
 
 const SingleSelectLabel = styled.span`
   display: flex;
+  ${(props) =>
+    props.simpleStyles &&
+    css`
+      font-size: 2rem;
+      font-weight: 450;
+    `}
 `;
 
 const DropDownIndicator = styled.img<{ isOpen: boolean }>`
@@ -135,4 +165,10 @@ const DropDownOption = styled.div<{ isSelected: boolean }>`
   overflow: hidden;
   text-overflow: ellipsis;
   color: ${(props) => props.isSelected && props.theme.colors.blue2};
+  ${(props) =>
+    props.simpleStyles &&
+    css`
+      font-size: 1.5rem;
+      font-weight: 400;
+    `}
 `;

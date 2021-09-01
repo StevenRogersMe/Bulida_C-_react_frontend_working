@@ -11,7 +11,7 @@ import { MIButton } from 'src/components/common/MIButton';
 import { BUTTON_VARIANT } from 'src/utils/consts';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { createAds, updateAdsExp } from 'src/redux/skagCompaign/actions';
+import { createAds, updateAds } from 'src/redux/skagCompaign/actions';
 import { notifySuccess } from 'src/services/notifications/notificationService';
 
 type Props = {
@@ -42,7 +42,7 @@ export const ExpandedTextForm = ({ initialValues, closeModal }: Props) => {
         dispatch(
           isNewData
             ? createAds(AdType.EXPANDED, values)
-            : updateAdsExp(initialValues.id, values)
+            : updateAds(initialValues.id, values)
         );
         notifySuccess({
           msg: isNewData
@@ -87,7 +87,7 @@ export const ExpandedTextForm = ({ initialValues, closeModal }: Props) => {
           label='BACK'
           variant={BUTTON_VARIANT.SECONDARY}
           type='button'
-          onClick={() => closeModal()}
+          onClick={closeModal}
         />
         <MIButton
           label='SAVE'
@@ -109,8 +109,9 @@ const ShortItems = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  min-width: 100rem;
   > div:nth-child(2) {
-    margin: 0 10rem 0 10rem;
+    margin: 0 1rem 0 1rem;
   }
 `;
 

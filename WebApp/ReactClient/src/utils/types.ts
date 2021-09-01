@@ -71,7 +71,7 @@ export type RespSearchAdType = {
 };
 
 export type CallOnlyAdType = {
-  id: number;
+  id?: number;
   country: string;
   phoneNumber: string;
   headlineOne: string;
@@ -82,6 +82,13 @@ export type CallOnlyAdType = {
   verificationURL: string;
   finalUrl: string;
   type: AdType.CALL;
+};
+
+export type CallOnlyFormErrors = {
+  finalUrl?: string;
+  phoneNumber?: string;
+  country?: string;
+  verificationURL?: string;
 };
 
 export type CallOutAdType = {
@@ -104,7 +111,7 @@ export type ExpTextAdExtType = {
 };
 
 export type ExpTextAdExtTypeErrors = {
-  finalUrl?: string,
+  finalUrl?: string;
 };
 
 export type TextInputSize = TEXT_INPUT_SIZE.INLINE | TEXT_INPUT_SIZE.WIZARD;

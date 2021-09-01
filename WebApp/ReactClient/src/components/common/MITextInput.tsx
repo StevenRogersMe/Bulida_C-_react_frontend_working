@@ -142,6 +142,7 @@ class MITextInputBase<
         className='input-container'
         size={size}
         withDefaultInputArrows={withDefaultInputArrows}
+        outlined={outlined}
       >
         <MIInputLabel
           inputId={id}
@@ -237,10 +238,16 @@ export const MITextInputPassthrough = compose(withBreak())(
 );
 
 const Container = styled.div<{ size?: TextInputSize }>`
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   margin-bottom: ${(props) =>
     props.size === TEXT_INPUT_SIZE.WIZARD ? '4rem' : '0'};
-
+  ${(props) =>
+    props.outlined &&
+    css`
+      margin-bottom: 2rem;
+    `};
   ${(props) =>
     !props.withDefaultInputArrows &&
     `
@@ -274,7 +281,7 @@ const fontSize = (props) => {
     return '1.6rem';
   }
 
-  return '2.3rem';
+  return '2rem';
 };
 
 const TextInput = styled.input.attrs<{
@@ -286,11 +293,11 @@ const TextInput = styled.input.attrs<{
 }>((props) => ({
   maxlength: props?.maxLength,
 }))`
-  width: 100%;
+  width: calc(100% - 1.9rem);
   height: ${(props) =>
     props.inline === TEXT_INPUT_SIZE.INLINE ? '3rem' : '3.8rem'};
   background-color: transparent;
-  padding: 0 0
+  padding: 0.5rem 0.5rem
     ${(props) =>
       props.inline === TEXT_INPUT_SIZE.INLINE ? '0' : '0.5rem'} 10px;
   border: ${(props) =>

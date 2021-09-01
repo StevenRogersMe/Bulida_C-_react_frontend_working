@@ -2,7 +2,7 @@ import { AdGroupType } from 'src/utils/types';
 import {
   SET_SKAG_KEYWORDS,
   CREATE_ADS,
-  UPDATE_ADS_EXP,
+  UPDATE_ADS,
 } from './actionTypes';
 
 export const setSkagKeywords = (
@@ -28,9 +28,9 @@ export const createAds = (type, data) => {
   };
 };
 
-export const updateAdsExp = (id, data) => {
+export const updateAds = (id, data) => {
   return {
-    type: UPDATE_ADS_EXP,
+    type: UPDATE_ADS,
     payload: {
       id,
       data,

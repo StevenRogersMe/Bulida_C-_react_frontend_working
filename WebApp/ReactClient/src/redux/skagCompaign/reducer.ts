@@ -2,7 +2,7 @@ import { SkagState } from './types';
 import {
   SET_SKAG_KEYWORDS,
   CREATE_ADS,
-  UPDATE_ADS_EXP,
+  UPDATE_ADS,
 } from './actionTypes';
 
 const initialState: SkagState = {
@@ -43,15 +43,15 @@ const skagCompaign = (state = initialState, action) => {
         }),
       };
     }
-    case UPDATE_ADS_EXP: {
+    case UPDATE_ADS: {
       return {
         ...state,
         adGroupList: state.adGroupList.map((group) => {
-          const valueIndex = group.expTextAdExt.findIndex(
+          const valueIndex = group[action.payload.data.type].findIndex(
             (item) => item.id === action.payload.id
           );
           if (valueIndex !== -1) {
-            group.expTextAdExt[valueIndex] = action.payload.data;
+            group[action.payload.data.type][valueIndex] = action.payload.data;
           }
           return group;
         }),
