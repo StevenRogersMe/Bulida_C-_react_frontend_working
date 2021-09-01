@@ -45,24 +45,22 @@ export const SkagAdCreatorTableControllers = ({
     dismiss();
   };
 
-  const [ExpandedTextFormModal, showExpandedTextFormModal, _, dismiss] = useModal(
-    MIModalMessage,
-    {
+  const [ExpandedTextFormModal, showExpandedTextFormModal, , dismiss] =
+    useModal(MIModalMessage, {
       id: 'expandedTextFormModal',
       titleComponent: (
-        <ModalTitleContainer>
-          <ModalTitle>
-            Edit expanded <Bold>Text Ad</Bold>
-          </ModalTitle>
-        </ModalTitleContainer>
+        <>
+          <ModalTitleContainer>
+            <ModalTitle>
+              Edit expanded <Bold>Text Ad</Bold>
+            </ModalTitle>
+          </ModalTitleContainer>
+          <ExpandedTextModalFooter closeModal={closeModal} />
+        </>
       ),
-      footerComponent: <ExpandedTextModalFooter closeModal={closeModal} />,
-    }
-  );
+    });
 
-
-
-  const [SelectAdGroupModal, showSelectAdGroupModal, ] = useModal(
+  const [SelectAdGroupModal, showSelectAdGroupModal] = useModal(
     MIModalMessage,
     {
       id: 'selectAdGroup',

@@ -51,4 +51,5 @@ const Optional = styled.span`
   font-size: 1.2rem;
   text-transform: none;
   font-weight: normal;
+  margin-left: 0.5rem;
 `;

@@ -16,25 +16,24 @@ export const ExpTextCard = ({
   adGroupNames,
   renderAdGroupNames,
 }: Props) => {
-
   const closeModal = () => {
-    dismiss()
+    dismiss();
   };
 
-  const [ExpandedTextFormModal, showExpandedTextFormModal, _, dismiss] = useModal(
-    MIModalMessage,
-    {
+  const [ExpandedTextFormModal, showExpandedTextFormModal, , dismiss] =
+    useModal(MIModalMessage, {
       id: 'expandedTextFormModal',
       titleComponent: (
-        <ModalTitleContainer>
-          <ModalTitle>
-            Edit expanded <Bold>Text Ad</Bold>
-          </ModalTitle>
-        </ModalTitleContainer>
+        <>
+          <ModalTitleContainer>
+            <ModalTitle>
+              Edit expanded <Bold>Text Ad</Bold>
+            </ModalTitle>
+          </ModalTitleContainer>
+          <ExpandedTextModalFooter closeModal={closeModal} />
+        </>
       ),
-      footerComponent: <ExpandedTextModalFooter values={item} closeModal={closeModal} />,
-    }
-  );
+    });
   return (
     <>
       {ExpandedTextFormModal}
@@ -130,4 +129,3 @@ const ModalTitle = styled.span`
 const Bold = styled.span`
   font-weight: bold;
 `;
-
