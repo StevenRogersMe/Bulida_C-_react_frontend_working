@@ -142,7 +142,7 @@ const Container = styled.div`
   margin-bottom: 3rem;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   color: ${(props) => props.theme.colors.grey2};
   ${(props) => props.theme.text.fontType.body1};
 `;

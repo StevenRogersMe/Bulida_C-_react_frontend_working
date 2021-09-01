@@ -39,7 +39,11 @@ export const MIDropDown = ({
 
   return (
     <SingleSelectContainer handleClickOutside={() => setOpen(false)}>
-      <SingleSelect simpleStyles={simpleStyles} error={errorMessage} onClick={() => setOpen(!open)}>
+      <SingleSelect
+        simpleStyles={simpleStyles}
+        error={errorMessage}
+        onClick={() => setOpen(!open)}
+      >
         <SingleSelectLabel simpleStyles={simpleStyles}>
           {label}
         </SingleSelectLabel>
@@ -120,7 +124,7 @@ const DropDownIndicator = styled.img<{ isOpen: boolean }>`
 `;
 
 const DropDownContainer = styled.div<{ hidden?: boolean }>`
-  top: 140%;
+  top: 100%;
   border-radius: 1.5rem;
   box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 11px hsla(0, 0%, 0%, 0.1);
   position: absolute;
