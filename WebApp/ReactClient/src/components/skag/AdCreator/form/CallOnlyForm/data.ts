@@ -53,15 +53,17 @@ export const secondFullRow = [
 
 export const defaultData: CallOnlyAdType = {
   id: undefined,
-  country: '',
-  phoneNumber: '',
-  headlineOne: '',
-  headlineTwo: '',
-  descriptionOne: '',
-  descriptionTwo: '',
-  businessName: '',
+  country: 'US',
+  phoneNumber: '8 800 555 35 35',
+  headlineOne: '_Keyword_',
+  headlineTwo: '2 to 6 week',
+  descriptionOne:
+    'CNA Programs Available. Apply 100% Online. Learn Entry-Level and Advance Nursing Skills.',
+  descriptionTwo:
+    'Study 100% Online Or Near By With Courses Designed For Working Adults. Apply Today!',
+  businessName: 'sna-course',
   verificationURL: '',
-  finalUrl: '',
+  finalUrl: 'https://www.google.com/',
   type: AdType.CALL,
 };
 

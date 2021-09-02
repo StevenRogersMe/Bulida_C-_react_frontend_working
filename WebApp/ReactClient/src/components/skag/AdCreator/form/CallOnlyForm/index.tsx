@@ -23,6 +23,7 @@ import { createAds, updateAds } from 'src/redux/skagCompaign/actions';
 import { notifySuccess } from 'src/services/notifications/notificationService';
 import { MIDropDown } from 'src/components/common/MIDropDown';
 import { MIInputLabel } from 'src/components/common/MIInputLabel';
+import { CallOnlyCardPreview } from 'src/components/skag/AdCreator/form/CallOnlyForm/CallOnlyCardPreview';
 
 type Props = {
   initialValues: CallOnlyAdType;
@@ -130,6 +131,10 @@ export const CallOnlyForm = ({ initialValues, closeModal }: Props) => {
       {renderInputs(fullRow)}
       <ShortItems>{renderInputs(thirdRow)}</ShortItems>
       {renderInputs(secondFullRow)}
+      <PreviewContainer>
+        <PreviewTitle>Preview</PreviewTitle>
+        <CallOnlyCardPreview item={formik.values} />
+      </PreviewContainer>
       <Buttons>
         <MIButton
           label='BACK'
@@ -164,6 +169,22 @@ const ShortItems = styled.div`
   > div:nth-child(2) {
     margin-left: 1rem;
   }
+`;
+
+const PreviewContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding: 2.4rem 0 4.8rem 0;
+  border-radius: 0.8rem;
+  background-color: ${(props) => props.theme.colors.lightBlue1};
+`;
+
+const PreviewTitle = styled.div`
+  margin-bottom: 2.4rem;
+  ${(props) => props.theme.text.fontType.h4};
 `;
 
 const Buttons = styled.div`
