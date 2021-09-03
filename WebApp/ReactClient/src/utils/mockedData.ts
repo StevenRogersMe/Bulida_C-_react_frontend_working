@@ -28,7 +28,9 @@ export const snippetExtData = {
   language: 'English',
   adGroupName: 'adGroupName',
   headerType: 'keyword',
-  snippetValues: ['Snippet 1', 'Snippet 3', 'Snippet 2'],
+  snippetValueOne: 'Snippet 1',
+  snippetValueTwo: 'Snippet 2',
+  snippetValueThree: 'Snippet 3',
 };
 
 export const callOutExtData = {

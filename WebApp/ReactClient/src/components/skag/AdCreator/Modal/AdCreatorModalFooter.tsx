@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { AdType } from 'src/utils/types';
-import { notifySuccess } from 'src/services/notifications/notificationService';
 import {
   searchExtData,
   callOnlyExtData,
@@ -14,9 +13,6 @@ type Props = {
 export const AdCreatorModalFooter = ({ createAds }: Props) => {
   const onCreateAds = (type: AdType, data: any) => {
     createAds(type, data);
-    if (type !== AdType.EXPANDED && type !== AdType.CALL) {
-      notifySuccess({ msg: 'Ad was successfully created' });
-    }
   };
   return (
     <Wrapper>

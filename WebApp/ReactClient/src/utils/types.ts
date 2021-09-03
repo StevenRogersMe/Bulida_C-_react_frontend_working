@@ -46,13 +46,23 @@ export type AdGroupType = {
 };
 
 export type SnippetExtensionType = {
-  id: number;
-  adGroupId: number;
+  id?: number;
+  adGroupId?: number;
   language: string;
   adGroupName: string;
   headerType: string;
-  snippetValues: string[];
+  snippetValueOne: string;
+  snippetValueTwo: string;
+  snippetValueThree: string;
   type: AdType.SNIPPET;
+};
+
+export type SnippetExtensionFormErrors = {
+  language?: string;
+  headerType?: string;
+  snippetValueOne?: string;
+  snippetValueTwo?: string;
+  snippetValueThree?: string;
 };
 
 export type RespSearchAdType = {

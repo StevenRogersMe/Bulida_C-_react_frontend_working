@@ -1,0 +1,15 @@
+export const headerTypes = [
+  { value: 'br', label: 'Brands' },
+  { value: 'am', label: 'Amenities' },
+  { value: 'st', label: 'Styles' },
+  { value: 'ty', label: 'Types' },
+  { value: 'de', label: 'Destinations' },
+  { value: 'se', label: 'Services' },
+  { value: 'co', label: 'Courses' },
+  { value: 'ne', label: 'Neighborhoods' },
+  { value: 'sh', label: 'Shows' },
+  { value: 'in', label: 'Insurance coverage' },
+  { value: 'de', label: 'Degree programmes' },
+  { value: 'fe', label: 'Featured hotels' },
+  { value: 'mo', label: 'Models' },
+];

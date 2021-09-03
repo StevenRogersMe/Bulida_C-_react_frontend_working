@@ -4,19 +4,23 @@ import { SnippetExtensionType } from 'src/utils/types';
 
 type Props = {
   item: SnippetExtensionType;
+  headerTypeLabel?: string;
   adGroupNames: string[];
   renderAdGroupNames: (adGroupNames: string[]) => void;
+  showEditFormModal: (data: any) => void;
 };
 
 export const SnippetCard = ({
   item,
+  headerTypeLabel,
   adGroupNames,
   renderAdGroupNames,
+  showEditFormModal,
 }: Props) => {
   return (
     <>
-      <AdPreviewContainer>
-        <Title>{`${item.headerType}: ${item.snippetValues.join(', ')}`}</Title>
+      <AdPreviewContainer onClick={() => showEditFormModal(item)}>
+        <Title>{`${headerTypeLabel}: ${item.snippetValueOne}, ${item.snippetValueTwo}, ${item.snippetValueThree}`}</Title>
       </AdPreviewContainer>
       <RightBlock>
         <TypeContainer>{TABLE_AD_TYPES[item.type]}</TypeContainer>
@@ -31,6 +35,7 @@ export const SnippetCard = ({
 const AdPreviewContainer = styled.div`
   display: flex;
   width: 55%;
+  cursor: pointer;
   height: fit-content;
   flex-direction: column;
   padding: 1.7rem;

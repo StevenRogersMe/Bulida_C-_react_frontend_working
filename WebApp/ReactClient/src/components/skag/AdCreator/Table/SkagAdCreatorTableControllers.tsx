@@ -35,8 +35,10 @@ export const SkagAdCreatorTableControllers = ({
     .map((el) => el.adGroup)
     .map((el) => ({ label: el, value: el }));
 
-  const creationHandler = (type: string, data: any) => {
-    if (type === AdType.EXPANDED || type === AdType.CALL) {
+  const creationTypes = [AdType.EXPANDED, AdType.CALL, AdType.SNIPPET];
+
+  const creationHandler = (type: AdType, data: any) => {
+    if (creationTypes.includes(type)) {
       setAdType(getDataForForm(type));
       showCreationFormModal();
     } else {

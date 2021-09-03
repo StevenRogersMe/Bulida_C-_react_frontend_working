@@ -51,7 +51,7 @@ export const secondFullRow = [
   },
 ];
 
-export const defaultData: CallOnlyAdType = {
+export const defaultDataCallOnly: CallOnlyAdType = {
   id: undefined,
   country: 'US',
   phoneNumber: '8 800 555 35 35',

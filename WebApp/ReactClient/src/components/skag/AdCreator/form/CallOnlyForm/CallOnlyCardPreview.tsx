@@ -8,19 +8,17 @@ type Props = {
 
 export const CallOnlyCardPreview = ({ item }: Props) => {
   return (
-    <>
-      <AdPreviewContainer>
-        <TitleContainer>
-          <AdIcon src={CallIcon} />
-          <Title>
-            {`${item.headlineOne} | ${item.headlineTwo} ${item.phoneNumber}`}
-          </Title>
-        </TitleContainer>
-        <Link>{item.finalUrl}</Link>
-        <Description>{item.descriptionOne}</Description>
-        <Description>{item.descriptionTwo}</Description>
-      </AdPreviewContainer>
-    </>
+    <AdPreviewContainer>
+      <TitleContainer>
+        <AdIcon src={CallIcon} />
+        <Title>
+          {`${item.headlineOne} | ${item.headlineTwo} ${item.phoneNumber}`}
+        </Title>
+      </TitleContainer>
+      <Link>{item.finalUrl}</Link>
+      <Description>{item.descriptionOne}</Description>
+      <Description>{item.descriptionTwo}</Description>
+    </AdPreviewContainer>
   );
 };
 

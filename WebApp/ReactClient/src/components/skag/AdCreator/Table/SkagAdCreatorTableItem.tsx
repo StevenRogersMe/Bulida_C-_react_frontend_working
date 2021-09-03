@@ -9,6 +9,7 @@ import { SnippetCard } from 'src/components/skag/AdCreator/Table/SnippetCard';
 import { CallOutCard } from 'src/components/skag/AdCreator/Table/CallOutCard';
 import { useModal } from 'src/helpers/react/useModal';
 import { MIModalMessage } from 'src/components/common/MIModalMessage';
+import { headerTypes } from 'src/utils/headerTypes';
 import { FormModal } from '../Modal/FormModal';
 import { getDataForForm } from '../form/data';
 
@@ -91,8 +92,12 @@ export const SkagAdCreatorTableItem = ({ item, adGroupList }: Props) => {
       return (
         <SnippetCard
           item={item}
+          headerTypeLabel={
+            headerTypes.find((el) => el.value === item.headerType)?.label
+          }
           adGroupNames={adGroupNames}
           renderAdGroupNames={renderAdGroupNames}
+          showEditFormModal={showEditFormModal}
         />
       );
     }

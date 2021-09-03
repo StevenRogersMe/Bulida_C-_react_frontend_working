@@ -32,7 +32,7 @@ export const fullRow = [
   },
 ];
 
-export const defaultData: ExpTextAdExtType = {
+export const defaultDataExpText: ExpTextAdExtType = {
   id: undefined,
   headlineOne: '[Keyword]',
   headlineTwo: '70% Off Or 2 Apparels for $24',

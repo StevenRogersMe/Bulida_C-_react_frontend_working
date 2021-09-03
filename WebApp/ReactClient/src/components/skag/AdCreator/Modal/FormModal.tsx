@@ -1,9 +1,15 @@
-import { AdType, CallOnlyAdType, ExpTextAdExtType  } from 'src/utils/types';
+import {
+  AdType,
+  CallOnlyAdType,
+  ExpTextAdExtType,
+  SnippetExtensionType,
+} from 'src/utils/types';
 import { CallOnlyForm } from '../form/CallOnlyForm';
 import { ExpandedTextForm } from '../form/ExpandedTextForm';
+import { SnippetExtForm } from '../form/SnippetExtForm';
 
 type Props = {
-  values?: CallOnlyAdType | ExpTextAdExtType;
+  values?: CallOnlyAdType | ExpTextAdExtType | SnippetExtensionType;
   closeModal?: any;
   currentAdType: AdType;
   defaultData: any;
@@ -25,6 +31,13 @@ export const FormModal = ({
   } else if (currentAdType === AdType.CALL) {
     return (
       <CallOnlyForm
+        initialValues={values || defaultData}
+        closeModal={closeModal}
+      />
+    );
+  } else if (currentAdType === AdType.SNIPPET) {
+    return (
+      <SnippetExtForm
         initialValues={values || defaultData}
         closeModal={closeModal}
       />

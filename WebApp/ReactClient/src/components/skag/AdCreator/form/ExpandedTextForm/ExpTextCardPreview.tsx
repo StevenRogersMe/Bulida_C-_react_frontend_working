@@ -7,16 +7,14 @@ type Props = {
 
 export const ExpTextCardPreview = ({ item }: Props) => {
   return (
-    <>
-      <AdPreviewContainer>
-        <Title>
-          {`${item.headlineOne} | ${item.headlineTwo} | ${item.headlineThree}`}
-        </Title>
-        <Link>{item.finalUrl}</Link>
-        <Description>{item.descriptionOne}</Description>
-        <Description>{item.descriptionTwo}</Description>
-      </AdPreviewContainer>
-    </>
+    <AdPreviewContainer>
+      <Title>
+        {`${item.headlineOne} | ${item.headlineTwo} | ${item.headlineThree}`}
+      </Title>
+      <Link>{item.finalUrl}</Link>
+      <Description>{item.descriptionOne}</Description>
+      <Description>{item.descriptionTwo}</Description>
+    </AdPreviewContainer>
   );
 };
 
