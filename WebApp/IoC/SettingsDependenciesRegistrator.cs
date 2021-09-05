@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Authentication;
+using Services.Email;
+using Services.Settings;
 using WebApp.Middleware;
 
 namespace WebApp.IoC
@@ -39,6 +41,14 @@ namespace WebApp.IoC
       var originSettings = new OriginSettings();
       configuration.GetSection(nameof(OriginSettings)).Bind(originSettings);
       services.AddSingleton(x => originSettings);
+
+      #endregion
+
+      #region EmailSettings
+
+      var emailSetitngs = new EmailSettings();
+      configuration.GetSection(nameof(EmailSettings)).Bind(emailSetitngs);
+      services.AddSingleton(x => emailSetitngs);
 
       #endregion
     }

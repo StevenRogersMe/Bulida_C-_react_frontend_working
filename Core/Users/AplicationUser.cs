@@ -1,5 +1,6 @@
 ﻿using Core.Compaings;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -21,6 +22,8 @@ namespace Core.Users
     public override string Email { get; set; }
 
     public bool IsGoogleUser { get; set; }
+
+    public Guid ConfirmCode { get; set; }
 
     public List<ADCompaing> CompaingGroups { get; set; }
   }

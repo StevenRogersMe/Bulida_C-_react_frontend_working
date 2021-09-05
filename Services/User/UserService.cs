@@ -1,7 +1,11 @@
 ﻿using Core.Users;
 using Dal.Context;
 using Dal.ViewModels;
+using Dal.ViewModels.User;
 using Microsoft.AspNetCore.Identity;
+using Services.Email;
+using Services.Settings;
+using System;
 using System.Threading.Tasks;
 using static Google.Apis.Auth.GoogleJsonWebSignature;
 
@@ -11,16 +15,21 @@ namespace Services.User
   {
     Task<AplicationUser> CreateGoogleUser(Payload payload);
     Task<AplicationUser> CreateUser(RegisterModel registerModel);
+    Task<ResetPasswordResponse> ResetPassword(ResetPasswordModel resetModel);
   }
   public class UserService : IUserService
   {
     private CampaingContext campaingContext;
     private readonly UserManager<AplicationUser> userManager;
+    private readonly IEmailService emailService;
+    private readonly OriginSettings originSettings;
 
-    public UserService(CampaingContext campaingContext, UserManager<AplicationUser> userManager)
+    public UserService(CampaingContext campaingContext, UserManager<AplicationUser> userManager, IEmailService emailService, OriginSettings originSettings)
     {
       this.campaingContext = campaingContext;
       this.userManager = userManager;
+      this.emailService = emailService;
+      this.originSettings = originSettings;
     }
 
     public async Task<AplicationUser> CreateGoogleUser(Payload payload)
@@ -45,6 +54,41 @@ namespace Services.User
       await userManager.CreateAsync(user, registerModel.Password);
 
       return user;
+    }
+
+    public async Task<ResetPasswordResponse> ResetPassword(ResetPasswordModel resetModel)
+    {
+      var user = await userManager.FindByEmailAsync(resetModel.Email);
+      var result = new ResetPasswordResponse();
+      if (user == null)
+      {
+        result.Result = ResetPasswordResult.UserNotFound;
+        return result;
+      }
+
+      var code = Guid.NewGuid();
+      user.ConfirmCode = code;
+
+      campaingContext.Users.Update(user);
+      await campaingContext.SaveChangesAsync();
+
+      var message = new EmailMessageModel();
+      message.To = resetModel.Email;
+      message.Title = "Password Reset";
+      message.Body =
+                    $"<a href=\"{originSettings.FrontendOrigin}/activator/{user.ConfirmCode.ToString()}\">" +
+                    $"Reset password" +
+                    $"</a>",
+      
+      var messageResponce =  emailService.Send(message);
+      if(messageResponce)
+      {
+        result.Result = ResetPasswordResult.Done;
+        return result;
+      }
+
+      result.Result = ResetPasswordResult.ServerError;
+      return result;
     }
   }
 }
