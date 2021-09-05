@@ -35,7 +35,12 @@ export const SkagAdCreatorTableControllers = ({
     .map((el) => el.adGroup)
     .map((el) => ({ label: el, value: el }));
 
-  const creationTypes = [AdType.EXPANDED, AdType.CALL, AdType.SNIPPET];
+  const creationTypes = [
+    AdType.EXPANDED,
+    AdType.CALL,
+    AdType.SNIPPET,
+    AdType.RESPONSIVE,
+  ];
 
   const creationHandler = (type: AdType, data: any) => {
     if (creationTypes.includes(type)) {

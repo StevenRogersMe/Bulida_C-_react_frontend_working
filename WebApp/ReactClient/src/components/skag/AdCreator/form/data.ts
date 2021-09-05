@@ -1,8 +1,8 @@
 import { AdType } from 'src/utils/types';
-import { defaultDataExpText } from 'src/components/skag/AdCreator/form/ExpandedTextForm/data';
-import { defaultDataCallOnly } from 'src/components/skag/AdCreator/form/CallOnlyForm/data';
-
 import { defaultDataSnippetExt } from 'src/components/skag/AdCreator/form/SnippetExtForm/data';
+import { defaultDataExpText } from '../form/ExpandedTextForm/data';
+import { defaultDataCallOnly } from '../form/CallOnlyForm/data';
+import { defaultDataRespResearch } from './ResponsiveResearchForm/data';
 
 const expTextForm = {
   id: 'expandedTextFormModal',
@@ -28,6 +28,14 @@ const snippetExpForm = {
   defaultData: defaultDataSnippetExt,
 };
 
+const respResearchForm = {
+  id: 'respResearchFormModal',
+  title1: 'Edit Responsive',
+  boldTitle: 'Research Ad',
+  type: AdType.RESPONSIVE,
+  defaultData: defaultDataRespResearch,
+};
+
 export const getDataForForm = (type: AdType) => {
   if (type === AdType.EXPANDED) {
     return expTextForm;
@@ -35,5 +43,7 @@ export const getDataForForm = (type: AdType) => {
     return callOnlyForm;
   } else if (type === AdType.SNIPPET) {
     return snippetExpForm;
+  } else if (type === AdType.RESPONSIVE) {
+    return respResearchForm;
   }
 };

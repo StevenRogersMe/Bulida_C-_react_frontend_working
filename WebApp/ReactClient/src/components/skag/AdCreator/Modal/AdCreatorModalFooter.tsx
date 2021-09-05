@@ -1,29 +1,37 @@
 import styled from 'styled-components';
 import { AdType } from 'src/utils/types';
-import {
-  searchExtData,
-  callOnlyExtData,
-  callOutExtData,
-  snippetExtData,
-} from 'src/utils/mockedData';
+import { notifySuccess } from 'src/services/notifications/notificationService';
+import { callOutExtData } from 'src/utils/mockedData';
+
 type Props = {
   createAds: (type: AdType, data: any) => void;
 };
 
 export const AdCreatorModalFooter = ({ createAds }: Props) => {
+  const notifyTypes = [
+    AdType.EXPANDED,
+    AdType.CALL,
+    AdType.RESPONSIVE,
+    AdType.SNIPPET,
+  ];
+
   const onCreateAds = (type: AdType, data: any) => {
     createAds(type, data);
+    if (!notifyTypes.includes(type)) {
+      notifySuccess({ msg: 'Ad was successfully created' });
+    }
   };
+
   return (
     <Wrapper>
       <ItemContainer>
         <Item onClick={() => onCreateAds(AdType.EXPANDED, {})}>
           Add exp. text ad
         </Item>
-        <Item onClick={() => onCreateAds(AdType.RESPONSIVE, searchExtData)}>
+        <Item onClick={() => onCreateAds(AdType.RESPONSIVE, {})}>
           Add resp.search ad
         </Item>
-        <Item onClick={() => onCreateAds(AdType.CALL, callOnlyExtData)}>
+        <Item onClick={() => onCreateAds(AdType.CALL, {})}>
           Add call only ad
         </Item>
       </ItemContainer>
@@ -31,7 +39,7 @@ export const AdCreatorModalFooter = ({ createAds }: Props) => {
         <Item onClick={() => onCreateAds(AdType.CALLOUT, callOutExtData)}>
           Add callout extention
         </Item>
-        <Item onClick={() => onCreateAds(AdType.SNIPPET, snippetExtData)}>
+        <Item onClick={() => onCreateAds(AdType.SNIPPET, {})}>
           Add snippet extention
         </Item>
       </ItemContainer>

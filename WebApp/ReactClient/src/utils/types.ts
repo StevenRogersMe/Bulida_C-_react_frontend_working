@@ -66,18 +66,24 @@ export type SnippetExtensionFormErrors = {
 };
 
 export type RespSearchAdType = {
-  id: number;
+  id?: number;
   headlineOne: string;
   headlineTwo: string;
   headlineThree: string;
+  optionalHeadlines: string[];
   descriptionOne: string;
   descriptionTwo: string;
+  optionalDescriptions: string[];
   finalUrl: string;
   pathOne: string;
   pathTwo: string;
   adGroupName: string;
   headLines: string[];
   type: AdType.RESPONSIVE;
+};
+
+export type RespSearchFormErrors = {
+  finalUrl?: string;
 };
 
 export type CallOnlyAdType = {

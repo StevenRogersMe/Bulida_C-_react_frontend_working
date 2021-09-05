@@ -1,24 +1,15 @@
 import styled from 'styled-components';
-import { TABLE_AD_TYPES } from 'src/utils/consts';
 import { RespSearchAdType } from 'src/utils/types';
 import ResponsiveIcon from 'src/images/general/responsive-icon.svg';
 
 type Props = {
   item: RespSearchAdType;
-  adGroupNames: string[];
-  renderAdGroupNames: (adGroupNames: string[]) => void;
-  showEditFormModal: (data: any) => void;
 };
 
-export const ResponsiveSearchCard = ({
-  item,
-  adGroupNames,
-  renderAdGroupNames,
-  showEditFormModal,
-}: Props) => {
+export const RespResearchPreview = ({ item }: Props) => {
   return (
     <>
-      <AdPreviewContainer onClick={() => showEditFormModal(item)}>
+      <AdPreviewContainer>
         <TitleContainer>
           <AdIcon src={ResponsiveIcon} />
           <Title>
@@ -29,12 +20,6 @@ export const ResponsiveSearchCard = ({
         <Description>{item.descriptionOne}</Description>
         <Description>{item.descriptionTwo}</Description>
       </AdPreviewContainer>
-      <RightBlock>
-        <TypeContainer>{TABLE_AD_TYPES[item.type]}</TypeContainer>
-        <AdGroupsContainer>
-          {renderAdGroupNames(adGroupNames)}
-        </AdGroupsContainer>
-      </RightBlock>
     </>
   );
 };
@@ -48,7 +33,6 @@ const AdPreviewContainer = styled.div`
   box-sizing: border-box;
   border-radius: 1rem;
   border: 0.1rem solid ${(props) => props.theme.colors.grey5};
-  cursor: pointer;
 `;
 
 const TitleContainer = styled.span`
@@ -76,30 +60,6 @@ const Description = styled.span`
   ${(props) => props.theme.text.fontType.link};
   overflow: hidden;
   text-overflow: ellipsis;
-`;
-
-const TypeContainer = styled.span`
-  display: flex;
-  align-items: center;
-  width: 50%;
-  max-width: 30rem;
-  font-weight: 500;
-`;
-
-const AdGroupsContainer = styled.span`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  width: 40%;
-  max-width: 30rem;
-  font-weight: 300;
-`;
-
-const RightBlock = styled.div`
-  display: flex;
-  width: 45%;
-  justify-content: space-between;
-  padding-left: 3rem;
 `;
 
 const AdIcon = styled.img`

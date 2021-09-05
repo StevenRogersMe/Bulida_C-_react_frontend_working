@@ -1,9 +1,5 @@
 import { SkagState } from './types';
-import {
-  SET_SKAG_KEYWORDS,
-  CREATE_ADS,
-  UPDATE_ADS,
-} from './actionTypes';
+import { SET_SKAG_KEYWORDS, CREATE_ADS, UPDATE_ADS } from './actionTypes';
 
 const initialState: SkagState = {
   name: '',
@@ -35,9 +31,9 @@ const skagCompaign = (state = initialState, action) => {
         adGroupList: state.adGroupList.map((group) => {
           const id = group[action.payload.type].length + 1;
           group[action.payload.type].push({
-            id: id,
-            type: action.payload.type,
             ...action.payload.data,
+            type: action.payload.type,
+            id: id,
           });
           return group;
         }),
