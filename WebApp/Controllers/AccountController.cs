@@ -1,4 +1,5 @@
 ﻿using Dal.ViewModels;
+using Dal.ViewModels.Requests;
 using Dal.ViewModels.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -35,11 +36,19 @@ namespace WebApp.Controllers
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult> ResetPassword(ResetPasswordModel model)
     {
-
       var result = await userService.ResetPassword(model);
 
       return Ok(result);
     }
 
+    [HttpPost("activator")]
+    [AllowAnonymous]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult> SetNewUserPassword([FromBody] SetNewUserPasswordRequest request)
+    {
+      await userService.SetNewPassword(request);
+
+      return Ok();
+    }
   }
 }

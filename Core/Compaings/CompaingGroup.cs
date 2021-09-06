@@ -15,6 +15,5 @@ namespace Core.Compaings
         public virtual ICollection<ExpTxtAd> ExpTxtAds { get; set; }
         public virtual ICollection<CallOnlyAd> CallOnlyAds { get; set; }
         public virtual ICollection<RespSearchAd> RespSearchAds { get; set; }
-       
-    }
+  }
 }

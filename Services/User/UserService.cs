@@ -1,8 +1,10 @@
 ﻿using Core.Users;
 using Dal.Context;
 using Dal.ViewModels;
+using Dal.ViewModels.Requests;
 using Dal.ViewModels.User;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Services.Email;
 using Services.Settings;
 using System;
@@ -16,6 +18,7 @@ namespace Services.User
     Task<AplicationUser> CreateGoogleUser(Payload payload);
     Task<AplicationUser> CreateUser(RegisterModel registerModel);
     Task<ResetPasswordResponse> ResetPassword(ResetPasswordModel resetModel);
+    Task SetNewPassword(SetNewUserPasswordRequest request);
   }
   public class UserService : IUserService
   {
@@ -78,7 +81,7 @@ namespace Services.User
       message.Body =
                     $"<a href=\"{originSettings.FrontendOrigin}/activator/{user.ConfirmCode.ToString()}\">" +
                     $"Reset password" +
-                    $"</a>",
+                    $"</a>";
       
       var messageResponce =  emailService.Send(message);
       if(messageResponce)
@@ -89,6 +92,15 @@ namespace Services.User
 
       result.Result = ResetPasswordResult.ServerError;
       return result;
+    }
+
+    public async Task SetNewPassword(SetNewUserPasswordRequest request)
+    {
+        var user = await campaingContext.Users
+            .FirstOrDefaultAsync(x => x.ConfirmCode == request.Guid);
+
+        await userManager.RemovePasswordAsync(user);
+        var res = await userManager.AddPasswordAsync(user, request.Password);
     }
   }
 }
