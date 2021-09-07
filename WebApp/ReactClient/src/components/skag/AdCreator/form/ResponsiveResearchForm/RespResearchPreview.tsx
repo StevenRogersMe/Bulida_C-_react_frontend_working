@@ -33,6 +33,7 @@ const AdPreviewContainer = styled.div`
   box-sizing: border-box;
   border-radius: 1rem;
   border: 0.1rem solid ${(props) => props.theme.colors.grey5};
+  background-color: ${(props) => props.theme.colors.lightBlue2};
 `;
 
 const TitleContainer = styled.span`
