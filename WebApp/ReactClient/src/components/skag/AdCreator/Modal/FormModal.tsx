@@ -4,18 +4,21 @@ import {
   ExpTextAdExtType,
   SnippetExtensionType,
   RespSearchAdType,
+  CallOutAdType,
 } from 'src/utils/types';
 import { CallOnlyForm } from '../form/CallOnlyForm';
 import { ExpandedTextForm } from '../form/ExpandedTextForm';
 import { SnippetExtForm } from '../form/SnippetExtForm';
 import { RespResearchForm } from '../form/ResponsiveResearchForm';
+import { CallOutForm } from '../form/CallOutForm';
 
 type Props = {
   values?:
     | CallOnlyAdType
     | ExpTextAdExtType
     | SnippetExtensionType
-    | RespSearchAdType;
+    | RespSearchAdType
+    | CallOutAdType;
   closeModal?: any;
   currentAdType: AdType;
   defaultData: any;
@@ -51,6 +54,13 @@ export const FormModal = ({
   } else if (currentAdType === AdType.RESPONSIVE) {
     return (
       <RespResearchForm
+        initialValues={values || defaultData}
+        closeModal={closeModal}
+      />
+    );
+  } else if (currentAdType === AdType.CALLOUT) {
+    return (
+      <CallOutForm
         initialValues={values || defaultData}
         closeModal={closeModal}
       />

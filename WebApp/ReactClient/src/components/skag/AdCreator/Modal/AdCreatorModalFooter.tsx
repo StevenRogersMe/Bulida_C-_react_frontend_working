@@ -1,25 +1,13 @@
 import styled from 'styled-components';
 import { AdType } from 'src/utils/types';
-import { notifySuccess } from 'src/services/notifications/notificationService';
-import { callOutExtData } from 'src/utils/mockedData';
 
 type Props = {
   createAds: (type: AdType, data: any) => void;
 };
 
 export const AdCreatorModalFooter = ({ createAds }: Props) => {
-  const notifyTypes = [
-    AdType.EXPANDED,
-    AdType.CALL,
-    AdType.RESPONSIVE,
-    AdType.SNIPPET,
-  ];
-
   const onCreateAds = (type: AdType, data: any) => {
     createAds(type, data);
-    if (!notifyTypes.includes(type)) {
-      notifySuccess({ msg: 'Ad was successfully created' });
-    }
   };
 
   return (
@@ -36,7 +24,7 @@ export const AdCreatorModalFooter = ({ createAds }: Props) => {
         </Item>
       </ItemContainer>
       <ItemContainer>
-        <Item onClick={() => onCreateAds(AdType.CALLOUT, callOutExtData)}>
+        <Item onClick={() => onCreateAds(AdType.CALLOUT, {})}>
           Add callout extention
         </Item>
         <Item onClick={() => onCreateAds(AdType.SNIPPET, {})}>

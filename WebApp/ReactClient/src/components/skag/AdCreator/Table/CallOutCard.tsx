@@ -6,17 +6,19 @@ type Props = {
   item: CallOutAdType;
   adGroupNames: string[];
   renderAdGroupNames: (adGroupNames: string[]) => void;
+  showEditFormModal: (data: any) => void;
 };
 
 export const CallOutCard = ({
   item,
   adGroupNames,
   renderAdGroupNames,
+  showEditFormModal,
 }: Props) => {
   return (
     <>
-      <AdPreviewContainer>
-        <Title>{`${item.values.join(', ')}`}</Title>
+      <AdPreviewContainer onClick={() => showEditFormModal(item)}>
+        <Title>{`${item.callOutTextOne}, ${item.callOutTextTwo}, ${item.callOutTextThree}`}</Title>
       </AdPreviewContainer>
       <RightBlock>
         <TypeContainer>{TABLE_AD_TYPES[item.type]}</TypeContainer>
@@ -31,6 +33,7 @@ export const CallOutCard = ({
 const AdPreviewContainer = styled.div`
   display: flex;
   width: 55%;
+  cursor: pointer;
   height: fit-content;
   flex-direction: column;
   padding: 1.7rem;

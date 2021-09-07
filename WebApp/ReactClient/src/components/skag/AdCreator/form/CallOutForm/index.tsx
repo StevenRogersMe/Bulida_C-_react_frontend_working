@@ -3,42 +3,35 @@ import { MITextInput } from 'src/components/common/MITextInput';
 import {
   AdType,
   InputValue,
-  RespSearchAdType,
-  RespSearchFormErrors,
+  CallOutAdType,
+  CallOutFormErrors,
 } from 'src/utils/types';
-import {
-  firstRow,
-  fullRow,
-  optionalDescriptionData,
-  optionalDescriptions,
-  optionalHeadlineData,
-  optionalHeadlines,
-  secondRow,
-  validationRuleOfUrl,
-} from './data';
+import { fullRow, optionalValues, optionalTextData } from './data';
 import { MIButton } from 'src/components/common/MIButton';
 import { BUTTON_VARIANT } from 'src/utils/consts';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { createAds, updateAds } from 'src/redux/skagCompaign/actions';
 import { notifySuccess } from 'src/services/notifications/notificationService';
-import { RespResearchPreview } from './RespResearchPreview';
+import { CallOutCardPreview } from './CallOutCardPreview';
 import { MIFormAddButton } from 'src/components/common/MIFormAddButton';
 
 type Props = {
-  initialValues: RespSearchAdType;
+  initialValues: CallOutAdType;
   closeModal: any;
 };
 
-export const RespResearchForm = ({ initialValues, closeModal }: Props) => {
+export const CallOutForm = ({ initialValues, closeModal }: Props) => {
   const isNewData = initialValues?.id === undefined;
   const dispatch = useDispatch();
   const validate = (values) => {
-    const errors: RespSearchFormErrors = {};
-    if (!values.finalUrl) {
-      errors.finalUrl = 'This field is required';
-    } else if (!validationRuleOfUrl.test(values.finalUrl)) {
-      errors.finalUrl = 'Wrong format';
+    const errors: CallOutFormErrors = {};
+    if (!values.callOutTextOne) {
+      errors.callOutTextOne = 'This field is required';
+    } else if (!values.callOutTextTwo) {
+      errors.callOutTextTwo = 'This field is required';
+    } else if (!values.callOutTextThree) {
+      errors.callOutTextThree = 'This field is required';
     }
     return errors;
   };
@@ -52,7 +45,7 @@ export const RespResearchForm = ({ initialValues, closeModal }: Props) => {
       if (!Object.keys(formik.errors).length) {
         dispatch(
           isNewData
-            ? createAds(AdType.RESPONSIVE, values)
+            ? createAds(AdType.CALLOUT, values)
             : updateAds(initialValues.id, values)
         );
         notifySuccess({
@@ -81,9 +74,7 @@ export const RespResearchForm = ({ initialValues, closeModal }: Props) => {
           onChange={(e: InputValue) =>
             inputHandler(`${[key]}[${index}]`, e.value)
           }
-          {...(key === optionalDescriptions
-            ? optionalDescriptionData
-            : optionalHeadlineData)}
+          {...(key === optionalValues && optionalTextData)}
         />
       ));
     }
@@ -112,30 +103,17 @@ export const RespResearchForm = ({ initialValues, closeModal }: Props) => {
     <Wrapper>
       <AddButtonContainer>
         <MIFormAddButton
-          title='add new headline'
-          onClick={() => optionalValuesHandler(optionalHeadlines)}
-        />
-      </AddButtonContainer>
-      <ShortItems>{renderInputs(firstRow)}</ShortItems>
-      {formik.values.optionalHeadlines?.length ? (
-        <ShortItemsCustom>
-          {renderInputs(formik.values.optionalHeadlines, optionalHeadlines)}
-        </ShortItemsCustom>
-      ) : null}
-      <AddButtonContainer>
-        <MIFormAddButton
-          title='add new description'
-          onClick={() => optionalValuesHandler(optionalDescriptions)}
+          title='add new callout'
+          onClick={() => optionalValuesHandler(optionalValues)}
         />
       </AddButtonContainer>
       {renderInputs(fullRow)}
-      {formik.values.optionalDescriptions?.length
-        ? renderInputs(formik.values.optionalDescriptions, optionalDescriptions)
+      {formik.values.optionalValues?.length
+        ? renderInputs(formik.values.optionalValues, optionalValues)
         : null}
-      <ShortItems>{renderInputs(secondRow)}</ShortItems>
       <PreviewContainer>
         <PreviewTitle>Preview</PreviewTitle>
-        <RespResearchPreview item={formik.values} />
+        <CallOutCardPreview item={formik.values} />
       </PreviewContainer>
       <Buttons>
         <MIButton
@@ -164,16 +142,7 @@ const AddButtonContainer = styled.div`
 const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
-`;
-
-const ShortItems = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   min-width: 100rem;
-  > div:nth-child(2) {
-    margin: 0 1rem 0 1rem;
-  }
 `;
 
 const PreviewContainer = styled.div`
@@ -196,20 +165,4 @@ const Buttons = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-`;
-
-const ShortItemsCustom = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  max-width: 100rem;
-  > div:nth-child(3n - 1) {
-    margin: 0 1rem 0 1rem;
-  }
-  > div:nth-child(n) {
-    color: red;
-    min-width: calc(100% - 70rem);
-    max-width: 32.7rem;
-  }
 `;

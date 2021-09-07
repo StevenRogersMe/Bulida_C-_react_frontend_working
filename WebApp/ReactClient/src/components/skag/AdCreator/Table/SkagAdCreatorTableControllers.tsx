@@ -40,6 +40,7 @@ export const SkagAdCreatorTableControllers = ({
     AdType.CALL,
     AdType.SNIPPET,
     AdType.RESPONSIVE,
+    AdType.CALLOUT,
   ];
 
   const creationHandler = (type: AdType, data: any) => {

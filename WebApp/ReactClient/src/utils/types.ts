@@ -108,9 +108,18 @@ export type CallOnlyFormErrors = {
 };
 
 export type CallOutAdType = {
-  id: number;
-  values: string[];
+  id?: number;
+  callOutTextOne: string;
+  callOutTextTwo: string;
+  callOutTextThree: string;
+  optionalValues: string[];
   type: AdType.CALLOUT;
+};
+
+export type CallOutFormErrors = {
+  callOutTextOne?: string;
+  callOutTextTwo?: string;
+  callOutTextThree?: string;
 };
 
 export type ExpTextAdExtType = {

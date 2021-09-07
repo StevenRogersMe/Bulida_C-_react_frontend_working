@@ -109,6 +109,7 @@ export const SkagAdCreatorTableItem = ({ item, adGroupList }: Props) => {
           item={item}
           adGroupNames={adGroupNames}
           renderAdGroupNames={renderAdGroupNames}
+          showEditFormModal={showEditFormModal}
         />
       );
     }
