@@ -11,19 +11,20 @@ class GoogleLoginButton extends Component {
       return;
     }
 
-   AuthenticationService.singInByGoogle(event.tokenId).then(response => {
-    console.log(response); //TODO implement SingIn
-   });
-  
+    AuthenticationService.singInByGoogle(event.tokenId).then((response) => {
+      console.log(response); //TODO implement SingIn
+    });
   };
 
   render() {
-    return  <GoogleLogin
-    clientId="306370337343-90vf9prad3vm4ammv78evcm49pdgebd3.apps.googleusercontent.com" //TODO move in .env
-    buttonText="Google Login"
-    onSuccess={this.handleGoogleSingIn}
-    onFailure={this.handleGoogleSingIn}
-  />;
+    return (
+      <GoogleLogin
+        clientId='306370337343-90vf9prad3vm4ammv78evcm49pdgebd3.apps.googleusercontent.com' //TODO move in .env
+        buttonText='Google Login'
+        onSuccess={this.handleGoogleSingIn}
+        onFailure={this.handleGoogleSingIn}
+      />
+    );
   }
 }
 export default GoogleLoginButton;
