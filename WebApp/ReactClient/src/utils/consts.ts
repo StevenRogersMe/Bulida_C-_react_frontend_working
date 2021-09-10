@@ -80,3 +80,5 @@ export enum BUTTON_SIZE {
   NORMAL = 'normal',
   VERY_SMALL = 'very-small',
 }
+
+export const DEFAULT_PAGE_SIZE = 10;

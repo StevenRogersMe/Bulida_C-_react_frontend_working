@@ -1,7 +1,14 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { SkagAdCreatorTableEmptyState } from 'src/components/skag/AdCreator/Table/SkagAdCreatorTableEmptyState';
 import { AdType, AdGroupType } from 'src/utils/types';
 import { SkagAdCreatorTableItem } from 'src/components/skag/AdCreator/Table/SkagAdCreatorTableItem';
+import { SkagAdCreatorTableFooter } from 'src/components/skag/AdCreator/Table/SkagAdCreatorTableFooter';
+import { usePagination } from 'src/hooks/usePagination';
+import {
+  countSelectedAdAds,
+  getGroupedItems,
+} from 'src/components/skag/AdCreator/Table/utils';
 
 type Props = {
   adsCount: number;
@@ -18,41 +25,28 @@ export const SkagAdCreatorTable = ({
 }: Props) => {
   const showEmptyState = adsCount === 0;
 
+  const selectedAd = adGroupList.find((el) => el.adGroup === selectedAdGroup);
+
+  const selectedAdAdsCount = selectedAd
+    ? countSelectedAdAds(selectedAd, selectedAdType)
+    : 0;
+  const { goToPage, pageCount, showPagination, pageIndex, setPaginationState } =
+    usePagination({
+      totalItems: selectedAdAdsCount,
+    });
+
+  useEffect(() => {
+    setPaginationState(pageIndex);
+  }, [pageIndex, setPaginationState]);
+
   const renderItems = () => {
-    const selectedAd = adGroupList.find((el) => el.adGroup === selectedAdGroup);
-    const items: any = [];
-
-    if (selectedAdType === AdType.ALL) {
-      items.push(selectedAd?.expTextAdExt);
-      items.push(selectedAd?.callOnlyExt);
-      items.push(selectedAd?.searchExt);
-      items.push(selectedAd?.snippetExt);
-      items.push(selectedAd?.callOutExt);
-    }
-
-    if (selectedAdType === AdType.CALL) {
-      items.push(selectedAd?.callOnlyExt);
-    }
-
-    if (selectedAdType === AdType.CALLOUT) {
-      items.push(selectedAd?.callOutExt);
-    }
-
-    if (selectedAdType === AdType.EXPANDED) {
-      items.push(selectedAd?.expTextAdExt);
-    }
-
-    if (selectedAdType === AdType.RESPONSIVE) {
-      items.push(selectedAd?.searchExt);
-    }
-
-    if (selectedAdType === AdType.SNIPPET) {
-      items.push(selectedAd?.snippetExt);
-    }
+    const groupedItems = selectedAd
+      ? getGroupedItems(selectedAd, selectedAdType, adsCount, pageIndex)
+      : [];
 
     return (
       <>
-        {items.map((item, index) => (
+        {groupedItems.map((item, index) => (
           <SkagAdCreatorTableItem
             key={index}
             item={item}
@@ -78,7 +72,12 @@ export const SkagAdCreatorTable = ({
         ) : (
           <ItemsContainer>{renderItems()}</ItemsContainer>
         )}
-        <Footer />
+        <SkagAdCreatorTableFooter
+          goToPage={goToPage}
+          showPagination={showPagination}
+          pageIndex={pageIndex}
+          pageCount={pageCount}
+        />
       </BlockContainer>
     </Container>
   );
@@ -133,10 +132,4 @@ const ItemsContainer = styled.div`
   flex-direction: column;
   padding: 3rem;
   ${(props) => props.theme.text.fontType.body2};
-`;
-
-const Footer = styled.div`
-  display: flex;
-  padding: 1.5rem 3rem;
-  background-color: ${(props) => props.theme.colors.blue2};
 `;

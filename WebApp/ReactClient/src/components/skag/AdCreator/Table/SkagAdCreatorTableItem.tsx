@@ -132,13 +132,7 @@ export const SkagAdCreatorTableItem = ({ item, adGroupList }: Props) => {
     );
   };
 
-  return (
-    <>
-      {item.map((i, index) => {
-        return <Container key={index}>{renderItem(i)}</Container>;
-      })}
-    </>
-  );
+  return <Container>{renderItem(item)}</Container>;
 };
 
 const Container = styled.div`
