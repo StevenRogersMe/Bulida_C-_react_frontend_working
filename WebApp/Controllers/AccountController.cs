@@ -1,63 +1,54 @@
-﻿using Core.Users;
-using Dal.ViewModels;
-using Google.Ads.GoogleAds.Config;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
+﻿using Dal.ViewModels;
+using Dal.ViewModels.Requests;
+using Dal.ViewModels.User;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
-using System.Security.Claims;
+using Services.User;
 using System.Threading.Tasks;
-using WebApp.Helpers;
-using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
-    public class AccountController : Controller
+  [Authorize]
+  [ApiController]
+  [Route("api/users")]
+  [Produces("application/json")]
+  public class AccountController : ControllerBase
+  {
+    private readonly IUserService userService;
+
+    public AccountController(IUserService userService)
     {
-        private readonly SignInManager<AplicationUser> _signInManager;
-        private readonly UserManager<AplicationUser> _userManager;
-
-
-
-        public AccountController(SignInManager<AplicationUser> signInManager, UserManager<AplicationUser> userManager)
-        {
-            _signInManager = signInManager;
-            _userManager = userManager;
-        }
-
-
-
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.FindByNameAsync(model.Email);
-                if (user == null)
-                {
-                    user = new AplicationUser { Email = model.Email , UserName = model.Email};
-                    var result = await _userManager.CreateAsync(user, model.Password);
-                    if(!result.Succeeded)
-                    {
-                        ModelState.AddModelError("", result.Errors.ToString());
-                    }
-
-                    await _signInManager.SignInAsync(user, false);
-
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                    ModelState.AddModelError("", "Wrong login or password");
-            }
-            return View(model);
-        }
-
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "Account");
-        }
+      this.userService = userService;
     }
+
+    [HttpPost("register")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult> Register(RegisterModel model)
+    {
+
+      await userService.CreateUser(model);
+
+      return Ok();
+    }
+
+    [HttpPost("reset")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult> ResetPassword(ResetPasswordModel model)
+    {
+      var result = await userService.ResetPassword(model);
+
+      return Ok(result);
+    }
+
+    [HttpPost("activator")]
+    [AllowAnonymous]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult> SetNewUserPassword([FromBody] SetNewUserPasswordRequest request)
+    {
+      await userService.SetNewPassword(request);
+
+      return Ok();
+    }
+  }
 }

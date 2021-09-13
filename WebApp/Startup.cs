@@ -20,7 +20,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Services.Authentication;
 using Services.Compaing;
+using Services.Email;
 using Services.Helpers;
+using Services.Settings;
 using Services.User;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
@@ -104,6 +106,7 @@ namespace WebApp
       services.AddScoped<IUnitOfWork, UnitOfWork>();
       services.AddScoped<IUserService, UserService>();
       services.AddScoped<ICSVHelper, CSVHelper>();
+      services.AddScoped<IEmailService, EmailService>();
       services.AddScoped<JwtSecurityTokenHandler>();
     }
 

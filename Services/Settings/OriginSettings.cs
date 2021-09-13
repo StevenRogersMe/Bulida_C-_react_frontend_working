@@ -1,4 +1,4 @@
-﻿namespace WebApp.Middleware
+﻿namespace Services.Settings
 {
   public class OriginSettings
   {

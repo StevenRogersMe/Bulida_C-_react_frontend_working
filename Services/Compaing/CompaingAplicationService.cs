@@ -105,10 +105,8 @@ namespace Services.Compaing
           adGroup.KeyWords.Add(keyWordDb);
         }
 
-        var textAds = campaignViewModel.ExpTextAdExt.Where(x => x.AdGroupName == item.AdGroup);
-
         var listTxtAd = new List<ExpTxtAd>();
-        foreach (var adModel in textAds)
+        foreach (var adModel in item.ExpTxtAds)
         {
           var textAd = new ExpTxtAd();
           textAd.AdGroupName = item.AdGroup;
@@ -122,6 +120,44 @@ namespace Services.Compaing
           textAd.PathTwo = adModel.PathTwo;
           listTxtAd.Add(textAd);
         }
+
+        adGroup.ExpTxtAds = listTxtAd;
+
+
+        var listCallOnlyAd = new List<CallOnlyAd>();
+        foreach (var adModel in item.CallOnlyAds)
+        {
+          var textAd = new CallOnlyAd();
+          textAd.AdGroupName = item.AdGroup;
+          textAd.DescriptionOne = adModel.DescriptionOne;
+          textAd.DescriptionTwo = adModel.DescriptionTwo;
+          textAd.PhoneNumber = adModel.PhoneNumber;
+          textAd.HeadlineOne = adModel.HeadlineOne;
+          textAd.HeadlineTwo = adModel.HeadlineTwo;
+          textAd.BusinessName = adModel.BusinessName;
+          textAd.VerificationURL = adModel.VerificationURL;
+          textAd.Country = adModel.Country;
+          listCallOnlyAd.Add(textAd);
+        }
+
+        adGroup.CallOnlyAds = listCallOnlyAd;
+
+        var listRespSerachAd = new List<RespSearchAd>();
+        foreach (var adModel in item.RespSearchAds)
+        {
+          var textAd = new RespSearchAd();
+          textAd.AdGroupName = item.AdGroup;
+          textAd.DescriptionOne = adModel.DescriptionOne;
+          textAd.DescriptionTwo = adModel.DescriptionTwo;
+          textAd.FinalURL = adModel.FinalURL;
+          textAd.PathOne = adModel.PathOne;
+          textAd.PathTwo = adModel.PathTwo;
+          textAd.DescriptionThree = adModel.DescriptionThree;
+          textAd.DescriptionFour = adModel.DescriptionFour;
+          listRespSerachAd.Add(textAd);
+        }
+
+        adGroup.RespSearchAds = listRespSerachAd;
 
         adGroup.Compaing = db_campaign;
         adGroup.ExpTxtAds = listTxtAd;
@@ -185,65 +221,66 @@ namespace Services.Compaing
           csvModel.Keyword = keyWord;
           csvModels.Add(csvModel);
         }
+        foreach (var callOnlyAd in item.CallOnlyAds)
+        {
+          var csvModelAd = new CSVModel();
+          csvModelAd.Country = callOnlyAd.Country;
+          csvModelAd.Campaign = model.Name;
+          csvModelAd.PhoneNumber = callOnlyAd.PhoneNumber;
+          csvModelAd.Description1 = callOnlyAd.DescriptionOne;
+          csvModelAd.Description2 = callOnlyAd.DescriptionTwo;
+          csvModelAd.VerificationURL = callOnlyAd.VerificationURL;
+          csvModelAd.BusinessName = callOnlyAd.BusinessName;
+          csvModelAd.AdGroup = item.AdGroup;
+          csvModels.Add(csvModelAd);
+        }
+
+        foreach (var addExt in item.ExpTxtAds)
+        {
+          var csvModelAdExt = new CSVModel();
+          csvModelAdExt.Headline1 = addExt.HeadlineOne;
+          csvModelAdExt.Campaign = model.Name;
+          csvModelAdExt.Headline2 = addExt.HeadlineTwo;
+          csvModelAdExt.Headline3 = addExt.HeadlineThree;
+          csvModelAdExt.Description2 = addExt.DescriptionTwo;
+          csvModelAdExt.Description1 = addExt.DescriptionOne;
+          csvModelAdExt.AdGroup = addExt.AdGroupName;
+          csvModelAdExt.FinalURL = addExt.FinalURL;
+          csvModelAdExt.Path1 = addExt.PathOne;
+          csvModelAdExt.Path2 = addExt.PathTwo;
+
+          csvModels.Add(csvModelAdExt);
+        }
+
+        foreach (var searchAd in item.RespSearchAds)
+        {
+          var csvModelAdSearch = new CSVModel();
+          csvModelAdSearch.Campaign = model.Name;
+          csvModelAdSearch.Description3 = searchAd.DescriptionThree;
+          csvModelAdSearch.Description4 = searchAd.DescriptionFour;
+          csvModelAdSearch.Description2 = searchAd.DescriptionTwo;
+          csvModelAdSearch.Description1 = searchAd.DescriptionOne;
+          csvModelAdSearch.AdGroup = searchAd.AdGroupName;
+          csvModelAdSearch.FinalURL = searchAd.FinalURL;
+          csvModelAdSearch.Path1 = searchAd.PathOne;
+          csvModelAdSearch.Path2 = searchAd.PathTwo;
+          csvModels.Add(csvModelAdSearch);
+        }
+
+        foreach (var searchAd in item.SnippetExtensions)
+        {
+          var csvModelSnippet = new CSVModel();
+          csvModelSnippet.Campaign = model.Name;
+          csvModelSnippet.Language = searchAd.Language;
+          csvModelSnippet.AdGroup = searchAd.AdGroupName;
+          csvModels.Add(csvModelSnippet);
+        }
 
         if (model.NegativePhrase)
           GetAllNegativePhrase(item.AdGroup, model.AdGroupList, csvModels, model.Name);
 
       }
-      foreach (var callOnlyAd in model.CallOnlyExt)
-      {
-        var csvModelAd = new CSVModel();
-        csvModelAd.Country = callOnlyAd.Country;
-        csvModelAd.Campaign = model.Name;
-        csvModelAd.PhoneNumber = callOnlyAd.PhoneNumber;
-        csvModelAd.Description1 = callOnlyAd.DescriptionOne;
-        csvModelAd.Description2 = callOnlyAd.DescriptionTwo;
-        csvModelAd.VerificationURL = callOnlyAd.VerificationURL;
-        csvModelAd.BusinessName = callOnlyAd.BusinessName;
-        csvModelAd.AdGroup = callOnlyAd.AdGroupName;
-        csvModelAd.FinalURL = callOnlyAd.FinalUrl;
-        csvModels.Add(csvModelAd);
-      }
-      foreach (var addExt in model.ExpTextAdExt)
-      {
-        var csvModelAdExt = new CSVModel();
-        csvModelAdExt.Headline1 = addExt.HeadlineOne;
-        csvModelAdExt.Campaign = model.Name;
-        csvModelAdExt.Headline2 = addExt.HeadlineTwo;
-        csvModelAdExt.Headline3 = addExt.HeadlineThree;
-        csvModelAdExt.Description2 = addExt.DescriptionTwo;
-        csvModelAdExt.Description1 = addExt.DescriptionOne;
-        csvModelAdExt.AdGroup = addExt.AdGroupName;
-        csvModelAdExt.FinalURL = addExt.FinalURL;
-        csvModelAdExt.Path1 = addExt.PathOne;
-        csvModelAdExt.Path2 = addExt.PathTwo;
-
-        csvModels.Add(csvModelAdExt);
-      }
-
-      foreach (var searchAd in model.SearchExt)
-      {
-        var csvModelAdSearch = new CSVModel();
-        csvModelAdSearch.Campaign = model.Name;
-        csvModelAdSearch.Description3 = searchAd.DescriptionThree;
-        csvModelAdSearch.Description4 = searchAd.DescriptionFour;
-        csvModelAdSearch.Description2 = searchAd.DescriptionTwo;
-        csvModelAdSearch.Description1 = searchAd.DescriptionOne;
-        csvModelAdSearch.AdGroup = searchAd.AdGroupName;
-        csvModelAdSearch.FinalURL = searchAd.FinalURL;
-        csvModelAdSearch.Path1 = searchAd.PathOne;
-        csvModelAdSearch.Path2 = searchAd.PathTwo;
-        csvModels.Add(csvModelAdSearch);
-      }
-
-      foreach (var searchAd in model.SnippetExt)
-      {
-        var csvModelSnippet = new CSVModel();
-        csvModelSnippet.Campaign = model.Name;
-        csvModelSnippet.Language = searchAd.Language;
-        csvModelSnippet.AdGroup = searchAd.AdGroupName;
-        csvModels.Add(csvModelSnippet);
-      }
+     
 
       return csvModels;
     }

@@ -8,10 +8,10 @@ namespace WebApp.ViewModels
     public string AdGroup { get; set; }
     public List<string> Keywords { get; set; }
     public List<string> Negatives { get; set; }
-    public List<CallOutModel> CallOutExt { get; set; }
-    public List<SnippetExtensionModel> SnippetExt { get; set; }
-    public List<RespSearchAdModel> SearchExt { get; set; }
-    public List<CallsOnlyAdModel> CallOnlyExt { get; set; }
-    public List<ExpTextAdModel> ExpTextAdExt { get; set; }
+    public virtual List<ExpTextAdModel> ExpTxtAds { get; set; }
+    public virtual List<CallsOnlyAdModel> CallOnlyAds { get; set; }
+    public virtual List<RespSearchAdModel> RespSearchAds { get; set; }
+    public virtual List<CallOutModel> CallOutAds{ get; set; }
+    public virtual List<SnippetExtensionModel> SnippetExtensions { get; set; }
   }
 }
