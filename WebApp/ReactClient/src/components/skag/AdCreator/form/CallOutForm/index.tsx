@@ -7,14 +7,13 @@ import {
   CallOutFormErrors,
 } from 'src/utils/types';
 import { fullRow, optionalValues, optionalTextData } from './data';
-import { MIButton } from 'src/components/common/MIButton';
-import { BUTTON_VARIANT } from 'src/utils/consts';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { createAds, updateAds } from 'src/redux/skagCompaign/actions';
 import { notifySuccess } from 'src/services/notifications/notificationService';
 import { CallOutCardPreview } from './CallOutCardPreview';
 import { MIFormAddButton } from 'src/components/common/MIFormAddButton';
+import MIFormButtons from 'src/components/common/MIFormButtons';
 
 type Props = {
   initialValues: CallOutAdType;
@@ -101,41 +100,33 @@ export const CallOutForm = ({ initialValues, closeModal }: Props) => {
 
   return (
     <Wrapper>
-      <AddButtonContainer>
-        <MIFormAddButton
-          title='add new callout'
-          onClick={() => optionalValuesHandler(optionalValues)}
-        />
-      </AddButtonContainer>
-      {renderInputs(fullRow)}
-      {formik.values.optionalValues?.length
-        ? renderInputs(formik.values.optionalValues, optionalValues)
-        : null}
-      <PreviewContainer>
-        <PreviewTitle>Preview</PreviewTitle>
-        <CallOutCardPreview item={formik.values} />
-      </PreviewContainer>
-      <Buttons>
-        <MIButton
-          label='BACK'
-          variant={BUTTON_VARIANT.SECONDARY}
-          type='button'
-          onClick={closeModal}
-        />
-        <MIButton
-          label='SAVE'
-          variant={BUTTON_VARIANT.PRIMARY}
-          type='button'
-          onClick={formik.submitForm}
-        />
-      </Buttons>
+      <Container>
+        <ItemsContainer>
+          <AddButtonContainer>
+            <MIFormAddButton
+              title='add new callout'
+              onClick={() => optionalValuesHandler(optionalValues)}
+            />
+          </AddButtonContainer>
+          {renderInputs(fullRow)}
+          {formik.values.optionalValues?.length
+            ? renderInputs(formik.values.optionalValues, optionalValues)
+            : null}
+        </ItemsContainer>
+        <PreviewContainer>
+          <PreviewTitle>Preview</PreviewTitle>
+          <CallOutCardPreview item={formik.values} />
+        </PreviewContainer>
+      </Container>
+      <MIFormButtons closeModal={closeModal} saveHandler={formik.submitForm} />
     </Wrapper>
   );
 };
 
 const AddButtonContainer = styled.div`
   margin: 2rem 0;
-  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
   cursor: pointer;
 `;
 
@@ -156,13 +147,20 @@ const PreviewContainer = styled.div`
   background-color: ${(props) => props.theme.colors.lightBlue1};
 `;
 
+const ItemsContainer = styled.div`
+  border: 1px solid #cfd9e1;
+  border-radius: 1.5rem;
+  padding: 4rem;
+  background-color: ${(props) => props.theme.colors.white};
+`;
+
+const Container = styled.div`
+  border: 1px solid #cfd9e1;
+  border-radius: 1.5rem;
+  background-color: ${(props) => props.theme.colors.lightBlue1};
+`;
+
 const PreviewTitle = styled.div`
   margin-bottom: 2.4rem;
   ${(props) => props.theme.text.fontType.h4};
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
 `;

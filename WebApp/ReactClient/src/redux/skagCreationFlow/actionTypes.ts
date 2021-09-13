@@ -1,0 +1,3 @@
+export const SET_STEP = 'SET_STEP';
+export const REPLACE_STEP = 'REPLACE_STEP';
+export const SET_CURRENT_FORM_DATA = 'SET_CURRENT_FORM_DATA';

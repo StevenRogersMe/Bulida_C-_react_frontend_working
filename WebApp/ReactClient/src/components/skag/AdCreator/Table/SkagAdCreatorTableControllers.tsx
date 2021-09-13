@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { AdType, Expandable, AdGroupType } from 'src/utils/types';
 import { AD_TYPES_OPTIONS } from 'src/utils/consts';
@@ -7,10 +7,11 @@ import { useModal } from 'src/helpers/react/useModal';
 import { MIModalMessage } from 'src/components/common/MIModalMessage';
 import { AdCreatorModalFooter } from '../Modal/AdCreatorModalFooter';
 import PlusIcon from 'src/images/general/plus-icon.svg';
-import { FormModal } from '../Modal/FormModal';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createAds } from 'src/redux/skagCompaign/actions';
 import { getDataForForm } from '../form/data';
+import { replaceSkagStep, setCurrentFormData, setSkagStep } from 'src/redux/skagCreationFlow/actions';
+import { getSkagFlowStep } from 'src/redux/skagCreationFlow/selectors';
 
 type Props = {
   adsCount: number;
@@ -29,8 +30,8 @@ export const SkagAdCreatorTableControllers = ({
   onSelectAdType,
   onSelectAdGroup,
 }: Props) => {
-  const [currentAdType, setAdType] = useState<any>({});
   const dispatch = useDispatch();
+  const currentStep = useSelector(getSkagFlowStep);
   const adGroupOptions = adGroupList
     .map((el) => el.adGroup)
     .map((el) => ({ label: el, value: el }));
@@ -43,39 +44,15 @@ export const SkagAdCreatorTableControllers = ({
     AdType.CALLOUT,
   ];
 
-  const creationHandler = (type: AdType, data: any) => {
+  const creationHandler = (type: AdType, data: any, label: string) => {
     if (creationTypes.includes(type)) {
-      setAdType(getDataForForm(type));
-      showCreationFormModal();
+      dispatch(setCurrentFormData(null, getDataForForm(type)))
+      dispatch(replaceSkagStep(3, label));
+      dispatch(setSkagStep(currentStep + 1))
     } else {
       dispatch(createAds(type, data));
     }
   };
-
-  const closeModal = () => {
-    dismiss();
-  };
-
-  const [CreationFormModal, showCreationFormModal, , dismiss] = useModal(
-    MIModalMessage,
-    {
-      id: currentAdType?.id,
-      titleComponent: (
-        <ModalTitleContainer>
-          <ModalTitle>
-            {currentAdType?.title1} <Bold>{currentAdType?.boldTitle}</Bold>
-          </ModalTitle>
-        </ModalTitleContainer>
-      ),
-      footerComponent: (
-        <FormModal
-          currentAdType={currentAdType?.type}
-          defaultData={currentAdType?.defaultData}
-          closeModal={closeModal}
-        />
-      ),
-    }
-  );
 
   const [SelectAdGroupModal, showSelectAdGroupModal] = useModal(
     MIModalMessage,
@@ -105,7 +82,6 @@ export const SkagAdCreatorTableControllers = ({
   return (
     <Container>
       {SelectAdGroupModal}
-      {CreationFormModal}
       <LeftBlock>
         <ItemContainer>
           <ItemHeader>

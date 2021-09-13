@@ -1,34 +1,45 @@
 import styled from 'styled-components';
 import { AdType } from 'src/utils/types';
+import {
+  CallOnlyTitle,
+  CallOutTitle,
+  ExpandedTextTitle,
+  RespResearchTitle,
+  SnippetExpTitle,
+} from '../form/data';
 
 type Props = {
-  createAds: (type: AdType, data: any) => void;
+  createAds: (type: AdType, data: any, label: string) => void;
 };
 
 export const AdCreatorModalFooter = ({ createAds }: Props) => {
-  const onCreateAds = (type: AdType, data: any) => {
-    createAds(type, data);
+  const onCreateAds = (type: AdType, data: any, label: string) => {
+    createAds(type, data, label);
   };
 
   return (
     <Wrapper>
       <ItemContainer>
-        <Item onClick={() => onCreateAds(AdType.EXPANDED, {})}>
-          Add exp. text ad
+        <Item
+          onClick={() => onCreateAds(AdType.EXPANDED, {}, ExpandedTextTitle)}
+        >
+          {ExpandedTextTitle}
         </Item>
-        <Item onClick={() => onCreateAds(AdType.RESPONSIVE, {})}>
-          Add resp.search ad
+        <Item
+          onClick={() => onCreateAds(AdType.RESPONSIVE, {}, RespResearchTitle)}
+        >
+          {RespResearchTitle}
         </Item>
-        <Item onClick={() => onCreateAds(AdType.CALL, {})}>
-          Add call only ad
+        <Item onClick={() => onCreateAds(AdType.CALL, {}, CallOnlyTitle)}>
+          {CallOnlyTitle}
         </Item>
       </ItemContainer>
       <ItemContainer>
-        <Item onClick={() => onCreateAds(AdType.CALLOUT, {})}>
-          Add callout extention
+        <Item onClick={() => onCreateAds(AdType.CALLOUT, {}, CallOutTitle)}>
+          {CallOutTitle}
         </Item>
-        <Item onClick={() => onCreateAds(AdType.SNIPPET, {})}>
-          Add snippet extention
+        <Item onClick={() => onCreateAds(AdType.SNIPPET, {}, SnippetExpTitle)}>
+          {SnippetExpTitle}
         </Item>
       </ItemContainer>
     </Wrapper>

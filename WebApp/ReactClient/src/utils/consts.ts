@@ -29,6 +29,8 @@ export const PROGRESS_BAR_STEPS = {
   ],
 };
 
+export const settingsStep = 'Settings';
+
 export const AD_TYPES_OPTIONS = [
   {
     label: 'All types',

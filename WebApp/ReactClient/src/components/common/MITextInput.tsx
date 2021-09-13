@@ -281,7 +281,7 @@ const fontSize = (props) => {
     return '1.6rem';
   }
 
-  return '2rem';
+  return '1.6rem';
 };
 
 const TextInput = styled.input.attrs<{
@@ -299,7 +299,7 @@ const TextInput = styled.input.attrs<{
   background-color: transparent;
   padding: 0.5rem 0.5rem
     ${(props) =>
-      props.inline === TEXT_INPUT_SIZE.INLINE ? '0' : '0.5rem'} 10px;
+      props.inline === TEXT_INPUT_SIZE.INLINE ? '0' : '0.5rem'} 1rem;
   border: ${(props) =>
     props.outlined
       ? props.inline === TEXT_INPUT_SIZE.INLINE
@@ -314,8 +314,15 @@ const TextInput = styled.input.attrs<{
   line-height: ${(props) =>
     props.inline === TEXT_INPUT_SIZE.INLINE ? '3rem' : '3.8rem'};
   color: ${(props) => props.theme.colors.black1};
-  border-radius: ${(props) => (props.outlined ? '14px' : '0px')};
-
+  border-radius: ${(props) => (props.outlined ? '1rem' : '0px')};
+  ${(props) =>
+    props.outlined &&
+    css`
+      font-weight: 300;
+      color: #202226;
+      border: 0.1rem solid #CFD9E1;
+    `};
+  
   ${(props) =>
     props.viewOnly &&
     css`

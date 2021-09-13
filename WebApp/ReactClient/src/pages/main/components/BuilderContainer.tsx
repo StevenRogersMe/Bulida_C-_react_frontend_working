@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { config } from 'src/config/default';
-import { CampaignType, AdBuilderType } from 'src/utils/types';
+import { CampaignType, AdBuilderType, AdType } from 'src/utils/types';
 import { BuilderItem } from 'src/pages/main/components/BuilderItem';
 import { StagBuilder } from 'src/components/stag/StagBuilder';
 import { StagAdCreator } from 'src/components/stag/StagAdCreator';
@@ -10,12 +10,21 @@ import { SkagBuilder } from 'src/components/skag/SkagBuilder';
 import { SkagAdCreator } from 'src/components/skag/AdCreator/SkagAdCreator';
 import { SkagSettings } from 'src/components/skag/SkagSettings';
 import { SkagReviewEditor } from 'src/components/skag/SkagReviewEditor';
+import { useDispatch, useSelector } from 'react-redux';
+import { replaceSkagStep, setSkagStep } from 'src/redux/skagCreationFlow/actions';
+import {
+  getCurrentItem,
+  getSkagSteps,
+  getCurrentAdTypeDetails,
+} from 'src/redux/skagCreationFlow/selectors';
+import Form from 'src/components/skag/AdCreator/form/Form';
+import { FormModal } from 'src/components/skag/AdCreator/Modal/FormModal';
+import { settingsStep } from 'src/utils/consts';
 
 type Props = {
   currentStep: number;
   skagCampaign: CampaignType;
   selectedBuilderType: AdBuilderType;
-  setCurrentStep: (step: number) => void;
   setSelectedBuilderType: (type: AdBuilderType) => void;
 };
 
@@ -23,31 +32,59 @@ export const BuilderContainer = ({
   currentStep,
   skagCampaign,
   selectedBuilderType,
-  setCurrentStep,
   setSelectedBuilderType,
 }: Props) => {
+  const skagFlow = useSelector(getSkagSteps);
+  const currentItem = useSelector(getCurrentItem);
+  const currentAdTypeDetails = useSelector(getCurrentAdTypeDetails);
   const isSKAGFlow = selectedBuilderType === AdBuilderType.SKAG;
   const isSTAGFlow = selectedBuilderType === AdBuilderType.STAG;
-
+  const dispatch = useDispatch();
   const startSKAGFlow = () => {
-    setCurrentStep(1);
+    dispatch(setSkagStep(1));
     setSelectedBuilderType(AdBuilderType.SKAG);
   };
 
   const startSTAGFlow = () => {
-    setCurrentStep(1);
     setSelectedBuilderType(AdBuilderType.STAG);
   };
 
   const startADFlow = () => {
-    setCurrentStep(1);
     setSelectedBuilderType(AdBuilderType.AD);
+  };
+
+  const closeHandler = () => {
+    dispatch(replaceSkagStep(3, settingsStep));
+    dispatch(setSkagStep(currentStep - 1))
   };
 
   const SKAGFlowPages = {
     1: <SkagBuilder campaign={skagCampaign} />,
     2: <SkagAdCreator campaign={skagCampaign} />,
-    3: <SkagSettings />,
+    3:
+      skagFlow[3] === settingsStep ? (
+        <SkagSettings />
+      ) : (
+        <Form
+          titleComponent={
+            <ModalTitleContainer>
+              <ModalTitle>
+                {currentAdTypeDetails?.title1}{' '}
+                <Bold>{currentAdTypeDetails?.boldTitle}</Bold>
+              </ModalTitle>
+            </ModalTitleContainer>
+          }
+          contentComponent={<></>}
+          footerComponent={
+            <FormModal
+              currentAdType={currentAdTypeDetails?.type}
+              defaultData={currentAdTypeDetails?.defaultData}
+              values={currentItem}
+              closeModal={closeHandler}
+            />
+          }
+        />
+      ),
     4: <SkagReviewEditor />,
   };
 
@@ -93,4 +130,21 @@ const Container = styled.div`
   > div:nth-child(2) {
     margin: 0 3.5rem;
   }
+`;
+
+const ModalTitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3rem;
+`;
+
+const ModalTitle = styled.span`
+  ${(props) => props.theme.text.fontType.h4};
+  font-weight: normal;
+`;
+
+const Bold = styled.span`
+  font-weight: bold;
 `;

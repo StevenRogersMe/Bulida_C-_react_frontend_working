@@ -58,3 +58,24 @@ export const getDataForForm = (type: AdType) => {
     return callOutForm;
   }
 };
+
+export const ExpandedTextTitle = 'Add exp. text ad';
+export const CallOnlyTitle = 'Add call only ad';
+export const SnippetExpTitle = 'Add snippet extention';
+export const RespResearchTitle = 'Add resp.search ad';
+export const CallOutTitle = 'Add callout extention';
+
+export const getFormTitle = (type: AdType) => {
+  if (type === AdType.EXPANDED) {
+    return ExpandedTextTitle;
+  } else if (type === AdType.CALL) {
+    return CallOnlyTitle;
+  } else if (type === AdType.SNIPPET) {
+    return SnippetExpTitle;
+  } else if (type === AdType.RESPONSIVE) {
+    return RespResearchTitle;
+  } else if (type === AdType.CALLOUT) {
+    return CallOutTitle;
+  }
+  return ExpandedTextTitle;
+};

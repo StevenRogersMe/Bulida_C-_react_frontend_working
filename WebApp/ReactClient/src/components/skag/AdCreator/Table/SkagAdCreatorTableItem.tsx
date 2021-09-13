@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import { AdType, AdGroupType } from 'src/utils/types';
 import { calculateAdGroupNamesByType } from 'src/utils/builder';
@@ -7,11 +6,11 @@ import { CallOnlyCard } from 'src/components/skag/AdCreator/Table/CallOnlyCard';
 import { ResponsiveSearchCard } from 'src/components/skag/AdCreator/Table/ResponsiveSearchCard';
 import { SnippetCard } from 'src/components/skag/AdCreator/Table/SnippetCard';
 import { CallOutCard } from 'src/components/skag/AdCreator/Table/CallOutCard';
-import { useModal } from 'src/helpers/react/useModal';
-import { MIModalMessage } from 'src/components/common/MIModalMessage';
 import { headerTypes } from 'src/utils/headerTypes';
-import { FormModal } from '../Modal/FormModal';
-import { getDataForForm } from '../form/data';
+import { getDataForForm, getFormTitle } from '../form/data';
+import { useDispatch, useSelector } from 'react-redux';
+import { replaceSkagStep, setCurrentFormData, setSkagStep } from 'src/redux/skagCreationFlow/actions';
+import { getSkagFlowStep } from 'src/redux/skagCreationFlow/selectors';
 
 type Props = {
   item: any;
@@ -19,39 +18,14 @@ type Props = {
 };
 
 export const SkagAdCreatorTableItem = ({ item, adGroupList }: Props) => {
-  const [currentAdTypeDetails, setAdTypeDetails] = useState<any>({});
-  const [currentItem, setCurrentItem] = useState<any>();
-  const closeModal = () => {
-    dismiss();
-  };
-  const showEditFormModal = (data) => {
-    setAdTypeDetails(getDataForForm(data.type));
-    setCurrentItem(data);
-    showEditingFormModal();
-  };
 
-  const [EditingFormModal, showEditingFormModal, , dismiss] = useModal(
-    MIModalMessage,
-    {
-      id: currentAdTypeDetails?.id,
-      titleComponent: (
-        <ModalTitleContainer>
-          <ModalTitle>
-            {currentAdTypeDetails?.title1}{' '}
-            <Bold>{currentAdTypeDetails?.boldTitle}</Bold>
-          </ModalTitle>
-        </ModalTitleContainer>
-      ),
-      footerComponent: (
-        <FormModal
-          currentAdType={currentAdTypeDetails?.type}
-          defaultData={{}}
-          values={currentItem}
-          closeModal={closeModal}
-        />
-      ),
-    }
-  );
+  const currentStep = useSelector(getSkagFlowStep);
+  const dispatch = useDispatch();
+  const showEditFormModal = (data) => {
+    dispatch(setCurrentFormData(data, getDataForForm(data.type)))
+    dispatch(replaceSkagStep(3, getFormTitle(data.type)));
+    dispatch(setSkagStep(currentStep + 1))
+  };
 
   const renderItem = (item) => {
     const { type } = item;
@@ -121,7 +95,6 @@ export const SkagAdCreatorTableItem = ({ item, adGroupList }: Props) => {
     const showUnVisibleAdGroupNamesCount = unVisibleAdGroupNamesCount > 0;
     return (
       <>
-        {EditingFormModal}
         {visibleAdGroupNames.map((name, index) => {
           return <AdGroupName key={index}>{name}</AdGroupName>;
         })}
@@ -154,21 +127,4 @@ const AdGroupNamesCount = styled.span`
   margin-top: 1rem;
   padding: 0.5rem 0.6rem;
   ${(props) => props.theme.text.fontType.hint};
-`;
-
-const ModalTitleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 3rem;
-`;
-
-const ModalTitle = styled.span`
-  ${(props) => props.theme.text.fontType.h4};
-  font-weight: normal;
-`;
-
-const Bold = styled.span`
-  font-weight: bold;
 `;

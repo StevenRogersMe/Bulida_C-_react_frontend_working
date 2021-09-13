@@ -7,8 +7,6 @@ import {
   SnippetExtensionFormErrors,
 } from 'src/utils/types';
 import { firstRow, fullRow } from './data';
-import { MIButton } from 'src/components/common/MIButton';
-import { BUTTON_VARIANT } from 'src/utils/consts';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { createAds, updateAds } from 'src/redux/skagCompaign/actions';
@@ -17,6 +15,7 @@ import { MIDropDown } from 'src/components/common/MIDropDown';
 import { MIInputLabel } from 'src/components/common/MIInputLabel';
 import { SnippetCardPreview } from 'src/components/skag/AdCreator/form/SnippetExtForm/SnippetCardPreview';
 import { headerTypes } from 'src/utils/headerTypes';
+import MIFormButtons from 'src/components/common/MIFormButtons';
 
 type Props = {
   initialValues: SnippetExtensionType;
@@ -119,32 +118,23 @@ export const SnippetExtForm = ({ initialValues, closeModal }: Props) => {
 
   return (
     <Wrapper>
-      <ShortItems>{renderInputs(firstRow)}</ShortItems>
-      {renderInputs(fullRow)}
-      <PreviewContainer>
-        <PreviewTitle>Preview</PreviewTitle>
-        <SnippetCardPreview
-          item={formik.values}
-          headerTypeLabel={
-            headerTypes.find((el) => el.value === formik.values.headerType)
-              ?.label
-          }
-        />
-      </PreviewContainer>
-      <Buttons>
-        <MIButton
-          label='BACK'
-          variant={BUTTON_VARIANT.SECONDARY}
-          type='button'
-          onClick={closeModal}
-        />
-        <MIButton
-          label='SAVE'
-          variant={BUTTON_VARIANT.PRIMARY}
-          type='button'
-          onClick={formik.submitForm}
-        />
-      </Buttons>
+      <Container>
+        <ItemsContainer>
+          <ShortItems>{renderInputs(firstRow)}</ShortItems>
+          {renderInputs(fullRow)}
+          <PreviewContainer>
+            <PreviewTitle>Preview</PreviewTitle>
+            <SnippetCardPreview
+              item={formik.values}
+              headerTypeLabel={
+                headerTypes.find((el) => el.value === formik.values.headerType)
+                  ?.label
+              }
+            />
+          </PreviewContainer>
+        </ItemsContainer>
+      </Container>
+      <MIFormButtons closeModal={closeModal} saveHandler={formik.submitForm} />
     </Wrapper>
   );
 };
@@ -160,10 +150,10 @@ const ShortItems = styled.div`
   flex-direction: row;
   justify-content: space-between;
   > div:nth-child(1) {
-    margin-right: 1rem;
+    margin-right: 4.5rem;
   }
   > div:nth-child(2) {
-    margin-left: 1rem;
+    margin-left: 4.5rem;
   }
 `;
 
@@ -178,15 +168,22 @@ const PreviewContainer = styled.div`
   background-color: ${(props) => props.theme.colors.lightBlue1};
 `;
 
+const ItemsContainer = styled.div`
+  border: 1px solid #cfd9e1;
+  border-radius: 1.5rem;
+  padding: 4rem;
+  background-color: ${(props) => props.theme.colors.white};
+`;
+
+const Container = styled.div`
+  border: 1px solid #cfd9e1;
+  border-radius: 1.5rem;
+  background-color: ${(props) => props.theme.colors.lightBlue1};
+`;
+
 const PreviewTitle = styled.div`
   margin-bottom: 2.4rem;
   ${(props) => props.theme.text.fontType.h4};
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
 `;
 
 const ItemContainer = styled.div`

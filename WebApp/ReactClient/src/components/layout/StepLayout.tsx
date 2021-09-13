@@ -5,13 +5,15 @@ import PrevIcon from 'src/images/general/prev-icon.svg';
 import NextIcon from 'src/images/general/next-icon.svg';
 import { StepLayoutItem } from 'src/components/layout/StepLayoutItem';
 import { CampaignType } from 'src/utils/types';
+import { useDispatch } from 'react-redux';
+import { setSkagStep } from 'src/redux/skagCreationFlow/actions';
+import { settingsStep } from 'src/utils/consts';
 
 type Props = {
   children: React.ReactNode;
   currentStep: number;
   progressBarSteps: string[];
   campaign?: CampaignType;
-  setCurrentStep: (step: number) => void;
   finishBuilderFlow: () => void;
 };
 
@@ -20,12 +22,15 @@ export const StepLayout = ({
   currentStep,
   progressBarSteps,
   campaign,
-  setCurrentStep,
   finishBuilderFlow,
 }: Props) => {
+  const dispatch = useDispatch();
   const isKeywordsEmpty = campaign && isEmpty(campaign?.keywordsList);
   const isFirstStep = currentStep === 1 && !isNil(currentStep);
-  const showStepFooter = !isNil(currentStep) && !isEmpty(progressBarSteps);
+  const showStepFooter =
+    !isNil(currentStep) &&
+    !isEmpty(progressBarSteps) &&
+    progressBarSteps[3] === settingsStep;
 
   const calculateIsNextDisabled = () => {
     if (currentStep === progressBarSteps.length - 1) {
@@ -45,13 +50,12 @@ export const StepLayout = ({
     if (isFirstStep) {
       finishBuilderFlow();
     }
-
-    setCurrentStep(currentStep - 1);
+    dispatch(setSkagStep(currentStep - 1));
   };
 
   const onNext = () => {
     if (!isNextDisabled) {
-      setCurrentStep(currentStep + 1);
+      dispatch(setSkagStep(currentStep + 1));
     }
   };
 

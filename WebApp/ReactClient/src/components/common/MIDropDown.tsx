@@ -96,14 +96,13 @@ const SingleSelect = styled.div`
     props.simpleStyles &&
     css`
       height: 3.8rem;
-      padding: 0.5rem 0.5rem 0.5rem 10px;
-      border: 0.2rem solid;
-      border-bottom: 0.2rem solid;
+      padding: 0.5rem 0.5rem 0.5rem 1rem;
+      border: 0.1rem solid;
       border-color: ${(props) =>
         props.error ? props.theme.colors.red : props.theme.colors.stroke};
       line-height: 3.8rem;
       color: ${(props) => props.theme.colors.black1};
-      border-radius: 14px;
+      border-radius: 1rem;
     `}
 `;
 
@@ -112,7 +111,7 @@ const SingleSelectLabel = styled.span`
   ${(props) =>
     props.simpleStyles &&
     css`
-      font-size: 2rem;
+      font-size: 1.6rem;
       font-weight: 450;
     `}
 `;
