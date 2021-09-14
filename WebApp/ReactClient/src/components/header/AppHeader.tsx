@@ -20,7 +20,7 @@ export const AppHeader = () => {
   }, [dispatch]);
 
   const setIsLoggedOut = useCallback(() => {
-    dispatch(removeUser())
+    dispatch(removeUser());
   }, [dispatch]);
 
   const checkIfUserSignedIn = async () => {
@@ -48,7 +48,7 @@ export const AppHeader = () => {
   const [SignIn, showSignIn] = useModal(SignInModal, {
     id: 'signInModal',
     setIsSignedIn: setIsSignedIn,
-    showResetPassword: showResetPassword
+    showResetPassword: showResetPassword,
   });
 
   return (
@@ -56,10 +56,7 @@ export const AppHeader = () => {
       {SignIn}
       {ResetPassword}
       <AppHeaderContainer>
-        <LogoContainer>
-          <Logo src={LogoImage} />
-          Builda
-        </LogoContainer>
+        <Logo src={LogoImage} />
         <Menu>
           <MenuItem>Product tour</MenuItem>
           <MenuItem>Help center</MenuItem>
@@ -95,13 +92,6 @@ const AppHeaderContainer = styled.div`
   z-index: 10;
   background-color: ${(props) => props.theme.colors.pureWhite};
   box-shadow: 0px 0px 12px rgba(84, 89, 98, 0.15);
-`;
-
-const LogoContainer = styled.div`
-  display: flex;
-  align-items: center;
-  color: ${(props) => props.theme.colors.blue2};
-  ${(props) => props.theme.text.fontType.h4};
 `;
 
 const Logo = styled.img``;
