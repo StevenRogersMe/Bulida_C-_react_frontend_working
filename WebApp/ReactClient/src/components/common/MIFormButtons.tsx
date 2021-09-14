@@ -8,15 +8,25 @@ type Props = {
 };
 
 const MIFormButtons = ({ closeModal, saveHandler }: Props) => {
+  const save = (event) => {
+    event.preventDefault();
+    saveHandler && saveHandler();
+  };
+
+  const close = (event) => {
+    event.preventDefault();
+    closeModal && closeModal();
+  };
+
   return (
     <Buttons>
-      <BackButton onClick={closeModal}>
+      <BackButton onClick={close}>
         BACK
         <BackIconContainer>
           <BackIcon src={PrevIcon} />
         </BackIconContainer>
       </BackButton>
-      <SaveButton onClick={saveHandler}>
+      <SaveButton onClick={save}>
         SAVE
         <SaveIconContainer>
           <SaveIcon src={NextIcon} />
