@@ -19,6 +19,10 @@ textarea {
   font-family: 'Satoshi-Variable', sans-serif;
 }
 
+input {
+  font-family: 'Satoshi-Variable', sans-serif;
+}
+
 #root {
   width: 100%;
   height: 100%;

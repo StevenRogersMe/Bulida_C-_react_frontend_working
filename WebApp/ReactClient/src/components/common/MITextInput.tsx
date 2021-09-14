@@ -318,7 +318,6 @@ const TextInput = styled.input.attrs<{
   ${(props) =>
     props.outlined &&
     css`
-      font-weight: 300;
       color: #202226;
       border: 0.1rem solid #CFD9E1;
     `};
