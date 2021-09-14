@@ -112,7 +112,6 @@ const SingleSelectLabel = styled.span`
     props.simpleStyles &&
     css`
       font-size: 1.6rem;
-      font-weight: 450;
     `}
 `;
 
