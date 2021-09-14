@@ -242,7 +242,7 @@ const Container = styled.div<{ size?: TextInputSize }>`
   flex-direction: column;
   flex: 1;
   margin-bottom: ${(props) =>
-    props.size === TEXT_INPUT_SIZE.WIZARD ? '4rem' : '0'};
+    props.size === TEXT_INPUT_SIZE.WIZARD ? '3rem' : '0'};
   ${(props) =>
     props.outlined &&
     css`

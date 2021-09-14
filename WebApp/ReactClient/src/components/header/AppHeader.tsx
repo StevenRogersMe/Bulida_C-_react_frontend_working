@@ -9,6 +9,7 @@ import LogoImage from 'src/images/general/logo.svg';
 import { BUTTON_VARIANT } from 'src/utils/consts';
 import { removeUser, saveUser } from 'src/redux/user/actions';
 import { getIsLoggedIn } from 'src/redux/user/selectors';
+import { ResetPasswordModal } from 'src/components/header/Modal/ResetPasswordModal';
 
 export const AppHeader = () => {
   const dispatch = useDispatch();
@@ -33,21 +34,27 @@ export const AppHeader = () => {
 
   useEffect(() => {
     checkIfUserSignedIn();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const logOut = async () => {
     await AuthenticationService.signOut();
     setIsLoggedOut();
   };
 
+  const [ResetPassword, showResetPassword] = useModal(ResetPasswordModal, {
+    id: 'resetPasswordModal',
+  });
+
   const [SignIn, showSignIn] = useModal(SignInModal, {
     id: 'signInModal',
     setIsSignedIn: setIsSignedIn,
+    showResetPassword: showResetPassword
   });
 
   return (
     <>
       {SignIn}
+      {ResetPassword}
       <AppHeaderContainer>
         <LogoContainer>
           <Logo src={LogoImage} />

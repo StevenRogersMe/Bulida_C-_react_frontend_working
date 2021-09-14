@@ -5,18 +5,23 @@ import { MIModalMessage } from 'src/components/common/MIModalMessage';
 import GoogleLoginButton from 'src/components/common/GoogleLoginButton';
 import { MITextInput } from 'src/components/common/MITextInput';
 import MIPasswordInput from 'src/components/common/MIPasswordInput';
-import { notifyError } from 'src/services/notifications/notificationService';
+import {
+  notifyError,
+  notifyInfo,
+} from 'src/services/notifications/notificationService';
 import AuthenticationService from 'src/services/authenticationService';
 import { AuthenticationErrorType } from 'src/infrastructure/restClient/models/AuthenticationErrorType';
 import { MIButton } from 'src/components/common/MIButton';
 import { WizardOrLine } from 'src/components/layout/WizardElements';
+import { MILink } from 'src/components/common/MILink';
 
 type Props = {
   dismiss?: (event: React.MouseEvent) => void;
   setIsSignedIn: (value: boolean) => void;
+  showResetPassword: () => void;
 };
 
-export const SignInModal = ({ dismiss, setIsSignedIn }: Props) => {
+export const SignInModal = ({ dismiss, setIsSignedIn, showResetPassword }: Props) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -47,11 +52,11 @@ export const SignInModal = ({ dismiss, setIsSignedIn }: Props) => {
     switch (authenticationResult.content?.authenticationErrorType) {
       case AuthenticationErrorType.IsUserNotFound:
         setLoading(false);
-        notifyError({ msg: 'User not found' });
+        notifyInfo({ msg: 'User not found' });
         break;
       case AuthenticationErrorType.IsWrongPassword:
         setLoading(false);
-        notifyError({ msg: 'Wrong password' });
+        notifyInfo({ msg: 'Wrong password' });
         break;
       default:
         break;
@@ -67,6 +72,11 @@ export const SignInModal = ({ dismiss, setIsSignedIn }: Props) => {
       setPassword(value);
     }
   };
+
+  const onResetPasswordClicked = (event) => {
+    showResetPassword()
+    dismiss && dismiss(event);
+  }
 
   return (
     <MIModalMessage
@@ -97,6 +107,10 @@ export const SignInModal = ({ dismiss, setIsSignedIn }: Props) => {
               // errorMessage={validationErrors.password}
               onChange={onFieldChanged}
             />
+            <ResetPasswordLink
+              to={onResetPasswordClicked}
+              label='Forgot password?'
+            />
           </InputsContainer>
           <MIButton
             label='Log In'
@@ -123,6 +137,7 @@ const ModalTitleContainer = styled.div`
 
 const ModalTitle = styled.span`
   ${(props) => props.theme.text.fontType.h4};
+  margin-bottom: 1rem;
   font-weight: 300;
 `;
 
@@ -133,4 +148,10 @@ const Bold = styled.span`
 const InputsContainer = styled.div`
   margin-top: 1rem;
   width: 100%;
+`;
+
+const ResetPasswordLink = styled(MILink)`
+  width: 100%;
+  margin-bottom: 3rem;
+  font-weight: ${(props) => props.theme.text.weight.semiBold};
 `;

@@ -1,3 +1,4 @@
+import * as History from 'history';
 import { TEXT_INPUT_SIZE, BUTTON_VARIANT, BUTTON_SIZE } from 'src/utils/consts';
 
 export type Expandable<T> = T & Record<string, any>;
@@ -157,3 +158,7 @@ export type InputValue = {
   value: string;
   valueAsNumber: number;
 };
+
+export type ToNavigationType =
+| History.LocationDescriptor
+| ((location?: History.Location) => History.LocationDescriptor);
